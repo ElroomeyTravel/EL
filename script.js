@@ -14,60 +14,59 @@ const CONFIG = {
 // 2. FLEET DATA DATABASE (Mudah ditambah / diedit)
 const FLEET_DATA = [
     {
-        id: "hiace",
-        nama: "Toyota Hiace Commuter",
-        gambar: "assets/hiace.jpg",
-        kapasitas: "14 Kursi Penumpang",
+        id: "avanza",
+        nama: "Toyota Avanza FWD",
+        gambar: "assets/avanza.jpg",
+        kapasitas: "4-5 Orang",
         fasilitas: [
-            "AC Ducting Dingin & Merata",
-            "Port Charger USB di Setiap Baris",
-            "Reclining Seats (Kursi Rebah)",
-            "Bagasi Luas & Nyaman",
-            "Audio & Karaoke System"
+            "Cocok Untuk: Antar jemput bandara, Travel keluarga, Perjalanan dinas, Wisata Malang, Batu, Bromo",
+            "Keunggulan: Kabin nyaman, Irit bahan bakar, Harga ekonomis, Suspensi nyaman untuk perjalanan jauh"
         ],
-        harga: "Rp 120.000 / Kursi"
+        harga: "Rp 500.000"
     },
     {
         id: "innova",
         nama: "Toyota Innova Reborn",
         gambar: "assets/innova.jpg",
-        kapasitas: "7 Kursi Penumpang",
+        kapasitas: "5-6 Penumpang",
         fasilitas: [
-            "Interior Mewah & Executive",
-            "Suspensi Sangat Nyaman",
-            "Double Blower AC Dingin",
-            "Port Charger Device",
-            "Free Air Mineral & Tisu"
+            "Cocok Untuk: Antar jemput bandara, Perjalanan dinas perusahaan, Wisata keluarga, Malang, Batu, Bromo, Perjalanan luar kota jarak jauh",
+            "Keunggulan: Kabin lebih luas dan lega, Suspensi nyaman untuk perjalanan jauh, Bagasi lebih besar dibanding Avanza, Sangat nyaman untuk semua kalangan, Cocok untuk perjalanan 3-10 jam"
         ],
-        harga: "Rp 150.000 / Kursi"
+        harga: "Rp 700.000"
     },
     {
-        id: "avanza",
-        nama: "Toyota Avanza Grand",
-        gambar: "assets/avanza.jpg",
-        kapasitas: "6 Kursi Penumpang",
+        id: "hiace-commuter",
+        nama: "Toyota Hiace Commuter",
+        gambar: "assets/hiace.jpg",
+        kapasitas: "10-14 Penumpang",
         fasilitas: [
-            "Armada Gesit & Cepat",
-            "AC Double Blower",
-            "Kursi Nyaman Ergonomis",
-            "Driver Profesional",
-            "Perjalanan Lebih Privat"
+            "Cocok Untuk: Antar jemput rombongan bandara, Wisata Malang, Batu, Bromo, Family gathering dan komunitas, Perjalanan dinas dan kunjungan kerja",
+            "Keunggulan: Kapasitas besar hingga 14 orang dewasa, Kabin luas dengan ruang kaki yang lega, Lebih praktis dan ekonomis untuk rombongan, Memudahkan koordinasi seluruh peserta, Cocok untuk perjalanan jarak dekat maupun luar kota"
         ],
-        harga: "Rp 120.000 / Kursi"
+        harga: "Rp 1.300.000"
     },
     {
-        id: "Xenia",
-        nama: "Daihatsu Xenia",
-        gambar: "assets/Xenia.jpg",
-        kapasitas: "7 Kursi Penumpang",
+        id: "hiace-premio",
+        nama: "Toyota Hiace Premio",
+        gambar: "assets/hiace.jpg",
+        kapasitas: "12-14 Penumpang",
         fasilitas: [
-            "Kapasitas Rombongan Besar",
-            "Full Air Conditioner",
-            "Kabin Tinggi & Lega",
-            "Bagasi Belakang Ekstra",
-            "Sangat Cocok untuk Wisata"
+            "Cocok Untuk: Antar jemput rombongan bandara, Wisata Malang, Batu, Bromo, Family gathering dan komunitas, Perjalanan dinas dan kunjungan kerja",
+            "Keunggulan: Pengalaman perjalanan kelas Premium/VIP, Kapasitas besar hingga 14 orang dewasa, Kabin luas dengan ruang kaki yang lega, Lebih praktis dan ekonomis untuk rombongan, Memudahkan koordinasi seluruh peserta"
         ],
-        harga: "Rp 120.000 / Kursi"
+        harga: "Rp 1.500.000 via toll"
+    },
+    {
+        id: "elf-giga",
+        nama: "Isuzu ELF GIGA",
+        gambar: "assets/isuzu.jpg",
+        kapasitas: "14-19 Penumpang",
+        fasilitas: [
+            "Cocok Untuk: Antar jemput rombongan bandara, Wisata Bromo, Batu, Malang, Study tour, Family gathering, Company outing, Acara komunitas",
+            "Keunggulan: Kapasitas besar dalam satu kendaraan, Lebih hemat dibanding menyewa beberapa mobil, Memudahkan koordinasi seluruh peserta, Cocok untuk perjalanan wisata satu hari maupun beberapa hari"
+        ],
+        harga: "Rp 1.650.000 via toll"
     }
 ];
 
@@ -263,30 +262,13 @@ function initTestimonials() {
 
 // --- SELECT FLIGHT ROUTE (FROM CARD) ---
 window.selectRoute = function(asal, tujuan) {
-    const penjemputanInput = document.getElementById("penjemputan");
-    const tujuanInput = document.getElementById("tujuan");
-    
-    if (penjemputanInput && tujuanInput) {
-        penjemputanInput.value = `${asal} Kota`;
-        tujuanInput.value = `${tujuan} Kota`;
-        
-        // Smooth scroll focus
-        smoothScrollTo("#pesan");
-        
-        // Focus on name input for convenience
-        setTimeout(() => {
-            document.getElementById("nama").focus();
-        }, 800);
-    }
+    // Smooth scroll focus to booking section
+    smoothScrollTo("#pesan");
 };
 
 // --- SELECT CAR FROM FLEET CARD ---
 window.selectCar = function(carName) {
-    const selectMobil = document.getElementById("mobil");
-    if (selectMobil) {
-        selectMobil.value = carName;
-        smoothScrollTo("#pesan");
-    }
+    smoothScrollTo("#pesan");
 };
 
 // --- HERO QUICK BOOKING ACTION ---
@@ -316,12 +298,12 @@ function smoothScrollTo(targetSelector) {
     }
 }
 
-// --- BOOKING FORM PARSING & REDIRECT ---
+// --- BOOKING WHATSAPP REDIRECT ---
 function initBookingForm() {
     const form = document.getElementById("bookingForm");
     
     if (!form) return;
-    
+
     // Set min date of booking form to today automatically
     const today = new Date().toISOString().split('T')[0];
     const tanggalInput = document.getElementById("tanggal");
@@ -333,16 +315,20 @@ function initBookingForm() {
         event.preventDefault();
         
         // Retrieve values
+        const tanggal = document.getElementById("tanggal").value;
+        const jam = document.getElementById("jam").value;
+        const kodePesawat = document.getElementById("kodePesawat").value.trim() || "-";
         const nama = document.getElementById("nama").value.trim();
         const noWa = document.getElementById("noWa").value.trim();
-        const penjemputan = document.getElementById("penjemputan").value.trim();
+        const jemput = document.getElementById("jemput").value.trim();
         const tujuan = document.getElementById("tujuan").value.trim();
-        const tanggal = document.getElementById("tanggal").value;
+        const barang = document.getElementById("barang").value.trim() || "-";
         const jumlah = document.getElementById("jumlah").value;
-        const mobil = document.getElementById("mobil").value;
+        const paketTravel = document.getElementById("paketTravel").value;
+        const paketJalan = document.getElementById("paketJalan").value;
         const catatan = document.getElementById("catatan").value.trim() || "-";
 
-        // Convert date format to local format (Indonesian DD-MM-YYYY)
+        // Convert date format to local format
         const dateObj = new Date(tanggal);
         const formattedDate = dateObj.toLocaleDateString('id-ID', {
             day: 'numeric',
@@ -351,18 +337,22 @@ function initBookingForm() {
         });
 
         // Construct message template
-        const textMessage = `Halo ElRoomeny Travel
+        const textMessage = `Halo ElRoomey Travel
 
-Saya ingin memesan travel.
+Saya ingin memesan travel dengan rincian berikut:
 
-Nama: ${nama}
-No WA: ${noWa}
-Penjemputan: ${penjemputan}
-Tujuan: ${tujuan}
-Tanggal: ${formattedDate}
-Jumlah Penumpang: ${jumlah} orang
-Mobil: ${mobil}
-Catatan: ${catatan}`;
+Tanggal Keberangkatan : ${formattedDate}
+Jam Penjemputan : ${jam}
+Kode Pesawat (Jika Ada) : ${kodePesawat}
+Nama Pemesan : ${nama}
+Nomor WhatsApp Aktif : ${noWa}
+Alamat Jemput : ${jemput}
+Alamat Tujuan : ${tujuan}
+Barang Bawaan : ${barang}
+Jumlah Penumpang : ${jumlah}
+Paket Travel (Regular/Carter Drop/PP/Wisata) : ${paketTravel}
+Paket Perjalanan (Via Toll/Nontoll) : ${paketJalan}
+Catatan Tambahan : ${catatan}`;
 
         // URL Encode compilation
         const encodedText = encodeURIComponent(textMessage);
