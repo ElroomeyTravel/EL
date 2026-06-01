@@ -1315,55 +1315,66 @@ input, select, textarea, button {
         font-size: 0.95rem;
     }
 
-    /* Fleet Section 2-Column Grid on Mobile */
+    /* Fleet Section Mobile */
     .fleet-grid {
-        grid-template-columns: repeat(2, 1fr);
-        gap: 12px;
+        grid-template-columns: 1fr;
+        gap: 18px;
     }
     .fleet-card {
         border-radius: 12px;
     }
     .fleet-img-wrapper {
-        height: 110px;
+        height: 190px;
     }
     .fleet-info {
-        padding: 12px;
+        padding: 18px;
     }
     .fleet-name {
-        font-size: 1rem;
-        margin-bottom: 6px;
-        line-height: 1.2;
+        font-size: 1.15rem;
+        margin-bottom: 8px;
+        line-height: 1.3;
     }
     .fleet-capacity {
-        font-size: 0.7rem;
-        padding: 2px 6px;
-        margin-bottom: 10px;
+        font-size: 0.78rem;
+        padding: 4px 9px;
+        margin-bottom: 16px;
     }
     .fleet-facilities {
-        display: none; /* Hide detailed facilities list on mobile to save space */
+        display: flex;
+        gap: 8px;
+        margin-bottom: 18px;
+    }
+    .facility-item {
+        align-items: flex-start;
+        font-size: 0.82rem;
+        line-height: 1.45;
+    }
+    .facility-item i {
+        flex: 0 0 15px;
+        margin-top: 3px;
     }
     .fleet-footer {
         flex-direction: column;
         align-items: stretch;
-        gap: 8px;
+        gap: 12px;
         border-top: 1px solid var(--border-color);
-        padding-top: 10px;
+        padding-top: 16px;
         margin-top: auto;
     }
     .fleet-price-box {
-        text-align: center;
+        text-align: left;
     }
     .price-label {
-        font-size: 0.65rem;
+        font-size: 0.7rem;
     }
     .fleet-price {
-        font-size: 0.95rem;
+        font-size: 1.08rem;
     }
     .fleet-footer .btn {
         width: 100%;
-        padding: 8px 10px;
-        font-size: 0.75rem;
-        border-radius: 6px;
+        padding: 11px 14px;
+        font-size: 0.85rem;
+        border-radius: 8px;
     }
 }
 
