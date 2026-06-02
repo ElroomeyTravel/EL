@@ -355,6 +355,7 @@ function initBookingForm() {
         const jumlah = document.getElementById("jumlah").value;
         const paketTravel = document.getElementById("paketTravel").value;
         const paketJalan = document.getElementById("paketJalan").value;
+        const infoTravel = document.getElementById("infoTravel").value;
         const catatan = document.getElementById("catatan").value.trim() || "-";
 
         if (isKediriPickup(jemput) && jam > "15:00") {
@@ -387,6 +388,7 @@ Barang Bawaan : ${barang}
 Jumlah Penumpang : ${jumlah}
 Paket Travel (Regular/Carter Drop/PP/Wisata) : ${paketTravel}
 Paket Perjalanan (Via Toll/Nontoll) : ${paketJalan}
+Info Travel : ${infoTravel}
 Catatan Tambahan : ${catatan}`;
 
         // URL Encode compilation
