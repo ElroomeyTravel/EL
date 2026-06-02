@@ -1199,7 +1199,8 @@ input, select, textarea, button {
 
 .form-input {
     background-color: var(--bg-primary);
-    border: 1px solid var(--border-color);
+    border: 1px solid rgba(212, 175, 55, 0.3);
+    box-shadow: 0 0 8px rgba(212, 175, 55, 0.1);
     color: var(--text-primary);
     padding: 12px 16px;
     border-radius: 8px;

@@ -55,7 +55,7 @@ const FLEET_DATA = [
             "Cocok Untuk: Antar jemput rombongan bandara, Wisata Malang, Batu, Bromo, Family gathering dan komunitas, Perjalanan dinas dan kunjungan kerja",
             "Keunggulan: Pengalaman perjalanan kelas Premium/VIP, Kapasitas besar hingga 14 orang dewasa, Kabin luas dengan ruang kaki yang lega, Lebih praktis dan ekonomis untuk rombongan, Memudahkan koordinasi seluruh peserta"
         ],
-        harga: "Rp 1.500.000 via toll"
+        harga: "Rp 1.500.000"
     },
     {
         id: "elf-giga",
@@ -66,7 +66,7 @@ const FLEET_DATA = [
             "Cocok Untuk: Antar jemput rombongan bandara, Wisata Bromo, Batu, Malang, Study tour, Family gathering, Company outing, Acara komunitas",
             "Keunggulan: Kapasitas besar dalam satu kendaraan, Lebih hemat dibanding menyewa beberapa mobil, Memudahkan koordinasi seluruh peserta, Cocok untuk perjalanan wisata satu hari maupun beberapa hari"
         ],
-        harga: "Rp 1.650.000 via toll"
+        harga: "Rp 1.650.000"
     }
 ];
 
@@ -262,6 +262,19 @@ function initTestimonials() {
 
 // --- SELECT FLIGHT ROUTE (FROM CARD) ---
 window.selectRoute = function(asal, tujuan) {
+    const jemputInput = document.getElementById("jemput");
+    const tujuanInput = document.getElementById("tujuan");
+
+    if (jemputInput && asal) {
+        jemputInput.value = asal;
+    }
+
+    if (tujuanInput && tujuan && tujuan !== "Tujuan") {
+        tujuanInput.value = tujuan;
+    }
+
+    updateKediriPickupLimit();
+
     // Smooth scroll focus to booking section
     smoothScrollTo("#pesan");
 };
@@ -311,6 +324,17 @@ function initBookingForm() {
         tanggalInput.min = today;
     }
 
+    const jamInput = document.getElementById("jam");
+    const jemputInput = document.getElementById("jemput");
+
+    if (jemputInput) {
+        jemputInput.addEventListener("input", updateKediriPickupLimit);
+    }
+
+    if (jamInput) {
+        jamInput.addEventListener("input", updateKediriPickupLimit);
+    }
+
     form.addEventListener("submit", (event) => {
         event.preventDefault();
         
@@ -327,6 +351,12 @@ function initBookingForm() {
         const paketTravel = document.getElementById("paketTravel").value;
         const paketJalan = document.getElementById("paketJalan").value;
         const catatan = document.getElementById("catatan").value.trim() || "-";
+
+        if (isKediriPickup(jemput) && jam > "15:00") {
+            alert("Jadwal keberangkatan dari Kediri maksimal pukul 15.00.");
+            document.getElementById("jam").focus();
+            return;
+        }
 
         // Convert date format to local format
         const dateObj = new Date(tanggal);
@@ -363,6 +393,27 @@ Catatan Tambahan : ${catatan}`;
         // Open WhatsApp in a new tab
         window.open(whatsappUrl, '_blank');
     });
+}
+
+function isKediriPickup(jemputValue) {
+    return jemputValue.toLowerCase().includes("kediri");
+}
+
+function updateKediriPickupLimit() {
+    const jamInput = document.getElementById("jam");
+    const jemputInput = document.getElementById("jemput");
+
+    if (!jamInput || !jemputInput) return;
+
+    if (isKediriPickup(jemputInput.value)) {
+        jamInput.max = "15:00";
+
+        if (jamInput.value > "15:00") {
+            jamInput.value = "15:00";
+        }
+    } else {
+        jamInput.removeAttribute("max");
+    }
 }
 
 // --- SCROLL REVEAL OBSERVER ---
