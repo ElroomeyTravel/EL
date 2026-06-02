@@ -1277,7 +1277,7 @@ input, select, textarea, button {
     }
 }
 
-@media (max-width: 576px) {
+@media (max-width: 768px) {
     /* Booking Section Mobile Fixes */
     .booking-wrapper {
         padding: 24px 18px !important;
@@ -1325,33 +1325,33 @@ input, select, textarea, button {
         font-size: 0.9rem;
     }
     .form-title {
-        font-size: 1.55rem;
-        margin-bottom: 24px;
+        font-size: 1.65rem !important;
+        margin-bottom: 24px !important;
     }
     .form-group {
         margin-bottom: 18px;
         gap: 8px;
     }
     .form-group label {
-        font-size: 0.95rem;
+        font-size: 1rem;
         line-height: 1.35;
     }
     .form-group label i {
         font-size: 1rem;
     }
     .form-input {
-        min-height: 50px;
+        min-height: 54px;
         padding: 14px 16px;
-        font-size: 1rem;
+        font-size: 1.05rem;
         line-height: 1.35;
     }
     .form-textarea {
-        min-height: 120px;
+        min-height: 130px;
     }
     .btn-large {
-        min-height: 54px;
+        min-height: 58px;
         padding: 15px 24px;
-        font-size: 1rem;
+        font-size: 1.05rem;
     }
 
     /* Fleet Section Mobile */

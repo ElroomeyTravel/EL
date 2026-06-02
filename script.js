@@ -20,7 +20,8 @@ const FLEET_DATA = [
         kapasitas: "4-5 Orang",
         fasilitas: [
             "Cocok Untuk: Antar jemput bandara, Travel keluarga, Perjalanan dinas, Wisata Malang, Batu, Bromo",
-            "Keunggulan: Kabin nyaman, Irit bahan bakar, Harga ekonomis, Suspensi nyaman untuk perjalanan jauh"
+            "Keunggulan: Kabin nyaman, Irit bahan bakar, Harga ekonomis, Suspensi nyaman untuk perjalanan jauh",
+            "Fasilitas: Termasuk driver berpengalaman dan tidak merokok saat berkendara, Via-Toll/Non-Toll, BBM, Parkir, Rest area, Belanja Oleh-oleh",
         ],
         harga: "Rp 500.000"
     },
@@ -31,7 +32,8 @@ const FLEET_DATA = [
         kapasitas: "5-6 Penumpang",
         fasilitas: [
             "Cocok Untuk: Antar jemput bandara, Perjalanan dinas perusahaan, Wisata keluarga, Malang, Batu, Bromo, Perjalanan luar kota jarak jauh",
-            "Keunggulan: Kabin lebih luas dan lega, Suspensi nyaman untuk perjalanan jauh, Bagasi lebih besar dibanding Avanza, Sangat nyaman untuk semua kalangan, Cocok untuk perjalanan 3-10 jam"
+            "Keunggulan: Kabin lebih luas dan lega, Suspensi nyaman untuk perjalanan jauh, Bagasi lebih besar dibanding Avanza, Sangat nyaman untuk semua kalangan, Cocok untuk perjalanan 3-10 jam",
+            "Fasilitas: Termasuk driver berpengalaman dan tidak merokok saat berkendara, Via-Toll/Non-Toll, BBM, Parkir, Rest area, Belanja Oleh-oleh",
         ],
         harga: "Rp 700.000"
     },
@@ -42,7 +44,8 @@ const FLEET_DATA = [
         kapasitas: "10-14 Penumpang",
         fasilitas: [
             "Cocok Untuk: Antar jemput rombongan bandara, Wisata Malang, Batu, Bromo, Family gathering dan komunitas, Perjalanan dinas dan kunjungan kerja",
-            "Keunggulan: Kapasitas besar hingga 14 orang dewasa, Kabin luas dengan ruang kaki yang lega, Lebih praktis dan ekonomis untuk rombongan, Memudahkan koordinasi seluruh peserta, Cocok untuk perjalanan jarak dekat maupun luar kota"
+            "Keunggulan: Kapasitas besar hingga 14 orang dewasa, Kabin luas dengan ruang kaki yang lega, Lebih praktis dan ekonomis untuk rombongan, Memudahkan koordinasi seluruh peserta, Cocok untuk perjalanan jarak dekat maupun luar kota",
+            "Fasilitas: Termasuk driver berpengalaman dan tidak merokok saat berkendara, Via-Toll/Non-Toll, BBM, Parkir, Rest area, Belanja Oleh-oleh, Free Karaoke",
         ],
         harga: "Rp 1.300.000"
     },
@@ -53,7 +56,8 @@ const FLEET_DATA = [
         kapasitas: "12-14 Penumpang",
         fasilitas: [
             "Cocok Untuk: Antar jemput rombongan bandara, Wisata Malang, Batu, Bromo, Family gathering dan komunitas, Perjalanan dinas dan kunjungan kerja",
-            "Keunggulan: Pengalaman perjalanan kelas Premium/VIP, Kapasitas besar hingga 14 orang dewasa, Kabin luas dengan ruang kaki yang lega, Lebih praktis dan ekonomis untuk rombongan, Memudahkan koordinasi seluruh peserta"
+            "Keunggulan: Pengalaman perjalanan kelas Premium/VIP, Kapasitas besar hingga 14 orang dewasa, Kabin luas dengan ruang kaki yang lega, Lebih praktis dan ekonomis untuk rombongan, Memudahkan koordinasi seluruh peserta",
+            "Fasilitas: Termasuk driver berpengalaman dan tidak merokok saat berkendara, Via-Toll/Non-Toll, BBM, Parkir, Rest area, Belanja Oleh-oleh, Free Karaoke",
         ],
         harga: "Rp 1.500.000"
     },
@@ -64,7 +68,8 @@ const FLEET_DATA = [
         kapasitas: "14-19 Penumpang",
         fasilitas: [
             "Cocok Untuk: Antar jemput rombongan bandara, Wisata Bromo, Batu, Malang, Study tour, Family gathering, Company outing, Acara komunitas",
-            "Keunggulan: Kapasitas besar dalam satu kendaraan, Lebih hemat dibanding menyewa beberapa mobil, Memudahkan koordinasi seluruh peserta, Cocok untuk perjalanan wisata satu hari maupun beberapa hari"
+            "Keunggulan: Kapasitas besar dalam satu kendaraan, Lebih hemat dibanding menyewa beberapa mobil, Memudahkan koordinasi seluruh peserta, Cocok untuk perjalanan wisata satu hari maupun beberapa hari",
+            "Fasilitas: Termasuk driver berpengalaman dan tidak merokok saat berkendara, Via-Toll/Non-Toll, BBM, Parkir, Rest area, Belanja Oleh-oleh, Free Karaoke",
         ],
         harga: "Rp 1.650.000"
     }
