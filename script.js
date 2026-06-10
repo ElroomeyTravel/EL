@@ -16,7 +16,7 @@ const FLEET_DATA = [
     {
         id: "avanza",
         nama: "Toyota Avanza FWD",
-        gambar: "assets/avanza.jpg",
+        gambar: "assets/AvanzaFWD.jpeg",
         kapasitas: "4-5 Orang",
         fasilitas: [
             "Cocok Untuk: Antar jemput bandara, Travel keluarga, Perjalanan dinas, Wisata Malang, Batu, Bromo",
@@ -28,7 +28,7 @@ const FLEET_DATA = [
     {
         id: "innova",
         nama: "Toyota Innova Reborn",
-        gambar: "assets/innova.jpg",
+        gambar: "assets/INNOVA.jpeg",
         kapasitas: "5-6 Penumpang",
         fasilitas: [
             "Cocok Untuk: Antar jemput bandara, Perjalanan dinas perusahaan, Wisata keluarga, Malang, Batu, Bromo, Perjalanan luar kota jarak jauh",
@@ -40,7 +40,7 @@ const FLEET_DATA = [
     {
         id: "hiace-commuter",
         nama: "Toyota Hiace Commuter",
-        gambar: "assets/hiace.jpg",
+        gambar: "assets/HIACE.jpeg",
         kapasitas: "10-14 Penumpang",
         fasilitas: [
             "Cocok Untuk: Antar jemput rombongan bandara, Wisata Malang, Batu, Bromo, Family gathering dan komunitas, Perjalanan dinas dan kunjungan kerja",
@@ -52,7 +52,7 @@ const FLEET_DATA = [
     {
         id: "hiace-premio",
         nama: "Toyota Hiace Premio",
-        gambar: "assets/hiace.jpg",
+        gambar: "assets/PREMIO.jpeg",
         kapasitas: "12-14 Penumpang",
         fasilitas: [
             "Cocok Untuk: Antar jemput rombongan bandara, Wisata Malang, Batu, Bromo, Family gathering dan komunitas, Perjalanan dinas dan kunjungan kerja",
@@ -64,7 +64,7 @@ const FLEET_DATA = [
     {
         id: "elf-giga",
         nama: "Isuzu ELF GIGA",
-        gambar: "assets/isuzu.jpg",
+        gambar: "assets/ELFGIGA.jpeg",
         kapasitas: "14-19 Penumpang",
         fasilitas: [
             "Cocok Untuk: Antar jemput rombongan bandara, Wisata Bromo, Batu, Malang, Study tour, Family gathering, Company outing, Acara komunitas",
