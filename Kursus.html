@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EL-Roomey Course - TOEFL, IELTS & Persiapan Soal Terbaik</title>
+    
+    <!-- Meta SEO -->
+    <meta name="description" content="Tingkatkan kemampuan bahasa Inggris Anda bersama EL-Roomey Course. Program persiapan TOEFL, IELTS, dan latihan soal intensif dengan tutor berpengalaman.">
+    <meta name="keywords" content="elroomeny course, kursus toefl kediri, kursus ielts malang, latihan soal toefl, persiapan ielts surabaya, belajar bahasa inggris premium">
+    <meta name="author" content="EL-Roomey Course">
+    
+    <!-- Open Graph for Social Media -->
+    <meta property="og:title" content="EL-Roomey Course - TOEFL • IELTS • SOAL">
+    <meta property="og:description" content="Raih skor impian TOEFL dan IELTS Anda dengan sistem pembelajaran intensif dan fleksibel. Daftar sekarang secara instan via WhatsApp.">
+    <meta property="og:image" content="assets/hero-bg.png">
+    <meta property="og:type" content="website">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/jpeg" href="assets/Elroomey.jpg">
+
+    <!-- Google Fonts: Outfit -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="style.css?v=20260602">
+</head>
+<body>
+
+    <!-- NAVBAR -->
+    <header class="navbar-header" id="navbar">
+        <div class="container navbar-container">
+            <a href="index.html" class="nav-logo" id="navLogo">
+                <span class="logo-accent">English</span> <span class="logo-light">Tips</span>
+            </a>
+            
+            <nav class="nav-menu" id="navMenu">
+                <ul>
+                    <li><a href="index.html#beranda" class="nav-link">Beranda</a></li>
+                    <li><a href="index.html#layanan" class="nav-link">Layanan</a></li>
+                    <li><a href="index.html#armada" class="nav-link">Armada</a></li>
+                    <li><a href="index.html#keunggulan" class="nav-link">Keunggulan</a></li>
+                    <li><a href="index.html#testimoni" class="nav-link">Testimoni</a></li>
+                    <li><a href="blog.html" class="nav-link">Blog</a></li>
+                    <li><a href="Kursus.html" class="nav-link active">Kursus</a></li>
+                    <li><a href="#daftar" class="btn-booking-nav">Daftar Sekarang</a></li>
+                </ul>
+            </nav>
+
+            <button class="hamburger-btn" id="hamburgerBtn" aria-label="Toggle Menu">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </button>
+        </div>
+    </header>
+
+    <!-- HERO SECTION -->
+    <section class="hero-section" id="beranda" style="background-image: linear-gradient(rgba(15, 15, 15, 0.75), rgba(15, 15, 15, 0.95)), url('assets/hero-bg.png');">
+        <div class="container hero-container">
+            <div class="hero-content">
+                <h2 class="hero-tagline reveal-item">TOEFL IELTS Preparation</h2>
+                <h1 class="hero-title reveal-item">English Tips</h1>
+                <p class="hero-subtitle reveal-item">Bimbingan belajar bahasa Inggris terpercaya yang berfokus pada persiapan TOEFL, IELTS, dan pendalaman materi soal dengan bimbingan terarah, fleksibel dan tutor berpengalaman.</p>
+                <div class="hero-buttons reveal-item">
+                    <a href="toefl-practice.html" class="btn btn-gold btn-glow">TOEFL <i class="fas fa-graduation-cap"></i></a>
+                    <a href="#ielts" class="btn btn-outline">IELTS <i class="fas fa-book-open"></i></a>
+                    <a href="https://wa.me/6281515528098?text=Halo%20El-Roomey%20Course,%20saya%20ingin%20konsultasi%20mengenai%20latihan%20soal/materi%20persiapan%20ujian." target="_blank" class="btn btn-whatsapp-consult">Chat Admin <i class="fab fa-whatsapp"></i></a>
+                </div>
+            </div>
+            
+            <!-- Quick Booking Card tailored to English Program Search -->
+            <div class="hero-quick-card reveal-item">
+                <div class="quick-card-title">
+                    <i class="fas fa-search text-gold"></i>
+                    <span>Cari program</span>
+                </div>
+                <div class="quick-card-grid">
+                    <div class="quick-field">
+                        <label for="quickProgram">Program Kursus</label>
+                        <select id="quickProgram" class="quick-input">
+                            <option value="TOEFL Preparation">TOEFL Preparation</option>
+                            <option value="IELTS Preparation">IELTS Preparation</option>
+                            <option value="Drilling Soal/Ujian">Speaking Practice</option>
+                        </select>
+                    </div>
+                    <div class="quick-field">
+                        <label for="quickMethod">Tes Prediksi</label>
+                        <select id="quickMethod" class="quick-input">
+                            <option value="Kelas Online (Gmeet/Zoom)">TOEFL Prediction 1-20</option>
+                            <option value="Kelas Online (Gmeet/Zoom)">IELTS Prediction 1-20</option>
+                            <option value="Kelas Online (Gmeet/Zoom)">Speaking Practice</option>
+                        </select>
+                    </div>
+                    <button type="button" id="quickSearchBtn" class="btn btn-gold quick-btn">
+                        <span>Daftar Program</span>
+                        <i class="fas fa-chevron-right"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div class="hero-scroll-down">
+            <span>Scroll kebawah untuk detail</span>
+            <div class="scroll-arrow"></div>
+        </div>
+    </section>
+
+    <!-- SECTION KEUNGGULAN KURSUS -->
+    <section class="features-section section-padding" id="keunggulan">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Kenapa Pilih English Tips</h2>
+                <div class="section-divider"></div>
+                <p class="section-subtitle">Keunggulan metode belajar kami untuk membantu Anda mencapai skor impian.</p>
+            </div>
+
+            <div class="features-grid">
+                <!-- Feature 1 -->
+                <div class="feature-card reveal-item">
+                    <div class="feature-icon">
+                        <i class="fas fa-user-tie"></i>
+                    </div>
+                    <h3 class="feature-title">Tutor Bersertifikat & Berpengalaman</h3>
+                    <p class="feature-desc">Belajar langsung bersama tutor profesional yang memiliki sertifikat resmi TOEFL/IELTS dengan skor tinggi dan pengalaman mengajar bertahun-tahun.</p>
+                </div>
+                <!-- Feature 2 -->
+                <div class="feature-card reveal-item">
+                    <div class="feature-icon">
+                        <i class="fas fa-calendar-alt"></i>
+                    </div>
+                    <h3 class="feature-title">Jadwal Kelas Fleksibel</h3>
+                    <p class="feature-desc">Pilihan waktu belajar yang fleksibel (pagi, siang, sore, malam) yang dapat disesuaikan dengan aktivitas kuliah atau pekerjaan Anda.</p>
+                </div>
+                <!-- Feature 3 -->
+                <div class="feature-card reveal-item">
+                    <div class="feature-icon">
+                        <i class="fas fa-book"></i>
+                    </div>
+                    <h3 class="feature-title">Materi & Modul Terupdate</h3>
+                    <p class="feature-desc">Kurikulum belajar selalu disesuaikan dengan standar tes terbaru. Lengkap dengan tips & trik menjawab soal secara cepat dan akurat.</p>
+                </div>
+                <!-- Feature 4 -->
+                <div class="feature-card reveal-item">
+                    <div class="feature-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <h3 class="feature-title">Simulasi Try Out Berkala</h3>
+                    <p class="feature-desc">Evaluasi hasil belajar Anda secara rutin melalui try out simulasi ujian resmi secara gratis selama program berlangsung.</p>
+                </div>
+                <!-- Feature 5 -->
+                <div class="feature-card reveal-item">
+                    <div class="feature-icon">
+                        <i class="fas fa-comments"></i>
+                    </div>
+                    <h3 class="feature-title">Interactive & Small Classes</h3>
+                    <p class="feature-desc">Ukuran kelas kecil (small group atau private) untuk menjamin interaksi maksimal antara tutor dan siswa dalam proses pembelajaran.</p>
+                </div>
+                <!-- Feature 6 -->
+                <div class="feature-card reveal-item">
+                    <div class="feature-icon">
+                        <i class="fas fa-phone-volume"></i>
+                    </div>
+                    <h3 class="feature-title">Konsultasi Materi Gratis</h3>
+                    <p class="feature-desc">Layanan konsultasi materi pelajaran secara personal di luar jam kelas untuk membahas kesulitan atau soal-soal tertentu secara mendalam.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION PROGRAM DETAIL -->
+    <section class="services-section section-padding bg-darker" id="layanan">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Program Kami</h2>
+                <div class="section-divider"></div>
+                <p class="section-subtitle">Pilihan program kursus bahasa Inggris yang dirancang khusus untuk mempercepat pemahaman Anda.</p>
+            </div>
+            
+            <div class="services-grid">
+                <!-- Program Card 1: TOEFL -->
+                <div class="fleet-card reveal-item" id="toefl">
+                    <div class="fleet-img-wrapper" style="display: flex; align-items: center; justify-content: center; background: #1a1a1a; color: var(--gold); font-size: 4rem;">
+                        <i class="fas fa-graduation-cap"></i>
+                    </div>
+                    <div class="fleet-info">
+                        <h3 class="fleet-name">TOEFL Preparation</h3>
+                        <span class="fleet-capacity">
+                            <i class="fas fa-clock"></i> 10-18 Pertemuan
+                        </span>
+                        <div class="fleet-facilities">
+                            <div class="facility-item"><i class="fas fa-check-circle"></i> <span>Listening Comprehension Prep</span></div>
+                            <div class="facility-item"><i class="fas fa-check-circle"></i> <span>Structure & Written Expression Prep</span></div>
+                            <div class="facility-item"><i class="fas fa-check-circle"></i> <span>Reading Comprehension Prep</span></div>
+                            <div class="facility-item"><i class="fas fa-check-circle"></i> <span>3x Try Out & Pembahasan</span></div>
+                            <div class="facility-item"><i class="fas fa-check-circle"></i> <span>Free E-Book & Modul Lengkap</span></div>
+                        </div>
+                        <div class="fleet-footer">
+                            <div class="fleet-price-box">
+                                <span class="price-label">Mulai Dari</span>
+                                <span class="fleet-price">Rp 250.000</span>
+                            </div>
+                            <a href="#daftar" onclick="selectProgram('TOEFL Preparation')" class="btn btn-gold btn-glow">Daftar Sekarang</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Program Card 2: IELTS -->
+                <div class="fleet-card reveal-item" id="ielts">
+                    <div class="fleet-img-wrapper" style="display: flex; align-items: center; justify-content: center; background: #1a1a1a; color: var(--gold); font-size: 4rem;">
+                        <i class="fas fa-book-open"></i>
+                    </div>
+                    <div class="fleet-info">
+                        <h3 class="fleet-name">IELTS Preparation</h3>
+                        <span class="fleet-capacity">
+                            <i class="fas fa-clock"></i> 10-18 Pertemuan
+                        </span>
+                        <div class="fleet-facilities">
+                            <div class="facility-item"><i class="fas fa-check-circle"></i> <span>IELTS Listening Practice</span></div>
+                            <div class="facility-item"><i class="fas fa-check-circle"></i> <span>IELTS Academic / General Reading</span></div>
+                            <div class="facility-item"><i class="fas fa-check-circle"></i> <span>IELTS Writing Task 1 & 2 Feedback</span></div>
+                            <div class="facility-item"><i class="fas fa-check-circle"></i> <span>Speaking Mock Test & Review</span></div>
+                            <div class="facility-item"><i class="fas fa-check-circle"></i> <span>Tips menjawab Reading & Listening</span></div>
+                        </div>
+                        <div class="fleet-footer">
+                            <div class="fleet-price-box">
+                                <span class="price-label">Mulai Dari</span>
+                                <span class="fleet-price">Rp 350.000</span>
+                            </div>
+                            <a href="#daftar" onclick="selectProgram('IELTS Preparation')" class="btn btn-gold btn-glow">Daftar Sekarang</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Program Card 3: SOAL -->
+                <div class="fleet-card reveal-item" id="soal-drill">
+                    <div class="fleet-img-wrapper" style="display: flex; align-items: center; justify-content: center; background: #1a1a1a; color: var(--gold); font-size: 4rem;">
+                        <i class="fas fa-spell-check"></i>
+                    </div>
+                    <div class="fleet-info">
+                        <h3 class="fleet-name">Drilling SOAL & Ujian</h3>
+                        <span class="fleet-capacity">
+                            <i class="fas fa-clock"></i> 3-10 Pertemuan
+                        </span>
+                        <div class="fleet-facilities">
+                            <div class="facility-item"><i class="fas fa-check-circle"></i> <span>Pembahasan Soal TOEFL/IELTS</span></div>
+                            <div class="facility-item"><i class="fas fa-check-circle"></i> <span>Tips & Trik Taktis Jawab Soal</span></div>
+                            <div class="facility-item"><i class="fas fa-check-circle"></i> <span>Analisis Kesalahan Terbanyak</span></div>
+                            <div class="facility-item"><i class="fas fa-check-circle"></i> <span>Strategi Manajemen Waktu</span></div>
+                            <div class="facility-item"><i class="fas fa-check-circle"></i> <span>Bank Soal & Pembahasan Lengkap</span></div>
+                        </div>
+                        <div class="fleet-footer">
+                            <div class="fleet-price-box">
+                                <span class="price-label">Mulai Dari</span>
+                                <span class="fleet-price">Rp 200.000</span>
+                            </div>
+                            <a href="#daftar" onclick="selectProgram('Drilling Soal/Ujian')" class="btn btn-gold btn-glow">Daftar Sekarang</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION FORM PENDAFTARAN -->
+    <section class="booking-section section-padding" id="daftar">
+        <div class="container">
+            <div class="booking-wrapper reveal-item" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 40px; background: var(--bg-secondary); border: 1px solid var(--gold); border-radius: 16px; padding: 40px; box-shadow: 0 0 20px rgba(212, 175, 55, 0.15);">
+                <div class="booking-info-panel">
+                    <div class="info-panel-content">
+                        <span style="font-size: 0.8rem; font-weight: 600; color: var(--gold); border: 1px solid var(--gold); padding: 5px 15px; border-radius: 20px; text-transform: uppercase; margin-bottom: 25px; display: inline-block;">Pendaftaran Kelas</span>
+                        <h2 style="font-size: 2.5rem; margin-bottom: 20px; color: #fff; line-height: 1.2;">Mulai Belajar<br>Sekarang</h2>
+                        <p style="margin-bottom: 30px; color: var(--text-secondary); line-height: 1.6; font-size: 0.95rem;">Silakan isi detail data pendaftaran Anda pada formulir. Setelah menekan tombol kirim, data pendaftaran Anda akan langsung diformat menjadi pesan WhatsApp otomatis untuk mempermudah konfirmasi jadwal bersama CS kami.</p>
+                        
+                        <ul style="color: var(--text-primary); list-style: none; padding-left: 0; margin-bottom: 40px; display: flex; flex-direction: column; gap: 20px;">
+                            <li style="display: flex; align-items: center; gap: 15px;">
+                                <span style="background-color: var(--gold); color: #000; width: 30px; height: 30px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; flex-shrink: 0;">1</span>
+                                <span style="font-size: 0.95rem;">Isi formulir dengan program & jadwal kelas</span>
+                            </li>
+                            <li style="display: flex; align-items: center; gap: 15px;">
+                                <span style="background-color: var(--gold); color: #000; width: 30px; height: 30px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; flex-shrink: 0;">2</span>
+                                <span style="font-size: 0.95rem;">Tinjau ulang data pendaftaran Anda</span>
+                            </li>
+                            <li style="display: flex; align-items: center; gap: 15px;">
+                                <span style="background-color: var(--gold); color: #000; width: 30px; height: 30px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; flex-shrink: 0;">3</span>
+                                <span style="font-size: 0.95rem;">Kirim data & konsultasi jadwal via WhatsApp</span>
+                            </li>
+                        </ul>
+                        
+                        <div style="display: inline-flex; align-items: center; gap: 15px; padding: 15px 25px; border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 10px; background-color: rgba(255, 255, 255, 0.05);">
+                            <i class="fab fa-whatsapp" style="font-size: 1.8rem; color: #25D366;"></i>
+                            <div style="display: flex; flex-direction: column;">
+                                <span style="font-size: 0.75rem; color: var(--text-secondary); text-transform: uppercase; letter-spacing: 1px;">Admin WhatsApp CS</span>
+                                <span style="font-size: 1.1rem; font-weight: 700; color: #fff;">+62 815-1552-8098</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="booking-form-panel">
+                    <form id="courseBookingForm" class="booking-form">
+                        <h3 class="form-title" style="margin-bottom: 20px; color: var(--gold); font-size: 1.5rem;">Formulir Pendaftaran</h3>
+                        
+                        <div class="form-group">
+                            <label for="namaSiswa"><i class="fas fa-user text-gold"></i> Nama Lengkap</label>
+                            <input type="text" id="namaSiswa" placeholder="Masukkan nama lengkap Anda" required class="form-input">
+                        </div>
+
+                        <div class="form-group-row">
+                            <div class="form-group">
+                                <label for="noWa"><i class="fab fa-whatsapp text-gold"></i> Nomor WhatsApp Aktif</label>
+                                <input type="tel" id="noWa" placeholder="Cth: 08123456789" required class="form-input">
+                            </div>
+                            <div class="form-group">
+                                <label for="tanggalMulai"><i class="fas fa-calendar-day text-gold"></i> Tanggal Mulai Belajar</label>
+                                <input type="date" id="tanggalMulai" required class="form-input">
+                            </div>
+                        </div>
+
+                        <div class="form-group-row">
+                            <div class="form-group">
+                                <label for="programKursus"><i class="fas fa-graduation-cap text-gold"></i> Program Kursus</label>
+                                <select id="programKursus" class="form-input form-select" required>
+                                    <option value="" disabled selected>Pilih Program</option>
+                                    <option value="TOEFL Preparation">TOEFL Preparation</option>
+                                    <option value="IELTS Preparation">IELTS Preparation</option>
+                                    <option value="Drilling Soal/Ujian">Drilling Soal & Ujian</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="metodeBelajar"><i class="fas fa-laptop-house text-gold"></i> Metode Belajar</label>
+                                <select id="metodeBelajar" class="form-input form-select" required>
+                                    <option value="" disabled selected>Pilih Metode</option>
+                                    <option value="Private">Private</option>
+                                    <option value="Reguler">Reguler</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-group-row">
+                            <div class="form-group">
+                                <label for="pilihanJadwal"><i class="fas fa-clock text-gold"></i> Pilihan Jadwal Kelas</label>
+                                <select id="pilihanJadwal" class="form-input form-select" required>
+                                    <option value="" disabled selected>Pilih Waktu</option>
+                                    <option value="Kelas Pagi (09:00 - 10:30)">Kelas Pagi </option>
+                                    <option value="Kelas Siang (13:00 - 14:30)">Kelas Siang </option>
+                                    <option value="Kelas Sore (16:00 - 17:30)">Kelas Sore </option>
+                                    <option value="Kelas Malam (19:30 - 21:00)">Kelas Malam </option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="targetSkor"><i class="fas fa-bullseye text-gold"></i> Target Skor (Opsional)</label>
+                                <input type="text" id="targetSkor" placeholder="Cth: TOEFL 550 / IELTS 7.0" class="form-input">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="sumberInfo"><i class="fas fa-circle-info text-gold"></i> Info Kursus</label>
+                            <select id="sumberInfo" class="form-input form-select" required>
+                                <option value="" disabled selected>Pilih Sumber Info</option>
+                                <option value="TikTok">TikTok</option>
+                                <option value="Instagram">Instagram</option>
+                                <option value="Facebook">Facebook</option>
+                                <option value="Rekomendasi Teman">Rekomendasi Teman</option>
+                                <option value="Website">Website</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="catatan"><i class="fas fa-comment-alt text-gold"></i> Catatan Tambahan (Opsional)</label>
+                            <textarea id="catatan" rows="3" placeholder="Masukkan instruksi khusus atau keluhan kemampuan Anda saat ini..." class="form-input form-textarea"></textarea>
+                        </div>
+
+                        <button type="submit" id="waDaftarBtn" class="btn btn-gold btn-block btn-large" style="text-align: center;">
+                            KIRIM PENDAFTARAN KE WA ADMIN <i class="fab fa-whatsapp" style="margin-left: 8px;"></i>
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="footer-section">
+        <div class="container footer-container">
+            <div class="footer-col footer-about">
+                <a href="#" class="footer-logo">
+                    <span class="logo-accent">English</span> <span class="logo-light">Tips</span>
+                </a>
+                <p class="footer-desc">Penyedia bimbingan belajar bahasa Inggris premium (TOEFL, IELTS, dan Persiapan Soal) dengan pelayanan terarah dan tutor berpengalaman.</p>
+                <div class="footer-socials">
+                    <a href="https://wa.me/6281515528098" class="social-icon" target="_blank" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+                    <a href="https://www.instagram.com/travelmalang_sby/" class="social-icon" target="_blank" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                    <a href="https://www.tiktok.com/@elroomey_travel" class="social-icon" target="_blank" aria-label="TikTok"><i class="fab fa-tiktok"></i></a>
+                </div>
+            </div>
+
+            <div class="footer-col footer-links">
+                <h4 class="footer-col-title">Navigasi Cepat</h4>
+                <ul>
+                    <li><a href="index.html#beranda"><i class="fas fa-chevron-right text-gold"></i> Beranda</a></li>
+                    <li><a href="index.html#layanan"><i class="fas fa-chevron-right text-gold"></i> Layanan</a></li>
+                    <li><a href="index.html#armada"><i class="fas fa-chevron-right text-gold"></i> Armada Mobil</a></li>
+                    <li><a href="index.html#keunggulan"><i class="fas fa-chevron-right text-gold"></i> Keunggulan</a></li>
+                    <li><a href="index.html#testimoni"><i class="fas fa-chevron-right text-gold"></i> Testimoni</a></li>
+                    <li><a href="blog.html"><i class="fas fa-chevron-right text-gold"></i> Blog Wisata</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-col footer-routes">
+                <h4 class="footer-col-title">Program Utama</h4>
+                <ul>
+                    <li><span><i class="fas fa-graduation-cap text-gold"></i> TOEFL PREPARATION</span></li>
+                    <li><span><i class="fas fa-book-open text-gold"></i> IELTS PREPARATION</span></li>
+                    <li><span><i class="fas fa-spell-check text-gold"></i> TES PRESDIKSI</span></li>
+                    <li><span><i class="fas fa-user-friends text-gold"></i> PRIVATE CLASS</span></li>
+                    <li><span><i class="fas fa-laptop-code text-gold"></i> ONLINE CLASS</span></li>
+                </ul>
+            </div>
+
+            <div class="footer-col footer-contact">
+                <h4 class="footer-col-title">Kontak Kami</h4>
+                <ul class="contact-details">
+                    <li>
+                        <i class="fas fa-phone-alt text-gold"></i>
+                        <span>0815-1552-8098</span>
+                    </li>
+                    <li>
+                        <i class="fas fa-envelope text-gold"></i>
+                        <span>englishtiptip@gmail.com</span>
+                    </li>
+                    <li>
+                        <i class="fas fa-map-marker-alt text-gold"></i>
+                        <span>Kediri Kota, Jawa Timur, Indonesia</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <div class="container footer-bottom-container">
+                <p class="copyright">&copy; 2026 English Tips by Elroomey. All Rights Reserved. Designed for Luxury Education.</p>
+                <div class="footer-legal">
+                    <a href="#">Privacy Policy</a>
+                    <span class="divider">|</span>
+                    <a href="#">Terms of Service</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- FLOATING WHATSAPP BUTTON -->
+    <a href="https://wa.me/6281515528098" class="whatsapp-floating-btn" id="waFloatingBtn" target="_blank" aria-label="Chat WhatsApp Admin">
+        <i class="fab fa-whatsapp"></i>
+        <span class="floating-tooltip">Butuh bantuan? Chat kami</span>
+    </a>
+
+    <!-- Scripts -->
+    <script src="kursus.js"></script>
+</body>
+</html>

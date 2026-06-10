@@ -1,0 +1,1847 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simulasi Ujian TOEFL Listening - EL-Roomey Course</title>
+    
+    <!-- Meta SEO -->
+    <meta name="description" content="Uji kemampuan menyimak bahasa Inggris Anda dengan Simulasi TOEFL Listening gratis dari EL-Roomey Course. 50 soal lengkap (Short, Long Conversation & Talks).">
+    <meta name="keywords" content="latihan toefl listening, toefl listening practice test free, short conversation, long conversation, talks, elroomeny course toefl">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/jpeg" href="assets/Elroomey.jpg">
+
+    <!-- Google Fonts: Outfit -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="style.css?v=20260602">
+
+    <!-- Custom page style for quiz enhancement -->
+    <style>
+        :root {
+            --card-bg: rgba(22, 22, 22, 0.75);
+            --active-gold: #d4af37;
+        }
+
+        .practice-container {
+            padding-top: 140px;
+            padding-bottom: 80px;
+            max-width: 1000px;
+        }
+
+        .practice-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .practice-intro-card {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 30px;
+            margin-bottom: 40px;
+            box-shadow: var(--card-shadow);
+            backdrop-filter: blur(10px);
+        }
+
+        .section-title-quiz {
+            font-size: 1.6rem;
+            color: var(--gold);
+            margin: 40px 0 20px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 10px;
+        }
+
+        .section-title-quiz i {
+            color: var(--gold);
+        }
+
+        .conversation-audio-block {
+            background-color: rgba(212, 175, 55, 0.05);
+            border: 1px solid var(--gold);
+            border-radius: 12px;
+            padding: 25px;
+            margin: 30px 0 20px;
+        }
+
+        .question-card {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 25px;
+            margin-bottom: 25px;
+            transition: var(--transition-smooth);
+        }
+
+        .question-card:hover {
+            border-color: rgba(212, 175, 55, 0.3);
+            box-shadow: 0 5px 15px rgba(212, 175, 55, 0.05);
+        }
+
+        .question-number {
+            font-size: 0.85rem;
+            color: var(--gold);
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 10px;
+            display: inline-block;
+        }
+
+        .question-text {
+            font-size: 1.1rem;
+            color: #fff;
+            margin-bottom: 20px;
+            line-height: 1.5;
+        }
+
+        .listening-audio-box {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .play-audio-btn {
+            background: var(--gold);
+            color: #000;
+            border: none;
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: var(--transition-fast);
+            font-size: 1.1rem;
+            flex-shrink: 0;
+        }
+
+        .play-audio-btn:hover {
+            background: var(--gold-hover);
+            transform: scale(1.05);
+        }
+
+        .toggle-script-btn {
+            background: transparent;
+            color: var(--text-secondary);
+            border: 1px solid var(--border-color);
+            padding: 8px 15px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.85rem;
+            transition: var(--transition-fast);
+        }
+
+        .toggle-script-btn:hover {
+            border-color: var(--gold);
+            color: #fff;
+        }
+
+        .dialogue-script {
+            display: none;
+            margin-top: 15px;
+            padding: 12px;
+            background: rgba(0, 0, 0, 0.3);
+            border-left: 3px solid var(--gold);
+            border-radius: 4px;
+            font-style: italic;
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+        }
+
+        .options-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .option-item {
+            display: flex;
+            align-items: center;
+            position: relative;
+            cursor: pointer;
+            padding: 14px 20px;
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 8px;
+            transition: var(--transition-fast);
+            user-select: none;
+        }
+
+        .option-item:hover {
+            background: rgba(212, 175, 55, 0.03);
+            border-color: rgba(212, 175, 55, 0.2);
+        }
+
+        .option-item input[type="radio"] {
+            position: absolute;
+            opacity: 0;
+            cursor: pointer;
+        }
+
+        .option-checkmark {
+            width: 20px;
+            height: 20px;
+            border: 2px solid var(--text-secondary);
+            border-radius: 50%;
+            margin-right: 15px;
+            display: inline-block;
+            flex-shrink: 0;
+            position: relative;
+            transition: var(--transition-fast);
+        }
+
+        .option-item:hover .option-checkmark {
+            border-color: var(--gold);
+        }
+
+        .option-item input[type="radio"]:checked ~ .option-checkmark {
+            border-color: var(--gold);
+            background: var(--gold);
+        }
+
+        .option-item input[type="radio"]:checked ~ .option-checkmark::after {
+            content: '';
+            position: absolute;
+            width: 8px;
+            height: 8px;
+            background: #000;
+            border-radius: 50%;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        .option-text {
+            font-size: 0.95rem;
+            color: var(--text-primary);
+        }
+
+        .option-item input[type="radio"]:checked ~ .option-text {
+            color: #fff;
+            font-weight: 600;
+        }
+
+        /* Quiz Sidebar Navigation */
+        .quiz-navigation-panel {
+            position: sticky;
+            top: 100px;
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 20px;
+            backdrop-filter: blur(10px);
+        }
+
+        .quiz-grid-layout {
+            display: grid;
+            grid-template-columns: 3fr 1.2fr;
+            gap: 30px;
+            align-items: start;
+            height: calc(100vh - 120px);
+            overflow: hidden;
+        }
+
+        .questions-wrapper {
+            height: 100%;
+            overflow-y: auto;
+            padding-right: 10px;
+            scroll-behavior: smooth;
+        }
+
+        .questions-wrapper::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .questions-wrapper::-webkit-scrollbar-thumb {
+            background-color: rgba(212, 175, 55, 0.65);
+            border-radius: 999px;
+        }
+
+        .quiz-sidebar {
+            height: 100%;
+        }
+
+        .quiz-timer-card {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            padding: 14px 16px;
+            margin-bottom: 18px;
+            border: 1px solid rgba(212, 175, 55, 0.45);
+            border-radius: 10px;
+            background: rgba(212, 175, 55, 0.08);
+        }
+
+        .quiz-timer-label {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--text-secondary);
+            font-size: 0.82rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .quiz-timer-value {
+            color: #fff;
+            font-size: 1.35rem;
+            font-weight: 800;
+            line-height: 1;
+            font-variant-numeric: tabular-nums;
+        }
+
+        .quiz-timer-card.is-warning {
+            border-color: #e74c3c;
+            background: rgba(231, 76, 60, 0.1);
+        }
+
+        .quiz-timer-card.is-warning .quiz-timer-value,
+        .quiz-timer-card.is-warning .quiz-timer-label i {
+            color: #e74c3c;
+        }
+
+        .nav-numbers-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 8px;
+            margin-top: 15px;
+            margin-bottom: 20px;
+            max-height: 380px;
+            overflow-y: auto;
+            padding-right: 5px;
+        }
+
+        /* Customize Scrollbar for numbers grid */
+        .nav-numbers-grid::-webkit-scrollbar {
+            width: 4px;
+        }
+        .nav-numbers-grid::-webkit-scrollbar-thumb {
+            background-color: var(--gold);
+            border-radius: 2px;
+        }
+
+        .nav-num-btn {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid var(--border-color);
+            color: var(--text-secondary);
+            border-radius: 6px;
+            aspect-ratio: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 0.85rem;
+            font-weight: 600;
+            transition: var(--transition-fast);
+            padding: 5px 0;
+        }
+
+        .nav-num-btn:hover {
+            border-color: var(--gold);
+            color: #fff;
+        }
+
+        .nav-num-btn.answered {
+            background: rgba(212, 175, 55, 0.15);
+            border-color: var(--gold);
+            color: var(--gold);
+        }
+
+        .progress-bar-container {
+            width: 100%;
+            height: 6px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 3px;
+            margin-bottom: 10px;
+            overflow: hidden;
+        }
+
+        .progress-bar-fill {
+            height: 100%;
+            background: var(--gold);
+            width: 0%;
+            transition: width 0.3s ease;
+            box-shadow: 0 0 10px var(--gold-glow);
+        }
+
+        /* Modal Score Result */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.85);
+            backdrop-filter: blur(10px);
+            z-index: 2000;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .modal-content-box {
+            background: #161616;
+            border: 1px solid var(--gold);
+            border-radius: 16px;
+            max-width: 600px;
+            width: 100%;
+            padding: 40px;
+            box-shadow: 0 0 30px rgba(212, 175, 55, 0.2);
+            text-align: center;
+            transform: scale(0.9);
+            transition: transform 0.3s ease;
+            position: relative;
+        }
+
+        .modal-overlay.open {
+            display: flex;
+        }
+
+        .modal-overlay.open .modal-content-box {
+            transform: scale(1);
+        }
+
+        .score-circle {
+            width: 130px;
+            height: 130px;
+            border-radius: 50%;
+            border: 4px solid var(--gold);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 20px auto 30px;
+            font-size: 2.2rem;
+            font-weight: 800;
+            color: #fff;
+            background: rgba(212, 175, 55, 0.05);
+            box-shadow: 0 0 20px rgba(212, 175, 55, 0.1);
+        }
+
+        .score-rating {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: var(--gold);
+            margin-bottom: 10px;
+        }
+
+        .score-desc {
+            color: var(--text-secondary);
+            margin-bottom: 30px;
+            line-height: 1.6;
+        }
+
+        @media (max-width: 991px) {
+            .quiz-grid-layout {
+                grid-template-columns: 1fr;
+                height: calc(100vh - 92px);
+            }
+
+            .questions-wrapper {
+                padding-right: 0;
+                padding-bottom: 130px;
+            }
+
+            .quiz-navigation-panel {
+                position: fixed;
+                bottom: 0;
+                left: 0;
+                width: 100%;
+                z-index: 999;
+                border-radius: 16px 16px 0 0;
+                box-shadow: 0 -5px 25px rgba(0, 0, 0, 0.5);
+                border-top: 1px solid var(--gold);
+                display: flex;
+                flex-direction: row;
+                align-items: center;
+                justify-content: space-between;
+                padding: 15px 20px;
+            }
+
+            .quiz-timer-card {
+                flex: 0 0 auto;
+                min-width: 132px;
+                margin-bottom: 0;
+                padding: 10px 12px;
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 6px;
+            }
+
+            .quiz-timer-label {
+                font-size: 0.7rem;
+            }
+
+            .quiz-timer-value {
+                font-size: 1.15rem;
+            }
+
+            .quiz-nav-meta {
+                display: flex;
+                flex-direction: column;
+                flex-grow: 1;
+                margin-right: 20px;
+            }
+
+            .nav-numbers-grid, .quiz-navigation-panel h3 {
+                display: none;
+            }
+
+            .practice-container {
+                padding-bottom: 140px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- NAVBAR -->
+    <header class="navbar-header scrolled" id="navbar">
+        <div class="container navbar-container">
+            <a href="index.html" class="nav-logo">
+                <span class="logo-accent">EL-Roomey</span> <span class="logo-light">Course</span>
+            </a>
+            
+            <nav class="nav-menu" id="navMenu">
+                <ul>
+                    <li><a href="index.html#beranda" class="nav-link">Beranda</a></li>
+                    <li><a href="index.html#layanan" class="nav-link">Layanan</a></li>
+                    <li><a href="index.html#armada" class="nav-link">Armada</a></li>
+                    <li><a href="index.html#keunggulan" class="nav-link">Keunggulan</a></li>
+                    <li><a href="index.html#testimoni" class="nav-link">Testimoni</a></li>
+                    <li><a href="blog.html" class="nav-link">Blog</a></li>
+                    <li><a href="Kursus.html" class="nav-link active">Kursus</a></li>
+                    <li><a href="Kursus.html#daftar" class="btn-booking-nav">Daftar Sekarang</a></li>
+                </ul>
+            </nav>
+
+            <button class="hamburger-btn" id="hamburgerBtn" aria-label="Toggle Menu">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </button>
+        </div>
+    </header>
+
+    <!-- CONTENT -->
+    <div class="container practice-container">
+        
+        <div class="practice-header">
+            <span style="font-size: 0.85rem; font-weight: 600; color: var(--gold); text-transform: uppercase; letter-spacing: 2px;">Simulasi Ujian</span>
+            <h1 class="hero-title" style="font-size: 3rem; margin-top: 10px; margin-bottom: 15px;">TOEFL Listening Section</h1>
+            <p style="color: var(--text-secondary); max-width: 650px; margin: 0 auto; font-weight: 300;">
+                Simulasi lengkap 50 soal Listening Comprehension tingkat menengah (Medium Level). Mengikuti format resmi TOEFL Paper-Based Test (PBT).
+            </p>
+        </div>
+
+        <div class="practice-intro-card">
+            <h3 style="color: #fff; margin-bottom: 15px;"><i class="fas fa-info-circle text-gold" style="margin-right: 10px;"></i> Petunjuk Pengerjaan (50 Soal)</h3>
+            <ul style="color: var(--text-secondary); padding-left: 20px; display: flex; flex-direction: column; gap: 10px; font-size: 0.95rem;">
+                <li>**Part A: Short Conversations (Q1 - Q30)**: Klik tombol play pada masing-masing kartu soal untuk mendengarkan percakapan pendek antara dua pembicara.</li>
+                <li>**Part B: Long Conversations (Q31 - Q38)**: Terdiri dari 2 percakapan panjang. Setiap percakapan memiliki **satu pemutar audio** di bagian atas untuk menjawab 4 soal sekaligus di bawahnya.</li>
+                <li>**Part C: Talks / Lectures (Q39 - Q50)**: Terdiri dari 3 ceramah/kuliah pendek. Setiap ceramah memiliki **satu pemutar audio** di bagian atas untuk menjawab 4 soal sekaligus di bawahnya.</li>
+                <li>Gunakan tombol **Show Script** jika audio tidak terdengar jelas di perangkat Anda. Klik **Submit Answers** setelah menjawab seluruh pertanyaan.</li>
+            </ul>
+        </div>
+
+        <form id="toeflQuizForm">
+            <div class="quiz-grid-layout">
+                <!-- Questions Side -->
+                <div class="questions-wrapper">
+                    
+                    <!-- ================= PART A: SHORT CONVERSATIONS ================= -->
+                    <div class="section-title-quiz" id="sec-parta">
+                        <i class="fas fa-comments"></i>
+                        <span>Part A: Short Conversations (Q1 - Q30)</span>
+                    </div>
+                    <p style="color: var(--text-secondary); margin-bottom: 25px; font-style: italic; font-size: 0.95rem;">
+                        Directions: In this part, you will hear short conversations between two people. Choose the best answer to each question.
+                    </p>
+
+                    <!-- Dynamically generate Q1 to Q30 via HTML structure -->
+                    <!-- We will render them statically for robust loading and speed -->
+
+                    <!-- Q1 -->
+                    <div class="question-card" id="q-box-1">
+                        <span class="question-number">Question 1</span>
+                        <div class="listening-audio-box">
+                            <button type="button" class="play-audio-btn" data-audio-id="1"><i class="fas fa-play"></i></button>
+                            <div style="flex-grow: 1;">
+                                <span style="font-weight: 600; color: #fff; display: block; font-size: 0.9rem;">Audio 1</span>
+                                <span style="font-size: 0.8rem; color: var(--text-secondary);">Klik untuk memutar percakapan</span>
+                            </div>
+                            <button type="button" class="toggle-script-btn" data-target="script-1">Show Script</button>
+                        </div>
+                        <div class="dialogue-script" id="script-1">
+                            <strong>Woman:</strong> "Are you finished with the report yet?"<br>
+                            <strong>Man:</strong> "Not quite, but I should be done by the end of the hour."<br>
+                            <strong>Narrator:</strong> "What does the man imply?"
+                        </div>
+                        <p class="question-text">What does the man imply?</p>
+                        <div class="options-list">
+                            <label class="option-item"><input type="radio" name="q1" value="A" required><span class="option-checkmark"></span><span class="option-text">(A) He needs another day to finish.</span></label>
+                            <label class="option-item"><input type="radio" name="q1" value="B"><span class="option-checkmark"></span><span class="option-text">(B) He will finish in about an hour.</span></label>
+                            <label class="option-item"><input type="radio" name="q1" value="C"><span class="option-checkmark"></span><span class="option-text">(C) He has already turned in the report.</span></label>
+                            <label class="option-item"><input type="radio" name="q1" value="D"><span class="option-checkmark"></span><span class="option-text">(D) He is too busy to work on the report.</span></label>
+                        </div>
+                    </div>
+
+                    <!-- Q2 -->
+                    <div class="question-card" id="q-box-2">
+                        <span class="question-number">Question 2</span>
+                        <div class="listening-audio-box">
+                            <button type="button" class="play-audio-btn" data-audio-id="2"><i class="fas fa-play"></i></button>
+                            <div style="flex-grow: 1;">
+                                <span style="font-weight: 600; color: #fff; display: block; font-size: 0.9rem;">Audio 2</span>
+                                <span style="font-size: 0.8rem; color: var(--text-secondary);">Klik untuk memutar percakapan</span>
+                            </div>
+                            <button type="button" class="toggle-script-btn" data-target="script-2">Show Script</button>
+                        </div>
+                        <div class="dialogue-script" id="script-2">
+                            <strong>Man:</strong> "I'd like to sign up for the molecular biology course."<br>
+                            <strong>Woman:</strong> "I'm sorry, but that class filled up yesterday."<br>
+                            <strong>Narrator:</strong> "What does the woman mean?"
+                        </div>
+                        <p class="question-text">What does the woman mean?</p>
+                        <div class="options-list">
+                            <label class="option-item"><input type="radio" name="q2" value="A" required><span class="option-checkmark"></span><span class="option-text">(A) The course is no longer offered.</span></label>
+                            <label class="option-item"><input type="radio" name="q2" value="B"><span class="option-checkmark"></span><span class="option-text">(B) The class has been moved to yesterday.</span></label>
+                            <label class="option-item"><input type="radio" name="q2" value="C"><span class="option-checkmark"></span><span class="option-text">(C) The molecular biology course is full.</span></label>
+                            <label class="option-item"><input type="radio" name="q2" value="D"><span class="option-checkmark"></span><span class="option-text">(D) The man can sign up next week.</span></label>
+                        </div>
+                    </div>
+
+                    <!-- Q3 -->
+                    <div class="question-card" id="q-box-3">
+                        <span class="question-number">Question 3</span>
+                        <div class="listening-audio-box">
+                            <button type="button" class="play-audio-btn" data-audio-id="3"><i class="fas fa-play"></i></button>
+                            <div style="flex-grow: 1;">
+                                <span style="font-weight: 600; color: #fff; display: block; font-size: 0.9rem;">Audio 3</span>
+                                <span style="font-size: 0.8rem; color: var(--text-secondary);">Klik untuk memutar percakapan</span>
+                            </div>
+                            <button type="button" class="toggle-script-btn" data-target="script-3">Show Script</button>
+                        </div>
+                        <div class="dialogue-script" id="script-3">
+                            <strong>Woman:</strong> "How was your flight to Chicago?"<br>
+                            <strong>Man:</strong> "The turbulence was so bad I couldn't read or sleep at all."<br>
+                            <strong>Narrator:</strong> "What does the man mean?"
+                        </div>
+                        <p class="question-text">What does the man mean?</p>
+                        <div class="options-list">
+                            <label class="option-item"><input type="radio" name="q3" value="A" required><span class="option-checkmark"></span><span class="option-text">(A) His flight was cancelled.</span></label>
+                            <label class="option-item"><input type="radio" name="q3" value="B"><span class="option-checkmark"></span><span class="option-text">(B) He had a very rough and uncomfortable flight.</span></label>
+                            <label class="option-item"><input type="radio" name="q3" value="C"><span class="option-checkmark"></span><span class="option-text">(C) He read a book about Chicago during the flight.</span></label>
+                            <label class="option-item"><input type="radio" name="q3" value="D"><span class="option-checkmark"></span><span class="option-text">(D) He slept through the entire journey.</span></label>
+                        </div>
+                    </div>
+
+                    <!-- Q4 -->
+                    <div class="question-card" id="q-box-4">
+                        <span class="question-number">Question 4</span>
+                        <div class="listening-audio-box">
+                            <button type="button" class="play-audio-btn" data-audio-id="4"><i class="fas fa-play"></i></button>
+                            <div style="flex-grow: 1;">
+                                <span style="font-weight: 600; color: #fff; display: block; font-size: 0.9rem;">Audio 4</span>
+                                <span style="font-size: 0.8rem; color: var(--text-secondary);">Klik untuk memutar percakapan</span>
+                            </div>
+                            <button type="button" class="toggle-script-btn" data-target="script-4">Show Script</button>
+                        </div>
+                        <div class="dialogue-script" id="script-4">
+                            <strong>Man:</strong> "Would you like some help moving those boxes?"<br>
+                            <strong>Woman:</strong> "Thanks, but my brother is coming over to help me in a few minutes."<br>
+                            <strong>Narrator:</strong> "What will the woman probably do?"
+                        </div>
+                        <p class="question-text">What will the woman probably do?</p>
+                        <div class="options-list">
+                            <label class="option-item"><input type="radio" name="q4" value="A" required><span class="option-checkmark"></span><span class="option-text">(A) Let the man carry the boxes.</span></label>
+                            <label class="option-item"><input type="radio" name="q4" value="B"><span class="option-checkmark"></span><span class="option-text">(B) Call her brother to cancel.</span></label>
+                            <label class="option-item"><input type="radio" name="q4" value="C"><span class="option-checkmark"></span><span class="option-text">(C) Move the boxes by herself now.</span></label>
+                            <label class="option-item"><input type="radio" name="q4" value="D"><span class="option-checkmark"></span><span class="option-text">(D) Wait for her brother to arrive.</span></label>
+                        </div>
+                    </div>
+
+                    <!-- Q5 -->
+                    <div class="question-card" id="q-box-5">
+                        <span class="question-number">Question 5</span>
+                        <div class="listening-audio-box">
+                            <button type="button" class="play-audio-btn" data-audio-id="5"><i class="fas fa-play"></i></button>
+                            <div style="flex-grow: 1;">
+                                <span style="font-weight: 600; color: #fff; display: block; font-size: 0.9rem;">Audio 5</span>
+                                <span style="font-size: 0.8rem; color: var(--text-secondary);">Klik untuk memutar percakapan</span>
+                            </div>
+                            <button type="button" class="toggle-script-btn" data-target="script-5">Show Script</button>
+                        </div>
+                        <div class="dialogue-script" id="script-5">
+                            <strong>Woman:</strong> "Can you recommend a good place to eat near the campus?"<br>
+                            <strong>Man:</strong> "The Italian restaurant on Main Street has great food, but it's a bit pricey."<br>
+                            <strong>Narrator:</strong> "What does the man suggest about the restaurant?"
+                        </div>
+                        <p class="question-text">What does the man suggest about the restaurant?</p>
+                        <div class="options-list">
+                            <label class="option-item"><input type="radio" name="q5" value="A" required><span class="option-checkmark"></span><span class="option-text">(A) The food quality is poor.</span></label>
+                            <label class="option-item"><input type="radio" name="q5" value="B"><span class="option-checkmark"></span><span class="option-text">(B) It is close to campus and cheap.</span></label>
+                            <label class="option-item"><input type="radio" name="q5" value="C"><span class="option-checkmark"></span><span class="option-text">(C) It serves good food but is expensive.</span></label>
+                            <label class="option-item"><input type="radio" name="q5" value="D"><span class="option-checkmark"></span><span class="option-text">(D) The Italian restaurant is closed on weekends.</span></label>
+                        </div>
+                    </div>
+
+                    <!-- Q6 -->
+                    <div class="question-card" id="q-box-6">
+                        <span class="question-number">Question 6</span>
+                        <div class="listening-audio-box">
+                            <button type="button" class="play-audio-btn" data-audio-id="6"><i class="fas fa-play"></i></button>
+                            <div style="flex-grow: 1;">
+                                <span style="font-weight: 600; color: #fff; display: block; font-size: 0.9rem;">Audio 6</span>
+                                <span style="font-size: 0.8rem; color: var(--text-secondary);">Klik untuk memutar percakapan</span>
+                            </div>
+                            <button type="button" class="toggle-script-btn" data-target="script-6">Show Script</button>
+                        </div>
+                        <div class="dialogue-script" id="script-6">
+                            <strong>Man:</strong> "Do you have the key to the conference room?"<br>
+                            <strong>Woman:</strong> "You should ask Mr. Johnson; he usually keeps it in his office."<br>
+                            <strong>Narrator:</strong> "What does the woman suggest the man do?"
+                        </div>
+                        <p class="question-text">What does the woman suggest the man do?</p>
+                        <div class="options-list">
+                            <label class="option-item"><input type="radio" name="q6" value="A" required><span class="option-checkmark"></span><span class="option-text">(A) Look for Mr. Johnson in the conference room.</span></label>
+                            <label class="option-item"><input type="radio" name="q6" value="B"><span class="option-checkmark"></span><span class="option-text">(B) Contact Mr. Johnson to get the key.</span></label>
+                            <label class="option-item"><input type="radio" name="q6" value="C"><span class="option-checkmark"></span><span class="option-text">(C) Leave his office to find the key.</span></label>
+                            <label class="option-item"><input type="radio" name="q6" value="D"><span class="option-checkmark"></span><span class="option-text">(D) Lock the conference room door.</span></label>
+                        </div>
+                    </div>
+
+                    <!-- Q7 -->
+                    <div class="question-card" id="q-box-7">
+                        <span class="question-number">Question 7</span>
+                        <div class="listening-audio-box">
+                            <button type="button" class="play-audio-btn" data-audio-id="7"><i class="fas fa-play"></i></button>
+                            <div style="flex-grow: 1;">
+                                <span style="font-weight: 600; color: #fff; display: block; font-size: 0.9rem;">Audio 7</span>
+                                <span style="font-size: 0.8rem; color: var(--text-secondary);">Klik untuk memutar percakapan</span>
+                            </div>
+                            <button type="button" class="toggle-script-btn" data-target="script-7">Show Script</button>
+                        </div>
+                        <div class="dialogue-script" id="script-7">
+                            <strong>Woman:</strong> "I hope we don't miss the beginning of the movie."<br>
+                            <strong>Man:</strong> "Don't worry, the theater is only a five-minute walk from here."<br>
+                            <strong>Narrator:</strong> "What does the man mean?"
+                        </div>
+                        <p class="question-text">What does the man mean?</p>
+                        <div class="options-list">
+                            <label class="option-item"><input type="radio" name="q7" value="A" required><span class="option-checkmark"></span><span class="option-text">(A) The movie has already started.</span></label>
+                            <label class="option-item"><input type="radio" name="q7" value="B"><span class="option-checkmark"></span><span class="option-text">(B) They will probably arrive on time.</span></label>
+                            <label class="option-item"><input type="radio" name="q7" value="C"><span class="option-checkmark"></span><span class="option-text">(C) The theater is too far to walk to.</span></label>
+                            <label class="option-item"><input type="radio" name="q7" value="D"><span class="option-checkmark"></span><span class="option-text">(D) He doesn't want to watch the movie.</span></label>
+                        </div>
+                    </div>
+
+                    <!-- Q8 -->
+                    <div class="question-card" id="q-box-8">
+                        <span class="question-number">Question 8</span>
+                        <div class="listening-audio-box">
+                            <button type="button" class="play-audio-btn" data-audio-id="8"><i class="fas fa-play"></i></button>
+                            <div style="flex-grow: 1;">
+                                <span style="font-weight: 600; color: #fff; display: block; font-size: 0.9rem;">Audio 8</span>
+                                <span style="font-size: 0.8rem; color: var(--text-secondary);">Klik untuk memutar percakapan</span>
+                            </div>
+                            <button type="button" class="toggle-script-btn" data-target="script-8">Show Script</button>
+                        </div>
+                        <div class="dialogue-script" id="script-8">
+                            <strong>Man:</strong> "Did you buy the newspaper today?"<br>
+                            <strong>Woman:</strong> "I tried to, but the store was completely out of them."<br>
+                            <strong>Narrator:</strong> "What does the woman mean?"
+                        </div>
+                        <p class="question-text">What does the woman mean?</p>
+                        <div class="options-list">
+                            <label class="option-item"><input type="radio" name="q8" value="A" required><span class="option-checkmark"></span><span class="option-text">(A) She forgot to go to the store.</span></label>
+                            <label class="option-item"><input type="radio" name="q8" value="B"><span class="option-checkmark"></span><span class="option-text">(B) The store had no newspapers left.</span></label>
+                            <label class="option-item"><input type="radio" name="q8" value="C"><span class="option-checkmark"></span><span class="option-text">(C) She read the newspaper at the store.</span></label>
+                            <label class="option-item"><input type="radio" name="q8" value="D"><span class="option-checkmark"></span><span class="option-text">(D) The newspaper was too expensive.</span></label>
+                        </div>
+                    </div>
+
+                    <!-- Q9 -->
+                    <div class="question-card" id="q-box-9">
+                        <span class="question-number">Question 9</span>
+                        <div class="listening-audio-box">
+                            <button type="button" class="play-audio-btn" data-audio-id="9"><i class="fas fa-play"></i></button>
+                            <div style="flex-grow: 1;">
+                                <span style="font-weight: 600; color: #fff; display: block; font-size: 0.9rem;">Audio 9</span>
+                                <span style="font-size: 0.8rem; color: var(--text-secondary);">Klik untuk memutar percakapan</span>
+                            </div>
+                            <button type="button" class="toggle-script-btn" data-target="script-9">Show Script</button>
+                        </div>
+                        <div class="dialogue-script" id="script-9">
+                            <strong>Woman:</strong> "Should we invite Mark to the party?"<br>
+                            <strong>Man:</strong> "He mentioned yesterday that he had to study for his history exam all weekend."<br>
+                            <strong>Narrator:</strong> "What does the man imply about Mark?"
+                        </div>
+                        <p class="question-text">What does the man imply about Mark?</p>
+                        <div class="options-list">
+                            <label class="option-item"><input type="radio" name="q9" value="A" required><span class="option-checkmark"></span><span class="option-text">(A) Mark wants to come to the party.</span></label>
+                            <label class="option-item"><input type="radio" name="q9" value="B"><span class="option-checkmark"></span><span class="option-text">(B) Mark doesn't like history exams.</span></label>
+                            <label class="option-item"><input type="radio" name="q9" value="C"><span class="option-checkmark"></span><span class="option-text">(C) Mark is probably too busy to attend.</span></label>
+                            <label class="option-item"><input type="radio" name="q9" value="D"><span class="option-checkmark"></span><span class="option-text">(D) Mark will invite them to study history.</span></label>
+                        </div>
+                    </div>
+
+                    <!-- Q10 -->
+                    <div class="question-card" id="q-box-10">
+                        <span class="question-number">Question 10</span>
+                        <div class="listening-audio-box">
+                            <button type="button" class="play-audio-btn" data-audio-id="10"><i class="fas fa-play"></i></button>
+                            <div style="flex-grow: 1;">
+                                <span style="font-weight: 600; color: #fff; display: block; font-size: 0.9rem;">Audio 10</span>
+                                <span style="font-size: 0.8rem; color: var(--text-secondary);">Klik untuk memutar percakapan</span>
+                            </div>
+                            <button type="button" class="toggle-script-btn" data-target="script-10">Show Script</button>
+                        </div>
+                        <div class="dialogue-script" id="script-10">
+                            <strong>Man:</strong> "I'm really tired of eating cafeteria food."<br>
+                            <strong>Woman:</strong> "Why don't we try that new sushi restaurant down the street?"<br>
+                            <strong>Narrator:</strong> "What does the woman suggest?"
+                        </div>
+                        <p class="question-text">What does the woman suggest?</p>
+                        <div class="options-list">
+                            <label class="option-item"><input type="radio" name="q10" value="A" required><span class="option-checkmark"></span><span class="option-text">(A) Eating at the cafeteria again.</span></label>
+                            <label class="option-item"><input type="radio" name="q10" value="B"><span class="option-checkmark"></span><span class="option-text">(B) Going to a new restaurant.</span></label>
+                            <label class="option-item"><input type="radio" name="q10" value="C"><span class="option-checkmark"></span><span class="option-text">(C) Cooking dinner at home.</span></label>
+                            <label class="option-item"><input type="radio" name="q10" value="D"><span class="option-checkmark"></span><span class="option-text">(D) Waiting for the cafeteria to close.</span></label>
+                        </div>
+                    </div>
+
+                    <!-- Q11 -->
+                    <div class="question-card" id="q-box-11">
+                        <span class="question-number">Question 11</span>
+                        <div class="listening-audio-box">
+                            <button type="button" class="play-audio-btn" data-audio-id="11"><i class="fas fa-play"></i></button>
+                            <div style="flex-grow: 1;">
+                                <span style="font-weight: 600; color: #fff; display: block; font-size: 0.9rem;">Audio 11</span>
+                                <span style="font-size: 0.8rem; color: var(--text-secondary);">Klik untuk memutar percakapan</span>
+                            </div>
+                            <button type="button" class="toggle-script-btn" data-target="script-11">Show Script</button>
+                        </div>
+                        <div class="dialogue-script" id="script-11">
+                            <strong>Woman:</strong> "I can't believe how cold it is outside."<br>
+                            <strong>Man:</strong> "You'd better put on a heavy coat before you leave."<br>
+                            <strong>Narrator:</strong> "What does the man advise the woman to do?"
+                        </div>
+                        <p class="question-text">What does the man advise the woman to do?</p>
+                        <div class="options-list">
+                            <label class="option-item"><input type="radio" name="q11" value="A" required><span class="option-checkmark"></span><span class="option-text">(A) Stay indoors until it gets warmer.</span></label>
+                            <label class="option-item"><input type="radio" name="q11" value="B"><span class="option-checkmark"></span><span class="option-text">(B) Wear a warm coat.</span></label>
+                            <label class="option-item"><input type="radio" name="q11" value="C"><span class="option-checkmark"></span><span class="option-text">(C) Leave her heavy coat at home.</span></label>
+                            <label class="option-item"><input type="radio" name="q11" value="D"><span class="option-checkmark"></span><span class="option-text">(D) Walk faster when she goes outside.</span></label>
+                        </div>
+                    </div>
+
+                    <!-- Q12 -->
+                    <div class="question-card" id="q-box-12">
+                        <span class="question-number">Question 12</span>
+                        <div class="listening-audio-box">
+                            <button type="button" class="play-audio-btn" data-audio-id="12"><i class="fas fa-play"></i></button>
+                            <div style="flex-grow: 1;">
+                                <span style="font-weight: 600; color: #fff; display: block; font-size: 0.9rem;">Audio 12</span>
+                                <span style="font-size: 0.8rem; color: var(--text-secondary);">Klik untuk memutar percakapan</span>
+                            </div>
+                            <button type="button" class="toggle-script-btn" data-target="script-12">Show Script</button>
+                        </div>
+                        <div class="dialogue-script" id="script-12">
+                            <strong>Man:</strong> "Did you hear that Professor Davis is retiring?"<br>
+                            <strong>Woman:</strong> "Really? He has been teaching here for over thirty years."<br>
+                            <strong>Narrator:</strong> "What does the woman react to?"
+                        </div>
+                        <p class="question-text">What does the woman react to?</p>
+                        <div class="options-list">
+                            <label class="option-item"><input type="radio" name="q12" value="A" required><span class="option-checkmark"></span><span class="option-text">(A) Professor Davis's new research project.</span></label>
+                            <label class="option-item"><input type="radio" name="q12" value="B"><span class="option-checkmark"></span><span class="option-text">(B) The length of Professor Davis's career.</span></label>
+                            <label class="option-item"><input type="radio" name="q12" value="C"><span class="option-checkmark"></span><span class="option-text">(C) A change in Professor Davis's office hours.</span></label>
+                            <label class="option-item"><input type="radio" name="q12" value="D"><span class="option-checkmark"></span><span class="option-text">(D) Professor Davis's retirement announcement.</span></label>
+                        </div>
+                    </div>
+
+                    <!-- Q13 -->
+                    <div class="question-card" id="q-box-13">
+                        <span class="question-number">Question 13</span>
+                        <div class="listening-audio-box">
+                            <button type="button" class="play-audio-btn" data-audio-id="13"><i class="fas fa-play"></i></button>
+                            <div style="flex-grow: 1;">
+                                <span style="font-weight: 600; color: #fff; display: block; font-size: 0.9rem;">Audio 13</span>
+                                <span style="font-size: 0.8rem; color: var(--text-secondary);">Klik untuk memutar percakapan</span>
+                            </div>
+                            <button type="button" class="toggle-script-btn" data-target="script-13">Show Script</button>
+                        </div>
+                        <div class="dialogue-script" id="script-13">
+                            <strong>Woman:</strong> "I need to get these documents photocopied as soon as possible."<br>
+                            <strong>Man:</strong> "The copy machine down the hall is out of order, but there is another one on the third floor."<br>
+                            <strong>Narrator:</strong> "What does the man suggest the woman do?"
+                        </div>
+                        <p class="question-text">What does the man suggest the woman do?</p>
+                        <div class="options-list">
+                            <label class="option-item"><input type="radio" name="q13" value="A" required><span class="option-checkmark"></span><span class="option-text">(A) Wait until the copy machine is repaired.</span></label>
+                            <label class="option-item"><input type="radio" name="q13" value="B"><span class="option-checkmark"></span><span class="option-text">(B) Use the copier on the third floor.</span></label>
+                            <label class="option-item"><input type="radio" name="q13" value="C"><span class="option-checkmark"></span><span class="option-text">(C) Postpone copying the documents.</span></label>
+                            <label class="option-item"><input type="radio" name="q13" value="D"><span class="option-checkmark"></span><span class="option-text">(D) Repair the copier down the hall.</span></label>
+                        </div>
+                    </div>
+
+                    <!-- Q14 -->
+                    <div class="question-card" id="q-box-14">
+                        <span class="question-number">Question 14</span>
+                        <div class="listening-audio-box">
+                            <button type="button" class="play-audio-btn" data-audio-id="14"><i class="fas fa-play"></i></button>
+                            <div style="flex-grow: 1;">
+                                <span style="font-weight: 600; color: #fff; display: block; font-size: 0.9rem;">Audio 14</span>
+                                <span style="font-size: 0.8rem; color: var(--text-secondary);">Klik untuk memutar percakapan</span>
+                            </div>
+                            <button type="button" class="toggle-script-btn" data-target="script-14">Show Script</button>
+                        </div>
+                        <div class="dialogue-script" id="script-14">
+                            <strong>Man:</strong> "I'm looking for a gift for my sister's graduation."<br>
+                            <strong>Woman:</strong> "A nice watch or a leather portfolio is always a popular choice."<br>
+                            <strong>Narrator:</strong> "What does the woman do?"
+                        </div>
+                        <p class="question-text">What does the woman do?</p>
+                        <div class="options-list">
+                            <label class="option-item"><input type="radio" name="q14" value="A" required><span class="option-checkmark"></span><span class="option-text">(A) Suggests some graduation gift ideas.</span></label>
+                            <label class="option-item"><input type="radio" name="q14" value="B"><span class="option-checkmark"></span><span class="option-text">(B) Asks the man about his sister's hobbies.</span></label>
+                            <label class="option-item"><input type="radio" name="q14" value="C"><span class="option-checkmark"></span><span class="option-text">(C) Offers to buy a watch for his sister.</span></label>
+                            <label class="option-item"><input type="radio" name="q14" value="D"><span class="option-checkmark"></span><span class="option-text">(D) Congratulates the man's sister.</span></label>
+                        </div>
+                    </div>
+
+                    <!-- Q15 -->
+                    <div class="question-card" id="q-box-15">
+                        <span class="question-number">Question 15</span>
+                        <div class="listening-audio-box">
+                            <button type="button" class="play-audio-btn" data-audio-id="15"><i class="fas fa-play"></i></button>
+                            <div style="flex-grow: 1;">
+                                <span style="font-weight: 600; color: #fff; display: block; font-size: 0.9rem;">Audio 15</span>
+                                <span style="font-size: 0.8rem; color: var(--text-secondary);">Klik untuk memutar percakapan</span>
+                            </div>
+                            <button type="button" class="toggle-script-btn" data-target="script-15">Show Script</button>
+                        </div>
+                        <div class="dialogue-script" id="script-15">
+                            <strong>Woman:</strong> "Did you manage to repair your computer?"<br>
+                            <strong>Man:</strong> "No, I had to take it to a professional repair shop yesterday."<br>
+                            <strong>Narrator:</strong> "What did the man do?"
+                        </div>
+                        <p class="question-text">What did the man do?</p>
+                        <div class="options-list">
+                            <label class="option-item"><input type="radio" name="q15" value="A" required><span class="option-checkmark"></span><span class="option-text">(A) He fixed the computer himself.</span></label>
+                            <label class="option-item"><input type="radio" name="q15" value="B"><span class="option-checkmark"></span><span class="option-text">(B) He bought a new computer yesterday.</span></label>
+                            <label class="option-item"><input type="radio" name="q15" value="C"><span class="option-checkmark"></span><span class="option-text">(C) He had his computer repaired by someone else.</span></label>
+                            <label class="option-item"><input type="radio" name="q15" value="D"><span class="option-checkmark"></span><span class="option-text">(D) He gave up on repairing the computer.</span></label>
+                        </div>
+                    </div>
+
+                    <!-- Q16 -->
+                    <div class="question-card" id="q-box-16">
+                        <span class="question-number">Question 16</span>
+                        <div class="listening-audio-box">
+                            <button type="button" class="play-audio-btn" data-audio-id="16"><i class="fas fa-play"></i></button>
+                            <div style="flex-grow: 1;">
+                                <span style="font-weight: 600; color: #fff; display: block; font-size: 0.9rem;">Audio 16</span>
+                                <span style="font-size: 0.8rem; color: var(--text-secondary);">Klik untuk memutar percakapan</span>
+                            </div>
+                            <button type="button" class="toggle-script-btn" data-target="script-16">Show Script</button>
+                        </div>
+                        <div class="dialogue-script" id="script-16">
+                            <strong>Man:</strong> "The traffic on the highway was terrible this morning."<br>
+                            <strong>Woman:</strong> "It's always bad during rush hour; you should try taking the back roads next time."<br>
+                            <strong>Narrator:</strong> "What does the woman suggest?"
+                        </div>
+                        <p class="question-text">What does the woman suggest?</p>
+                        <div class="options-list">
+                            <label class="option-item"><input type="radio" name="q16" value="A" required><span class="option-checkmark"></span><span class="option-text">(A) Driving on the highway earlier.</span></label>
+                            <label class="option-item"><input type="radio" name="q16" value="B"><span class="option-checkmark"></span><span class="option-text">(B) Avoiding rush hour altogether.</span></label>
+                            <label class="option-item"><input type="radio" name="q16" value="C"><span class="option-checkmark"></span><span class="option-text">(C) Using an alternative route.</span></label>
+                            <label class="option-item"><input type="radio" name="q16" value="D"><span class="option-checkmark"></span><span class="option-text">(D) Taking a bus to work.</span></label>
+                        </div>
+                    </div>
+
+                    <!-- Q17 -->
+                    <div class="question-card" id="q-box-17">
+                        <span class="question-number">Question 17</span>
+                        <div class="listening-audio-box">
+                            <button type="button" class="play-audio-btn" data-audio-id="17"><i class="fas fa-play"></i></button>
+                            <div style="flex-grow: 1;">
+                                <span style="font-weight: 600; color: #fff; display: block; font-size: 0.9rem;">Audio 17</span>
+                                <span style="font-size: 0.8rem; color: var(--text-secondary);">Klik untuk memutar percakapan</span>
+                            </div>
+                            <button type="button" class="toggle-script-btn" data-target="script-17">Show Script</button>
+                        </div>
+                        <div class="dialogue-script" id="script-17">
+                            <strong>Woman:</strong> "I'm thinking of joining the tennis club."<br>
+                            <strong>Man:</strong> "It's a great club, but the annual membership fee is quite high."<br>
+                            <strong>Narrator:</strong> "What does the man imply?"
+                        </div>
+                        <p class="question-text">What does the man imply?</p>
+                        <div class="options-list">
+                            <label class="option-item"><input type="radio" name="q17" value="A" required><span class="option-checkmark"></span><span class="option-text">(A) The club is not very good.</span></label>
+                            <label class="option-item"><input type="radio" name="q17" value="B"><span class="option-checkmark"></span><span class="option-text">(B) The tennis courts are crowded.</span></label>
+                            <label class="option-item"><input type="radio" name="q17" value="C"><span class="option-checkmark"></span><span class="option-text">(C) Joining the club is expensive.</span></label>
+                            <label class="option-item"><input type="radio" name="q17" value="D"><span class="option-checkmark"></span><span class="option-text">(D) The woman should play golf instead.</span></label>
+                        </div>
+                    </div>
+
+                    <!-- Q18 -->
+                    <div class="question-card" id="q-box-18">
+                        <span class="question-number">Question 18</span>
+                        <div class="listening-audio-box">
+                            <button type="button" class="play-audio-btn" data-audio-id="18"><i class="fas fa-play"></i></button>
+                            <div style="flex-grow: 1;">
+                                <span style="font-weight: 600; color: #fff; display: block; font-size: 0.9rem;">Audio 18</span>
+                                <span style="font-size: 0.8rem; color: var(--text-secondary);">Klik untuk memutar percakapan</span>
+                            </div>
+                            <button type="button" class="toggle-script-btn" data-target="script-18">Show Script</button>
+                        </div>
+                        <div class="dialogue-script" id="script-18">
+                            <strong>Man:</strong> "Has the postman delivered the mail yet?"<br>
+                            <strong>Woman:</strong> "Yes, but there was nothing in the mailbox except for some advertisements."<br>
+                            <strong>Narrator:</strong> "What does the woman mean?"
+                        </div>
+                        <p class="question-text">What does the woman mean?</p>
+                        <div class="options-list">
+                            <label class="option-item"><input type="radio" name="q18" value="A" required><span class="option-checkmark"></span><span class="option-text">(A) The postman forgot their house today.</span></label>
+                            <label class="option-item"><input type="radio" name="q18" value="B"><span class="option-checkmark"></span><span class="option-text">(B) They received no personal letters.</span></label>
+                            <label class="option-item"><input type="radio" name="q18" value="C"><span class="option-checkmark"></span><span class="option-text">(C) The mailbox was empty.</span></label>
+                            <label class="option-item"><input type="radio" name="q18" value="D"><span class="option-checkmark"></span><span class="option-text">(D) They received a package of books.</span></label>
+                        </div>
+                    </div>
+
+                    <!-- Q19 -->
+                    <div class="question-card" id="q-box-19">
+                        <span class="question-number">Question 19</span>
+                        <div class="listening-audio-box">
+                            <button type="button" class="play-audio-btn" data-audio-id="19"><i class="fas fa-play"></i></button>
+                            <div style="flex-grow: 1;">
+                                <span style="font-weight: 600; color: #fff; display: block; font-size: 0.9rem;">Audio 19</span>
+                                <span style="font-size: 0.8rem; color: var(--text-secondary);">Klik untuk memutar percakapan</span>
+                            </div>
+                            <button type="button" class="toggle-script-btn" data-target="script-19">Show Script</button>
+                        </div>
+                        <div class="dialogue-script" id="script-19">
+                            <strong>Woman:</strong> "Could you tell me how to get to the chemistry building?"<br>
+                            <strong>Man:</strong> "I'm actually heading there right now to turn in a lab report; just follow me."<br>
+                            <strong>Narrator:</strong> "What does the man offer to do?"
+                        </div>
+                        <p class="question-text">What does the man offer to do?</p>
+                        <div class="options-list">
+                            <label class="option-item"><input type="radio" name="q19" value="A" required><span class="option-checkmark"></span><span class="option-text">(A) Explain how to write a lab report.</span></label>
+                            <label class="option-item"><input type="radio" name="q19" value="B"><span class="option-checkmark"></span><span class="option-text">(B) Walk with the woman to the building.</span></label>
+                            <label class="option-item"><input type="radio" name="q19" value="C"><span class="option-checkmark"></span><span class="option-text">(C) Give the woman a map of the campus.</span></label>
+                            <label class="option-item"><input type="radio" name="q19" value="D"><span class="option-checkmark"></span><span class="option-text">(D) Carry the woman's books.</span></label>
+                        </div>
+                    </div>
+
+                    <!-- Q20 -->
+                    <div class="question-card" id="q-box-20">
+                        <span class="question-number">Question 20</span>
+                        <div class="listening-audio-box">
+                            <button type="button" class="play-audio-btn" data-audio-id="20"><i class="fas fa-play"></i></button>
+                            <div style="flex-grow: 1;">
+                                <span style="font-weight: 600; color: #fff; display: block; font-size: 0.9rem;">Audio 20</span>
+                                <span style="font-size: 0.8rem; color: var(--text-secondary);">Klik untuk memutar percakapan</span>
+                            </div>
+                            <button type="button" class="toggle-script-btn" data-target="script-20">Show Script</button>
+                        </div>
+                        <div class="dialogue-script" id="script-20">
+                            <strong>Man:</strong> "I'd like to book a flight to Paris for next Friday."<br>
+                            <strong>Woman:</strong> "All flights for next Friday are fully booked, but I can check for Saturday."<br>
+                            <strong>Narrator:</strong> "What does the woman mean?"
+                        </div>
+                        <p class="question-text">What does the woman mean?</p>
+                        <div class="options-list">
+                            <label class="option-item"><input type="radio" name="q20" value="A" required><span class="option-checkmark"></span><span class="option-text">(A) Friday flights are too expensive.</span></label>
+                            <label class="option-item"><input type="radio" name="q20" value="B"><span class="option-checkmark"></span><span class="option-text">(B) No tickets are available for next Friday.</span></label>
+                            <label class="option-item"><input type="radio" name="q20" value="C"><span class="option-checkmark"></span><span class="option-text">(C) She can book a flight for Friday morning.</span></label>
+                            <label class="option-item"><input type="radio" name="q20" value="D"><span class="option-checkmark"></span><span class="option-text">(D) The man should travel by train.</span></label>
+                        </div>
+                    </div>
+
+                    <!-- Q21 -->
+                    <div class="question-card" id="q-box-21">
+                        <span class="question-number">Question 21</span>
+                        <div class="listening-audio-box">
+                            <button type="button" class="play-audio-btn" data-audio-id="21"><i class="fas fa-play"></i></button>
+                            <div style="flex-grow: 1;">
+                                <span style="font-weight: 600; color: #fff; display: block; font-size: 0.9rem;">Audio 21</span>
+                                <span style="font-size: 0.8rem; color: var(--text-secondary);">Klik untuk memutar percakapan</span>
+                            </div>
+                            <button type="button" class="toggle-script-btn" data-target="script-21">Show Script</button>
+                        </div>
+                        <div class="dialogue-script" id="script-21">
+                            <strong>Woman:</strong> "Are you planning to go to the concert tonight?"<br>
+                            <strong>Man:</strong> "I'd love to, but I have to work the night shift at the hospital."<br>
+                            <strong>Narrator:</strong> "What will the man probably do tonight?"
+                        </div>
+                        <p class="question-text">What will the man probably do tonight?</p>
+                        <div class="options-list">
+                            <label class="option-item"><input type="radio" name="q21" value="A" required><span class="option-checkmark"></span><span class="option-text">(A) Go to the concert after work.</span></label>
+                            <label class="option-item"><input type="radio" name="q21" value="B"><span class="option-checkmark"></span><span class="option-text">(B) Visit a patient at the hospital.</span></label>
+                            <label class="option-item"><input type="radio" name="q21" value="C"><span class="option-checkmark"></span><span class="option-text">(C) Work at the hospital.</span></label>
+                            <label class="option-item"><input type="radio" name="q21" value="D"><span class="option-checkmark"></span><span class="option-text">(D) Buy tickets for the concert.</span></label>
+                        </div>
+                    </div>
+
+                    <!-- Q22 -->
+                    <div class="question-card" id="q-box-22">
+                        <span class="question-number">Question 22</span>
+                        <div class="listening-audio-box">
+                            <button type="button" class="play-audio-btn" data-audio-id="22"><i class="fas fa-play"></i></button>
+                            <div style="flex-grow: 1;">
+                                <span style="font-weight: 600; color: #fff; display: block; font-size: 0.9rem;">Audio 22</span>
+                                <span style="font-size: 0.8rem; color: var(--text-secondary);">Klik untuk memutar percakapan</span>
+                            </div>
+                            <button type="button" class="toggle-script-btn" data-target="script-22">Show Script</button>
+                        </div>
+                        <div class="dialogue-script" id="script-22">
+                            <strong>Man:</strong> "I need to find a new apartment before my lease expires next month."<br>
+                            <strong>Woman:</strong> "The local newspaper usually has a lot of rental listings in the Saturday edition."<br>
+                            <strong>Narrator:</strong> "What does the woman suggest the man do?"
+                        </div>
+                        <p class="question-text">What does the woman suggest the man do?</p>
+                        <div class="options-list">
+                            <label class="option-item"><input type="radio" name="q22" value="A" required><span class="option-checkmark"></span><span class="option-text">(A) Renew his current lease.</span></label>
+                            <label class="option-item"><input type="radio" name="q22" value="B"><span class="option-checkmark"></span><span class="option-text">(B) Read the advertisements in Saturday's paper.</span></label>
+                            <label class="option-item"><input type="radio" name="q22" value="C"><span class="option-checkmark"></span><span class="option-text">(C) Contact a real estate agent.</span></label>
+                            <label class="option-item"><input type="radio" name="q22" value="D"><span class="option-checkmark"></span><span class="option-text">(D) Buy a Saturday newspaper subscription.</span></label>
+                        </div>
+                    </div>
+
+                    <!-- Q23 -->
+                    <div class="question-card" id="q-box-23">
+                        <span class="question-number">Question 23</span>
+                        <div class="listening-audio-box">
+                            <button type="button" class="play-audio-btn" data-audio-id="23"><i class="fas fa-play"></i></button>
+                            <div style="flex-grow: 1;">
+                                <span style="font-weight: 600; color: #fff; display: block; font-size: 0.9rem;">Audio 23</span>
+                                <span style="font-size: 0.8rem; color: var(--text-secondary);">Klik untuk memutar percakapan</span>
+                            </div>
+                            <button type="button" class="toggle-script-btn" data-target="script-23">Show Script</button>
+                        </div>
+                        <div class="dialogue-script" id="script-23">
+                            <strong>Woman:</strong> "I'm exhausted from studying for this biology exam."<br>
+                            <strong>Man:</strong> "Why don't you take a short break and walk around the campus?"<br>
+                            <strong>Narrator:</strong> "What does the man suggest?"
+                        </div>
+                        <p class="question-text">What does the man suggest?</p>
+                        <div class="options-list">
+                            <label class="option-item"><input type="radio" name="q23" value="A" required><span class="option-checkmark"></span><span class="option-text">(A) Studying biology in a different place.</span></label>
+                            <label class="option-item"><input type="radio" name="q23" value="B"><span class="option-checkmark"></span><span class="option-text">(B) Taking a walk to get some rest.</span></label>
+                            <label class="option-item"><input type="radio" name="q23" value="C"><span class="option-checkmark"></span><span class="option-text">(C) Postponing the biology exam.</span></label>
+                            <label class="option-item"><input type="radio" name="q23" value="D"><span class="option-checkmark"></span><span class="option-text">(D) Quitting the biology course.</span></label>
+                        </div>
+                    </div>
+
+                    <!-- Q24 -->
+                    <div class="question-card" id="q-box-24">
+                        <span class="question-number">Question 24</span>
+                        <div class="listening-audio-box">
+                            <button type="button" class="play-audio-btn" data-audio-id="24"><i class="fas fa-play"></i></button>
+                            <div style="flex-grow: 1;">
+                                <span style="font-weight: 600; color: #fff; display: block; font-size: 0.9rem;">Audio 24</span>
+                                <span style="font-size: 0.8rem; color: var(--text-secondary);">Klik untuk memutar percakapan</span>
+                            </div>
+                            <button type="button" class="toggle-script-btn" data-target="script-24">Show Script</button>
+                        </div>
+                        <div class="dialogue-script" id="script-24">
+                            <strong>Man:</strong> "Did you enjoy the guest speaker's presentation?"<br>
+                            <strong>Woman:</strong> "His slides were great, but it was hard to hear him from the back of the room."<br>
+                            <strong>Narrator:</strong> "What was the problem with the presentation?"
+                        </div>
+                        <p class="question-text">What was the problem with the presentation?</p>
+                        <div class="options-list">
+                            <label class="option-item"><input type="radio" name="q24" value="A" required><span class="option-checkmark"></span><span class="option-text">(A) The speaker did not bring any slides.</span></label>
+                            <label class="option-item"><input type="radio" name="q24" value="B"><span class="option-checkmark"></span><span class="option-text">(B) The speaker's voice was not loud enough.</span></label>
+                            <label class="option-item"><input type="radio" name="q24" value="C"><span class="option-checkmark"></span><span class="option-text">(C) The presentation was too short.</span></label>
+                            <label class="option-item"><input type="radio" name="q24" value="D"><span class="option-checkmark"></span><span class="option-text">(D) The room was completely dark.</span></label>
+                        </div>
+                    </div>
+
+                    <!-- Q25 -->
+                    <div class="question-card" id="q-box-25">
+                        <span class="question-number">Question 25</span>
+                        <div class="listening-audio-box">
+                            <button type="button" class="play-audio-btn" data-audio-id="25"><i class="fas fa-play"></i></button>
+                            <div style="flex-grow: 1;">
+                                <span style="font-weight: 600; color: #fff; display: block; font-size: 0.9rem;">Audio 25</span>
+                                <span style="font-size: 0.8rem; color: var(--text-secondary);">Klik untuk memutar percakapan</span>
+                            </div>
+                            <button type="button" class="toggle-script-btn" data-target="script-25">Show Script</button>
+                        </div>
+                        <div class="dialogue-script" id="script-25">
+                            <strong>Woman:</strong> "I need to buy some ingredients for the cake."<br>
+                            <strong>Man:</strong> "The grocery store is closed today, but the convenience store down the street is open."<br>
+                            <strong>Narrator:</strong> "What does the man imply?"
+                        </div>
+                        <p class="question-text">What does the man imply?</p>
+                        <div class="options-list">
+                            <label class="option-item"><input type="radio" name="q25" value="A" required><span class="option-checkmark"></span><span class="option-text">(A) The cake ingredients cannot be found today.</span></label>
+                            <label class="option-item"><input type="radio" name="q25" value="B"><span class="option-checkmark"></span><span class="option-text">(B) The convenience store has cake ingredients.</span></label>
+                            <label class="option-item"><input type="radio" name="q25" value="C"><span class="option-checkmark"></span><span class="option-text">(C) The grocery store will open later.</span></label>
+                            <label class="option-item"><input type="radio" name="q25" value="D"><span class="option-checkmark"></span><span class="option-text">(D) The woman should buy a pre-made cake.</span></label>
+                        </div>
+                    </div>
+
+                    <!-- Q26 -->
+                    <div class="question-card" id="q-box-26">
+                        <span class="question-number">Question 26</span>
+                        <div class="listening-audio-box">
+                            <button type="button" class="play-audio-btn" data-audio-id="26"><i class="fas fa-play"></i></button>
+                            <div style="flex-grow: 1;">
+                                <span style="font-weight: 600; color: #fff; display: block; font-size: 0.9rem;">Audio 26</span>
+                                <span style="font-size: 0.8rem; color: var(--text-secondary);">Klik untuk memutar percakapan</span>
+                            </div>
+                            <button type="button" class="toggle-script-btn" data-target="script-26">Show Script</button>
+                        </div>
+                        <div class="dialogue-script" id="script-26">
+                            <strong>Man:</strong> "I really need to get my car washed."<br>
+                            <strong>Woman:</strong> "It's supposed to rain tomorrow, so you might want to wait a couple of days."<br>
+                            <strong>Narrator:</strong> "What does the woman suggest the man do?"
+                        </div>
+                        <p class="question-text">What does the woman suggest the man do?</p>
+                        <div class="options-list">
+                            <label class="option-item"><input type="radio" name="q26" value="A" required><span class="option-checkmark"></span><span class="option-text">(A) Wash his car before it rains.</span></label>
+                            <label class="option-item"><input type="radio" name="q26" value="B"><span class="option-checkmark"></span><span class="option-text">(B) Delay washing his car.</span></label>
+                            <label class="option-item"><input type="radio" name="q26" value="C"><span class="option-checkmark"></span><span class="option-text">(C) Buy an umbrella today.</span></label>
+                            <label class="option-item"><input type="radio" name="q26" value="D"><span class="option-checkmark"></span><span class="option-text">(D) Drive his car inside.</span></label>
+                        </div>
+                    </div>
+
+                    <!-- Q27 -->
+                    <div class="question-card" id="q-box-27">
+                        <span class="question-number">Question 27</span>
+                        <div class="listening-audio-box">
+                            <button type="button" class="play-audio-btn" data-audio-id="27"><i class="fas fa-play"></i></button>
+                            <div style="flex-grow: 1;">
+                                <span style="font-weight: 600; color: #fff; display: block; font-size: 0.9rem;">Audio 27</span>
+                                <span style="font-size: 0.8rem; color: var(--text-secondary);">Klik untuk memutar percakapan</span>
+                            </div>
+                            <button type="button" class="toggle-script-btn" data-target="script-27">Show Script</button>
+                        </div>
+                        <div class="dialogue-script" id="script-27">
+                            <strong>Woman:</strong> "Do you have the phone number for the campus health center?"<br>
+                            <strong>Man:</strong> "It's listed on the back of your student ID card."<br>
+                            <strong>Narrator:</strong> "What does the man mean?"
+                        </div>
+                        <p class="question-text">What does the man mean?</p>
+                        <div class="options-list">
+                            <label class="option-item"><input type="radio" name="q27" value="A" required><span class="option-checkmark"></span><span class="option-text">(A) He doesn't know the phone number.</span></label>
+                            <label class="option-item"><input type="radio" name="q27" value="B"><span class="option-checkmark"></span><span class="option-text">(B) The woman can find the number on her ID card.</span></label>
+                            <label class="option-item"><input type="radio" name="q27" value="C"><span class="option-checkmark"></span><span class="option-text">(C) The health center is located near the ID office.</span></label>
+                            <label class="option-item"><input type="radio" name="q27" value="D"><span class="option-checkmark"></span><span class="option-text">(D) The health center is closed.</span></label>
+                        </div>
+                    </div>
+
+                    <!-- Q28 -->
+                    <div class="question-card" id="q-box-28">
+                        <span class="question-number">Question 28</span>
+                        <div class="listening-audio-box">
+                            <button type="button" class="play-audio-btn" data-audio-id="28"><i class="fas fa-play"></i></button>
+                            <div style="flex-grow: 1;">
+                                <span style="font-weight: 600; color: #fff; display: block; font-size: 0.9rem;">Audio 28</span>
+                                <span style="font-size: 0.8rem; color: var(--text-secondary);">Klik untuk memutar percakapan</span>
+                            </div>
+                            <button type="button" class="toggle-script-btn" data-target="script-28">Show Script</button>
+                        </div>
+                        <div class="dialogue-script" id="script-28">
+                            <strong>Man:</strong> "I was hoping to meet with Professor Green during his office hours today."<br>
+                            <strong>Woman:</strong> "He had to leave campus early for a faculty meeting, but he'll be back tomorrow."<br>
+                            <strong>Narrator:</strong> "What does the woman say about Professor Green?"
+                        </div>
+                        <p class="question-text">What does the woman say about Professor Green?</p>
+                        <div class="options-list">
+                            <label class="option-item"><input type="radio" name="q28" value="A" required><span class="option-checkmark"></span><span class="option-text">(A) He cancelled his office hours tomorrow.</span></label>
+                            <label class="option-item"><input type="radio" name="q28" value="B"><span class="option-checkmark"></span><span class="option-text">(B) He is not on campus right now.</span></label>
+                            <label class="option-item"><input type="radio" name="q28" value="C"><span class="option-checkmark"></span><span class="option-text">(C) He will attend a faculty meeting tomorrow.</span></label>
+                            <label class="option-item"><input type="radio" name="q28" value="D"><span class="option-checkmark"></span><span class="option-text">(D) He is waiting for the man in his office.</span></label>
+                        </div>
+                    </div>
+
+                    <!-- Q29 -->
+                    <div class="question-card" id="q-box-29">
+                        <span class="question-number">Question 29</span>
+                        <div class="listening-audio-box">
+                            <button type="button" class="play-audio-btn" data-audio-id="29"><i class="fas fa-play"></i></button>
+                            <div style="flex-grow: 1;">
+                                <span style="font-weight: 600; color: #fff; display: block; font-size: 0.9rem;">Audio 29</span>
+                                <span style="font-size: 0.8rem; color: var(--text-secondary);">Klik untuk memutar percakapan</span>
+                            </div>
+                            <button type="button" class="toggle-script-btn" data-target="script-29">Show Script</button>
+                        </div>
+                        <div class="dialogue-script" id="script-29">
+                            <strong>Woman:</strong> "Could you help me move this desk to the corner?"<br>
+                            <strong>Man:</strong> "I'd like to, but I have a bad back and shouldn't lift anything heavy."<br>
+                            <strong>Narrator:</strong> "What does the man imply?"
+                        </div>
+                        <p class="question-text">Could you help me move this desk to the corner?</p>
+                        <div class="options-list">
+                            <label class="option-item"><input type="radio" name="q29" value="A" required><span class="option-checkmark"></span><span class="option-text">(A) He wants to help the woman.</span></label>
+                            <label class="option-item"><input type="radio" name="q29" value="B"><span class="option-checkmark"></span><span class="option-text">(B) He is unable to lift the desk.</span></label>
+                            <label class="option-item"><input type="radio" name="q29" value="C"><span class="option-checkmark"></span><span class="option-text">(C) The desk is too light.</span></label>
+                            <label class="option-item"><input type="radio" name="q29" value="D"><span class="option-checkmark"></span><span class="option-text">(D) He will move the desk alone.</span></label>
+                        </div>
+                    </div>
+
+                    <!-- Q30 -->
+                    <div class="question-card" id="q-box-30">
+                        <span class="question-number">Question 30</span>
+                        <div class="listening-audio-box">
+                            <button type="button" class="play-audio-btn" data-audio-id="30"><i class="fas fa-play"></i></button>
+                            <div style="flex-grow: 1;">
+                                <span style="font-weight: 600; color: #fff; display: block; font-size: 0.9rem;">Audio 30</span>
+                                <span style="font-size: 0.8rem; color: var(--text-secondary);">Klik untuk memutar percakapan</span>
+                            </div>
+                            <button type="button" class="toggle-script-btn" data-target="script-30">Show Script</button>
+                        </div>
+                        <div class="dialogue-script" id="script-30">
+                            <strong>Man:</strong> "I'm thinking of buying a used bicycle from the local shop."<br>
+                            <strong>Woman:</strong> "You should check online first; you might find a better deal there."<br>
+                            <strong>Narrator:</strong> "What does the woman suggest?"
+                        </div>
+                        <p class="question-text">What does the woman suggest?</p>
+                        <div class="options-list">
+                            <label class="option-item"><input type="radio" name="q30" value="A" required><span class="option-checkmark"></span><span class="option-text">(A) Buying the bicycle from the local shop.</span></label>
+                            <label class="option-item"><input type="radio" name="q30" value="B"><span class="option-checkmark"></span><span class="option-text">(B) Looking for bicycles on the internet.</span></label>
+                            <label class="option-item"><input type="radio" name="q30" value="C"><span class="option-checkmark"></span><span class="option-text">(C) Renting a bicycle instead of buying.</span></label>
+                            <label class="option-item"><input type="radio" name="q30" value="D"><span class="option-checkmark"></span><span class="option-text">(D) Waiting for a sale at the shop.</span></label>
+                        </div>
+                    </div>
+
+
+                    <!-- ================= PART B: LONG CONVERSATIONS ================= -->
+                    <div class="section-title-quiz" id="sec-partb">
+                        <i class="fas fa-headset"></i>
+                        <span>Part B: Long Conversations (Q31 - Q38)</span>
+                    </div>
+                    <p style="color: var(--text-secondary); margin-bottom: 25px; font-style: italic; font-size: 0.95rem;">
+                        Directions: In this part, you will hear longer conversations. After each conversation, you will answer several questions.
+                    </p>
+
+                    <!-- Long Conversation 1 Card -->
+                    <div class="conversation-audio-block">
+                        <h3 style="color: var(--gold); margin-bottom: 15px;"><i class="fas fa-file-audio"></i> Long Conversation 1 (Questions 31 - 34)</h3>
+                        <div class="listening-audio-box" style="margin-bottom: 0;">
+                            <button type="button" class="play-audio-btn" data-audio-id="long-1"><i class="fas fa-play"></i></button>
+                            <div style="flex-grow: 1;">
+                                <span style="font-weight: 600; color: #fff; display: block; font-size: 0.9rem;">Audio Long Conversation 1</span>
+                                <span style="font-size: 0.8rem; color: var(--text-secondary);">Putar audio ini untuk menjawab Soal 31 sampai 34</span>
+                            </div>
+                            <button type="button" class="toggle-script-btn" data-target="script-long-1">Show Script</button>
+                        </div>
+                        <div class="dialogue-script" id="script-long-1">
+                            <strong>Steve:</strong> "Hi, Diana. Did you attend the student council meeting yesterday?"<br>
+                            <strong>Diana:</strong> "Yes, I did, Steve. We discussed the new campus recycling program."<br>
+                            <strong>Steve:</strong> "Oh, really? I wanted to go, but I had a chemistry lab. What did you guys decide?"<br>
+                            <strong>Diana:</strong> "Well, we decided to place recycling bins in every dormitory building and near the cafeterias. Starting next month, students will be encouraged to separate plastic bottles, aluminum cans, and paper."<br>
+                            <strong>Steve:</strong> "That sounds like a great initiative. Is the university going to provide the bins?"<br>
+                            <strong>Diana:</strong> "Yes, the administration agreed to fund the purchase of the bins. We are also going to launch an awareness campaign next week. We'll be handing out flyers and posting information on social media."<br>
+                            <strong>Steve:</strong> "Awesome. I'd love to help with the campaign. Can I join the volunteer group?"<br>
+                            <strong>Diana:</strong> "Absolutely! We are meeting this Friday at 4 PM in the student center to organize the flyers. You should definitely come."<br>
+                            <strong>Steve:</strong> "Great, I'll be there. Thanks, Diana!"
+                        </div>
+                    </div>
+
+                    <!-- Q31 -->
+                    <div class="question-card" id="q-box-31">
+                        <span class="question-number">Question 31</span>
+                        <p class="question-text">What is the main topic of the conversation?</p>
+                        <div class="options-list">
+                            <label class="option-item"><input type="radio" name="q31" value="A" required><span class="option-checkmark"></span><span class="option-text">(A) Diana's chemistry lab report.</span></label>
+                            <label class="option-item"><input type="radio" name="q31" value="B"><span class="option-checkmark"></span><span class="option-text">(B) A new recycling program on campus.</span></label>
+                            <label class="option-item"><input type="radio" name="q31" value="C"><span class="option-checkmark"></span><span class="option-text">(C) The funding of the student center.</span></label>
+                            <label class="option-item"><input type="radio" name="q31" value="D"><span class="option-checkmark"></span><span class="option-text">(D) Steve's run for student council.</span></label>
+                        </div>
+                    </div>
+
+                    <!-- Q32 -->
+                    <div class="question-card" id="q-box-32">
+                        <span class="question-number">Question 32</span>
+                        <p class="question-text">According to the conversation, where will the recycling bins be placed?</p>
+                        <div class="options-list">
+                            <label class="option-item"><input type="radio" name="q32" value="A" required><span class="option-checkmark"></span><span class="option-text">(A) Only in the chemistry laboratory.</span></label>
+                            <label class="option-item"><input type="radio" name="q32" value="B"><span class="option-checkmark"></span><span class="option-text">(B) In the student center and classrooms.</span></label>
+                            <label class="option-item"><input type="radio" name="q32" value="C"><span class="option-checkmark"></span><span class="option-text">(C) In dormitories and near cafeterias.</span></label>
+                            <label class="option-item"><input type="radio" name="q32" value="D"><span class="option-checkmark"></span><span class="option-text">(D) Outside the administration office.</span></label>
+                        </div>
+                    </div>
+
+                    <!-- Q33 -->
+                    <div class="question-card" id="q-box-33">
+                        <span class="question-number">Question 33</span>
+                        <p class="question-text">What will the student council do next week?</p>
+                        <div class="options-list">
+                            <label class="option-item"><input type="radio" name="q33" value="A" required><span class="option-checkmark"></span><span class="option-text">(A) Purchase new bins.</span></label>
+                            <label class="option-item"><input type="radio" name="q33" value="B"><span class="option-checkmark"></span><span class="option-text">(B) Hold another meeting.</span></label>
+                            <label class="option-item"><input type="radio" name="q33" value="C"><span class="option-checkmark"></span><span class="option-text">(C) Launch an awareness campaign.</span></label>
+                            <label class="option-item"><input type="radio" name="q33" value="D"><span class="option-checkmark"></span><span class="option-text">(D) Clean up the dormitories.</span></label>
+                        </div>
+                    </div>
+
+                    <!-- Q34 -->
+                    <div class="question-card" id="q-box-34">
+                        <span class="question-number">Question 34</span>
+                        <p class="question-text">What does Steve plan to do this Friday at 4 PM?</p>
+                        <div class="options-list">
+                            <label class="option-item"><input type="radio" name="q34" value="A" required><span class="option-checkmark"></span><span class="option-text">(A) Attend his chemistry lab.</span></label>
+                            <label class="option-item"><input type="radio" name="q34" value="B"><span class="option-checkmark"></span><span class="option-text">(B) Help organize flyers at the student center.</span></label>
+                            <label class="option-item"><input type="radio" name="q34" value="C"><span class="option-checkmark"></span><span class="option-text">(C) Post information on social media.</span></label>
+                            <label class="option-item"><input type="radio" name="q34" value="D"><span class="option-checkmark"></span><span class="option-text">(D) Buy recycling bins.</span></label>
+                        </div>
+                    </div>
+
+                    <!-- Long Conversation 2 Card -->
+                    <div class="conversation-audio-block">
+                        <h3 style="color: var(--gold); margin-bottom: 15px;"><i class="fas fa-file-audio"></i> Long Conversation 2 (Questions 35 - 38)</h3>
+                        <div class="listening-audio-box" style="margin-bottom: 0;">
+                            <button type="button" class="play-audio-btn" data-audio-id="long-2"><i class="fas fa-play"></i></button>
+                            <div style="flex-grow: 1;">
+                                <span style="font-weight: 600; color: #fff; display: block; font-size: 0.9rem;">Audio Long Conversation 2</span>
+                                <span style="font-size: 0.8rem; color: var(--text-secondary);">Putar audio ini untuk menjawab Soal 35 sampai 38</span>
+                            </div>
+                            <button type="button" class="toggle-script-btn" data-target="script-long-2">Show Script</button>
+                        </div>
+                        <div class="dialogue-script" id="script-long-2">
+                            <strong>Sarah:</strong> "Hi, Kevin. Have you decided on your major yet?"<br>
+                            <strong>Kevin:</strong> "Not yet, Sarah. I'm torn between computer science and environmental science."<br>
+                            <strong>Sarah:</strong> "Those are very different fields. Why are you interested in computer science?"<br>
+                            <strong>Kevin:</strong> "Well, I really enjoy programming and problem-solving, and the job prospects are excellent after graduation. But on the other hand, I'm deeply concerned about environmental issues like climate change and conservation."<br>
+                            <strong>Sarah:</strong> "You know, you don't necessarily have to choose one over the other. You could major in environmental science and take computer science courses, or vice versa. In fact, environmental monitoring relies heavily on data analysis and programming."<br>
+                            <strong>Kevin:</strong> "That's a very good point. I've heard about geographic information systems, or GIS. It combines computer technology with environmental mapping."<br>
+                            <strong>Sarah:</strong> "Exactly! And there are many research projects on campus that use computer models to simulate climate patterns. You could talk to Professor Adams in the science department. He does research in that exact area."<br>
+                            <strong>Kevin:</strong> "That sounds like a perfect combination for me. I think I'll make an appointment to speak with Professor Adams tomorrow. Thanks for the advice, Sarah!"
+                        </div>
+                    </div>
+
+                    <!-- Q35 -->
+                    <div class="question-card" id="q-box-35">
+                        <span class="question-number">Question 35</span>
+                        <p class="question-text">What problem is Kevin facing?</p>
+                        <div class="options-list">
+                            <label class="option-item"><input type="radio" name="q35" value="A" required><span class="option-checkmark"></span><span class="option-text">(A) He is struggling to pass his science classes.</span></label>
+                            <label class="option-item"><input type="radio" name="q35" value="B"><span class="option-checkmark"></span><span class="option-text">(B) He cannot decide on a college major.</span></label>
+                            <label class="option-item"><input type="radio" name="q35" value="C"><span class="option-checkmark"></span><span class="option-text">(C) He wants to transfer to another university.</span></label>
+                            <label class="option-item"><input type="radio" name="q35" value="D"><span class="option-checkmark"></span><span class="option-text">(D) He cannot find a job after graduation.</span></label>
+                        </div>
+                    </div>
+
+                    <!-- Q36 -->
+                    <div class="question-card" id="q-box-36">
+                        <span class="question-number">Question 36</span>
+                        <p class="question-text">Why does Kevin find computer science attractive?</p>
+                        <div class="options-list">
+                            <label class="option-item"><input type="radio" name="q36" value="A" required><span class="option-checkmark"></span><span class="option-text">(A) It is less difficult than environmental science.</span></label>
+                            <label class="option-item"><input type="radio" name="q36" value="B"><span class="option-checkmark"></span><span class="option-text">(B) He wants to work in environmental mapping.</span></label>
+                            <label class="option-item"><input type="radio" name="q36" value="C"><span class="option-checkmark"></span><span class="option-text">(C) He enjoys programming and the job prospects are good.</span></label>
+                            <label class="option-item"><input type="radio" name="q36" value="D"><span class="option-checkmark"></span><span class="option-text">(D) He wants to take courses with Sarah.</span></label>
+                        </div>
+                    </div>
+
+                    <!-- Q37 -->
+                    <div class="question-card" id="q-box-37">
+                        <span class="question-number">Question 37</span>
+                        <p class="question-text">What does Sarah suggest Kevin do to combine both interests?</p>
+                        <div class="options-list">
+                            <label class="option-item"><input type="radio" name="q37" value="A" required><span class="option-checkmark"></span><span class="option-text">(A) Take courses in both fields or work on climate simulation.</span></label>
+                            <label class="option-item"><input type="radio" name="q37" value="B"><span class="option-checkmark"></span><span class="option-text">(B) Major in a completely different subject.</span></label>
+                            <label class="option-item"><input type="radio" name="q37" value="C"><span class="option-checkmark"></span><span class="option-text">(C) Drop his computer science classes.</span></label>
+                            <label class="option-item"><input type="radio" name="q37" value="D"><span class="option-checkmark"></span><span class="option-text">(D) Find a part-time job off campus.</span></label>
+                        </div>
+                    </div>
+
+                    <!-- Q38 -->
+                    <div class="question-card" id="q-box-38">
+                        <span class="question-number">Question 38</span>
+                        <p class="question-text">What will Kevin probably do tomorrow?</p>
+                        <div class="options-list">
+                            <label class="option-item"><input type="radio" name="q38" value="A" required><span class="option-checkmark"></span><span class="option-text">(A) Register for his classes.</span></label>
+                            <label class="option-item"><input type="radio" name="q38" value="B"><span class="option-checkmark"></span><span class="option-text">(B) Declare his computer science major.</span></label>
+                            <label class="option-item"><input type="radio" name="q38" value="C"><span class="option-checkmark"></span><span class="option-text">(C) Meet with Professor Adams.</span></label>
+                            <label class="option-item"><input type="radio" name="q38" value="D"><span class="option-checkmark"></span><span class="option-text">(D) Start a research project.</span></label>
+                        </div>
+                    </div>
+
+
+                    <!-- ================= PART C: TALKS ================= -->
+                    <div class="section-title-quiz" id="sec-partc">
+                        <i class="fas fa-volume-up"></i>
+                        <span>Part C: Talks / Lectures (Q39 - Q50)</span>
+                    </div>
+                    <p style="color: var(--text-secondary); margin-bottom: 25px; font-style: italic; font-size: 0.95rem;">
+                        Directions: In this part, you will hear several short talks. After each talk, you will answer several questions.
+                    </p>
+
+                    <!-- Talk 1 Card -->
+                    <div class="conversation-audio-block">
+                        <h3 style="color: var(--gold); margin-bottom: 15px;"><i class="fas fa-volume-up"></i> Talk 1 (Questions 39 - 42)</h3>
+                        <div class="listening-audio-box" style="margin-bottom: 0;">
+                            <button type="button" class="play-audio-btn" data-audio-id="talk-1"><i class="fas fa-play"></i></button>
+                            <div style="flex-grow: 1;">
+                                <span style="font-weight: 600; color: #fff; display: block; font-size: 0.9rem;">Audio Talk 1: Mars Lecture</span>
+                                <span style="font-size: 0.8rem; color: var(--text-secondary);">Putar audio ini untuk menjawab Soal 39 sampai 42</span>
+                            </div>
+                            <button type="button" class="toggle-script-btn" data-target="script-talk-1">Show Script</button>
+                        </div>
+                        <div class="dialogue-script" id="script-talk-1">
+                            <strong>Narrator:</strong> "Listen to a lecture by an astronomy professor about the planet Mars."<br>
+                            <strong>Professor:</strong> "Good morning, class. Today we're going to discuss the planet Mars, often referred to as the Red Planet due to the iron oxide on its surface. Mars is the fourth planet from the Sun and has long fascinated scientists because of its similarities to Earth. It has a thin atmosphere, polar ice caps, and evidence of ancient water flows. One of the most notable features of Mars is Olympus Mons, which is the largest volcano in the solar system. It is three times taller than Mount Everest. Over the years, numerous robotic missions, including rovers like Curiosity and Perseverance, have been sent to explore Mars. These missions aim to search for signs of past microbial life and study the planet's geology. In the future, space agencies hope to send human missions to Mars, which presents massive technical challenges, particularly in terms of life support and radiation protection. For your homework, please read chapter five about Mars' atmosphere."
+                        </div>
+                    </div>
+
+                    <!-- Q39 -->
+                    <div class="question-card" id="q-box-39">
+                        <span class="question-number">Question 39</span>
+                        <p class="question-text">What is the main subject of the lecture?</p>
+                        <div class="options-list">
+                            <label class="option-item"><input type="radio" name="q39" value="A" required><span class="option-checkmark"></span><span class="option-text">(A) The volcanic eruptions on Earth.</span></label>
+                            <label class="option-item"><input type="radio" name="q39" value="B"><span class="option-checkmark"></span><span class="option-text">(B) The characteristics and exploration of Mars.</span></label>
+                            <label class="option-item"><input type="radio" name="q39" value="C"><span class="option-checkmark"></span><span class="option-text">(C) The history of robotic rovers.</span></label>
+                            <label class="option-item"><input type="radio" name="q39" value="D"><span class="option-checkmark"></span><span class="option-text">(D) The challenges of landing on Mount Everest.</span></label>
+                        </div>
+                    </div>
+
+                    <!-- Q40 -->
+                    <div class="question-card" id="q-box-40">
+                        <span class="question-number">Question 40</span>
+                        <p class="question-text">Why is Mars called the Red Planet?</p>
+                        <div class="options-list">
+                            <label class="option-item"><input type="radio" name="q40" value="A" required><span class="option-checkmark"></span><span class="option-text">(A) Because of its thin atmosphere.</span></label>
+                            <label class="option-item"><input type="radio" name="q40" value="B"><span class="option-checkmark"></span><span class="option-text">(B) Due to the iron oxide on its surface.</span></label>
+                            <label class="option-item"><input type="radio" name="q40" value="C"><span class="option-checkmark"></span><span class="option-text">(C) Because of its high surface temperature.</span></label>
+                            <label class="option-item"><input type="radio" name="q40" value="D"><span class="option-checkmark"></span><span class="option-text">(D) Due to volcanic activity from Olympus Mons.</span></label>
+                        </div>
+                    </div>
+
+                    <!-- Q41 -->
+                    <div class="question-card" id="q-box-41">
+                        <span class="question-number">Question 41</span>
+                        <p class="question-text">What is Olympus Mons?</p>
+                        <div class="options-list">
+                            <label class="option-item"><input type="radio" name="q41" value="A" required><span class="option-checkmark"></span><span class="option-text">(A) The largest canyon in the solar system.</span></label>
+                            <label class="option-item"><input type="radio" name="q41" value="B"><span class="option-checkmark"></span><span class="option-text">(B) A robotic rover exploring Mars.</span></label>
+                            <label class="option-item"><input type="radio" name="q41" value="C"><span class="option-checkmark"></span><span class="option-text">(C) The largest volcano in the solar system.</span></label>
+                            <label class="option-item"><input type="radio" name="q41" value="D"><span class="option-checkmark"></span><span class="option-text">(D) A polar ice cap on Mars.</span></label>
+                        </div>
+                    </div>
+
+                    <!-- Q42 -->
+                    <div class="question-card" id="q-box-42">
+                        <span class="question-number">Question 42</span>
+                        <p class="question-text">What is one challenge mentioned for future human missions to Mars?</p>
+                        <div class="options-list">
+                            <label class="option-item"><input type="radio" name="q42" value="A" required><span class="option-checkmark"></span><span class="option-text">(A) Lack of interest from space agencies.</span></label>
+                            <label class="option-item"><input type="radio" name="q42" value="B"><span class="option-checkmark"></span><span class="option-text">(B) Finding iron oxide on the surface.</span></label>
+                            <label class="option-item"><input type="radio" name="q42" value="C"><span class="option-checkmark"></span><span class="option-text">(C) Radiation protection and life support.</span></label>
+                            <label class="option-item"><input type="radio" name="q42" value="D"><span class="option-checkmark"></span><span class="option-text">(D) Landing rovers like Curiosity.</span></label>
+                        </div>
+                    </div>
+
+                    <!-- Talk 2 Card -->
+                    <div class="conversation-audio-block">
+                        <h3 style="color: var(--gold); margin-bottom: 15px;"><i class="fas fa-volume-up"></i> Talk 2 (Questions 43 - 46)</h3>
+                        <div class="listening-audio-box" style="margin-bottom: 0;">
+                            <button type="button" class="play-audio-btn" data-audio-id="talk-2"><i class="fas fa-play"></i></button>
+                            <div style="flex-grow: 1;">
+                                <span style="font-weight: 600; color: #fff; display: block; font-size: 0.9rem;">Audio Talk 2: Yellowstone Guide</span>
+                                <span style="font-size: 0.8rem; color: var(--text-secondary);">Putar audio ini untuk menjawab Soal 43 sampai 46</span>
+                            </div>
+                            <button type="button" class="toggle-script-btn" data-target="script-talk-2">Show Script</button>
+                        </div>
+                        <div class="dialogue-script" id="script-talk-2">
+                            <strong>Narrator:</strong> "Listen to a guide speaking to a group of tourists at a national park."<br>
+                            <strong>Guide:</strong> "Welcome to Yellowstone National Park, everyone! As the world's first national park, established in 1872, Yellowstone is famous for its wildlife and geothermal features. The park sits on top of a giant supervolcano, which heats underground water and produces the geysers and hot springs we see today. The most famous geyser in the park is Old Faithful. It was named in 1870 because its eruptions are highly predictable, occurring approximately every 90 minutes. Each eruption can shoot boiling water up to 55 meters in the air and lasts for several minutes. While walking around the geyser basin, it is extremely important that you stay on the designated wooden boardwalks. The ground is very thin, and the water beneath is boiling hot and highly acidic. Stepping off the boardwalk is not only illegal but also extremely dangerous. After our stop at Old Faithful, we will proceed to the Grand Prismatic Spring, the largest hot spring in the United States, known for its vibrant colors."
+                        </div>
+                    </div>
+
+                    <!-- Q43 -->
+                    <div class="question-card" id="q-box-43">
+                        <span class="question-number">Question 43</span>
+                        <p class="question-text">When was Yellowstone National Park established?</p>
+                        <div class="options-list">
+                            <label class="option-item"><input type="radio" name="q43" value="A" required><span class="option-checkmark"></span><span class="option-text">(A) 1870</span></label>
+                            <label class="option-item"><input type="radio" name="q43" value="B"><span class="option-checkmark"></span><span class="option-text">(B) 1872</span></label>
+                            <label class="option-item"><input type="radio" name="q43" value="C"><span class="option-checkmark"></span><span class="option-text">(C) 1900</span></label>
+                            <label class="option-item"><input type="radio" name="q43" value="D"><span class="option-checkmark"></span><span class="option-text">(D) 1920</span></label>
+                        </div>
+                    </div>
+
+                    <!-- Q44 -->
+                    <div class="question-card" id="q-box-44">
+                        <span class="question-number">Question 44</span>
+                        <p class="question-text">How did Old Faithful get its name?</p>
+                        <div class="options-list">
+                            <label class="option-item"><input type="radio" name="q44" value="A" required><span class="option-checkmark"></span><span class="option-text">(A) It is the oldest geyser in the park.</span></label>
+                            <label class="option-item"><input type="radio" name="q44" value="B"><span class="option-checkmark"></span><span class="option-text">(B) Its eruptions are highly predictable.</span></label>
+                            <label class="option-item"><input type="radio" name="q44" value="C"><span class="option-checkmark"></span><span class="option-text">(C) It was discovered by a faithful guide.</span></label>
+                            <label class="option-item"><input type="radio" name="q44" value="D"><span class="option-checkmark"></span><span class="option-text">(D) It erupts only once a year.</span></label>
+                        </div>
+                    </div>
+
+                    <!-- Q45 -->
+                    <div class="question-card" id="q-box-45">
+                        <span class="question-number">Question 45</span>
+                        <p class="question-text">Why does the guide advise visitors to stay on the boardwalks?</p>
+                        <div class="options-list">
+                            <label class="option-item"><input type="radio" name="q45" value="A" required><span class="option-checkmark"></span><span class="option-text">(A) To protect the park's wild animals.</span></label>
+                            <label class="option-item"><input type="radio" name="q45" value="B"><span class="option-checkmark"></span><span class="option-text">(B) To avoid getting lost in the forest.</span></label>
+                            <label class="option-item"><input type="radio" name="q45" value="C"><span class="option-checkmark"></span><span class="option-text">(C) Because the ground is thin and water is boiling and acidic.</span></label>
+                            <label class="option-item"><input type="radio" name="q45" value="D"><span class="option-checkmark"></span><span class="option-text">(D) Because the wooden boardwalks are historical.</span></label>
+                        </div>
+                    </div>
+
+                    <!-- Q46 -->
+                    <div class="question-card" id="q-box-46">
+                        <span class="question-number">Question 46</span>
+                        <p class="question-text">What destination will the group visit next?</p>
+                        <div class="options-list">
+                            <label class="option-item"><input type="radio" name="q46" value="A" required><span class="option-checkmark"></span><span class="option-text">(A) The giant supervolcano center.</span></label>
+                            <label class="option-item"><input type="radio" name="q46" value="B"><span class="option-checkmark"></span><span class="option-text">(B) The Grand Prismatic Spring.</span></label>
+                            <label class="option-item"><input type="radio" name="q46" value="C"><span class="option-checkmark"></span><span class="option-text">(C) A wildlife viewing area.</span></label>
+                            <label class="option-item"><input type="radio" name="q46" value="D"><span class="option-checkmark"></span><span class="option-text">(D) The historical park museum.</span></label>
+                        </div>
+                    </div>
+
+                    <!-- Talk 3 Card -->
+                    <div class="conversation-audio-block">
+                        <h3 style="color: var(--gold); margin-bottom: 15px;"><i class="fas fa-volume-up"></i> Talk 3 (Questions 47 - 50)</h3>
+                        <div class="listening-audio-box" style="margin-bottom: 0;">
+                            <button type="button" class="play-audio-btn" data-audio-id="talk-3"><i class="fas fa-play"></i></button>
+                            <div style="flex-grow: 1;">
+                                <span style="font-weight: 600; color: #fff; display: block; font-size: 0.9rem;">Audio Talk 3: Honeybee Lecture</span>
+                                <span style="font-size: 0.8rem; color: var(--text-secondary);">Putar audio ini untuk menjawab Soal 47 sampai 50</span>
+                            </div>
+                            <button type="button" class="toggle-script-btn" data-target="script-talk-3">Show Script</button>
+                        </div>
+                        <div class="dialogue-script" id="script-talk-3">
+                            <strong>Narrator:</strong> "Listen to a lecture by a biology professor about honeybees."<br>
+                            <strong>Professor:</strong> "Today, we're going to examine the fascinating social structure of honeybees. A honeybee colony is a highly organized society consisting of three types of bees: the queen, drones, and worker bees. The queen is the only fertile female in the hive, and her primary role is to lay eggs—sometimes up to 2,000 eggs a day. Drones are male bees whose sole purpose is to mate with the queen. The vast majority of the hive consists of worker bees, which are sterile females. Worker bees perform all the tasks necessary to maintain the hive, including foraging for nectar, building honeycomb, cleaning, and defending the colony. Honeybees are also famous for their unique method of communication known as the 'waggle dance'. When a worker bee finds a rich source of nectar, she returns to the hive and performs a figure-eight dance. The angle and duration of the dance communicate the exact direction and distance of the food source relative to the sun. This cooperative behavior is essential for the survival of the colony."
+                        </div>
+                    </div>
+
+                    <!-- Q47 -->
+                    <div class="question-card" id="q-box-47">
+                        <span class="question-number">Question 47</span>
+                        <p class="question-text">What is the primary role of the queen bee?</p>
+                        <div class="options-list">
+                            <label class="option-item"><input type="radio" name="q47" value="A" required><span class="option-checkmark"></span><span class="option-text">(A) To defend the hive from predators.</span></label>
+                            <label class="option-item"><input type="radio" name="q47" value="B"><span class="option-checkmark"></span><span class="option-text">(B) To lay eggs to maintain the colony population.</span></label>
+                            <label class="option-item"><input type="radio" name="q47" value="C"><span class="option-checkmark"></span><span class="option-text">(C) To forage for nectar in the fields.</span></label>
+                            <label class="option-item"><input type="radio" name="q47" value="D"><span class="option-checkmark"></span><span class="option-text">(D) To teach worker bees how to dance.</span></label>
+                        </div>
+                    </div>
+
+                    <!-- Q48 -->
+                    <div class="question-card" id="q-box-48">
+                        <span class="question-number">Question 48</span>
+                        <p class="question-text">What are drones?</p>
+                        <div class="options-list">
+                            <label class="option-item"><input type="radio" name="q48" value="A" required><span class="option-checkmark"></span><span class="option-text">(A) Sterile female bees.</span></label>
+                            <label class="option-item"><input type="radio" name="q48" value="B"><span class="option-checkmark"></span><span class="option-text">(B) Robotic monitoring devices.</span></label>
+                            <label class="option-item"><input type="radio" name="q48" value="C"><span class="option-checkmark"></span><span class="option-text">(C) Male bees whose purpose is mating.</span></label>
+                            <label class="option-item"><input type="radio" name="q48" value="D"><span class="option-checkmark"></span><span class="option-text">(D) Bees that clean the honeycomb.</span></label>
+                        </div>
+                    </div>
+
+                    <!-- Q49 -->
+                    <div class="question-card" id="q-box-49">
+                        <span class="question-number">Question 49</span>
+                        <p class="question-text">Which group of bees performs all maintenance tasks in the hive?</p>
+                        <div class="options-list">
+                            <label class="option-item"><input type="radio" name="q49" value="A" required><span class="option-checkmark"></span><span class="option-text">(A) Drones</span></label>
+                            <label class="option-item"><input type="radio" name="q49" value="B"><span class="option-checkmark"></span><span class="option-text">(B) Worker bees</span></label>
+                            <label class="option-item"><input type="radio" name="q49" value="C"><span class="option-checkmark"></span><span class="option-text">(C) Queen bees</span></label>
+                            <label class="option-item"><input type="radio" name="q49" value="D"><span class="option-checkmark"></span><span class="option-text">(D) The entire colony equally</span></label>
+                        </div>
+                    </div>
+
+                    <!-- Q50 -->
+                    <div class="question-card" id="q-box-50">
+                        <span class="question-number">Question 50</span>
+                        <p class="question-text">What information does the 'waggle dance' communicate?</p>
+                        <div class="options-list">
+                            <label class="option-item"><input type="radio" name="q50" value="A" required><span class="option-checkmark"></span><span class="option-text">(A) The presence of a rival queen bee.</span></label>
+                            <label class="option-item"><input type="radio" name="q50" value="B"><span class="option-checkmark"></span><span class="option-text">(B) The direction and distance of a food source.</span></label>
+                            <label class="option-item"><input type="radio" name="q50" value="C"><span class="option-checkmark"></span><span class="option-text">(C) The approaching change of weather.</span></label>
+                            <label class="option-item"><input type="radio" name="q50" value="D"><span class="option-checkmark"></span><span class="option-text">(D) The need to clean the hive cells.</span></label>
+                        </div>
+                    </div>
+
+                    <div style="margin-top: 40px; margin-bottom: 20px;">
+                        <button type="submit" class="btn btn-gold btn-block btn-large btn-glow" style="text-align: center;">
+                            SUBMIT ANSWERS <i class="fas fa-paper-plane" style="margin-left: 8px;"></i>
+                        </button>
+                    </div>
+
+                </div>
+
+                <!-- Navigation Sidebar -->
+                <div class="quiz-sidebar">
+                    <div class="quiz-navigation-panel">
+                        <div class="quiz-timer-card" id="timerCard">
+                            <div class="quiz-timer-label">
+                                <i class="fas fa-clock"></i>
+                                <span>Waktu</span>
+                            </div>
+                            <div class="quiz-timer-value" id="examTimer">37:00</div>
+                        </div>
+
+                        <h3 style="color: #fff; margin-bottom: 10px; font-size: 1.1rem; text-transform: uppercase; letter-spacing: 0.5px;">Test Progress</h3>
+                        
+                        <div class="quiz-nav-meta">
+                            <div class="progress-bar-container">
+                                <div class="progress-bar-fill" id="progressBar"></div>
+                            </div>
+                            <div style="display: flex; justify-content: space-between; font-size: 0.8rem; color: var(--text-secondary);">
+                                <span id="progressText">0 of 50 Answered</span>
+                                <span id="percentText">0%</span>
+                            </div>
+                        </div>
+
+                        <div class="nav-numbers-grid" id="navNumbersGrid">
+                            <!-- JS will load buttons dynamically -->
+                        </div>
+                        
+                        <a href="Kursus.html" style="display: block; text-align: center; font-size: 0.85rem; color: var(--gold); border-top: 1px solid var(--border-color); padding-top: 15px; margin-top: 10px;">
+                            <i class="fas fa-chevron-left" style="margin-right: 5px;"></i> Kembali ke Kursus
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <!-- RESULT MODAL overlay -->
+    <div class="modal-overlay" id="resultModal">
+        <div class="modal-content-box">
+            <h2 style="color: #fff; margin-bottom: 5px; font-size: 2rem;">Quiz Completed!</h2>
+            <p style="color: var(--text-secondary); font-size: 0.9rem;">Berikut adalah hasil evaluasi TOEFL Listening Anda</p>
+            
+            <div class="score-circle">
+                <span id="resultScore">38/50</span>
+            </div>
+            
+            <h3 class="score-rating" id="resultRating">ADVANCED</h3>
+            <p class="score-desc" id="resultDesc">
+                Luar biasa! Skor Anda menunjukkan pemahaman yang sangat kuat pada materi Listening Comprehension. Terus tingkatkan kemampuan Anda untuk mengunci nilai maksimal di tes resmi!
+            </p>
+
+            <div style="display: flex; flex-direction: column; gap: 15px; max-width: 380px; margin: 0 auto;">
+                <a href="#" id="waShareBtn" class="btn btn-gold btn-block btn-glow" style="background: linear-gradient(135deg, #25d366 0%, #128c4a 100%); color: #fff; border-color: #25d366; text-align: center;">
+                    KONSULTASI SKOR & DAFTAR KELAS <i class="fab fa-whatsapp" style="margin-left: 8px;"></i>
+                </a>
+                <div style="display: flex; gap: 12px;">
+                    <button type="button" class="btn btn-outline btn-block" id="retryExamBtn" style="flex: 1; display: flex; align-items: center; justify-content: center; gap: 8px;">
+                        <i class="fas fa-redo-alt"></i> Ulangi Ujian
+                    </button>
+                    <a href="toefl-structure.html" class="btn btn-gold btn-block btn-glow" id="nextStructureBtn" style="flex: 1; display: flex; align-items: center; justify-content: center; gap: 8px; text-decoration: none;">
+                        Lanjut Structure <i class="fas fa-arrow-right"></i>
+                    </a>
+                </div>
+                <button type="button" class="btn btn-outline btn-block" id="closeModalBtn" style="opacity: 0.7; font-size: 0.85rem;">
+                    Tutup & Lihat Pembahasan
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- FOOTER -->
+    <footer class="footer-section">
+        <div class="container footer-container">
+            <div class="footer-col footer-about">
+                <a href="#" class="footer-logo">
+                    <span class="logo-accent">EL-Roomey</span> <span class="logo-light">Course</span>
+                </a>
+                <p class="footer-desc">Penyedia bimbingan belajar bahasa Inggris premium (TOEFL, IELTS, dan Persiapan Soal) dengan pelayanan terarah dan tutor berpengalaman.</p>
+                <div class="footer-socials">
+                    <a href="https://wa.me/6285800734579" class="social-icon" target="_blank" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+                    <a href="https://www.instagram.com/travelmalang_sby/" class="social-icon" target="_blank" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                    <a href="https://www.tiktok.com/@elroomey_travel" class="social-icon" target="_blank" aria-label="TikTok"><i class="fab fa-tiktok"></i></a>
+                </div>
+            </div>
+
+            <div class="footer-col footer-links">
+                <h4 class="footer-col-title">Navigasi Cepat</h4>
+                <ul>
+                    <li><a href="index.html#beranda"><i class="fas fa-chevron-right text-gold"></i> Beranda</a></li>
+                    <li><a href="index.html#layanan"><i class="fas fa-chevron-right text-gold"></i> Layanan</a></li>
+                    <li><a href="index.html#armada"><i class="fas fa-chevron-right text-gold"></i> Armada Mobil</a></li>
+                    <li><a href="index.html#keunggulan"><i class="fas fa-chevron-right text-gold"></i> Keunggulan</a></li>
+                    <li><a href="index.html#testimoni"><i class="fas fa-chevron-right text-gold"></i> Testimoni</a></li>
+                    <li><a href="blog.html"><i class="fas fa-chevron-right text-gold"></i> Blog Wisata</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-col footer-routes">
+                <h4 class="footer-col-title">Program Utama</h4>
+                <ul>
+                    <li><span><i class="fas fa-graduation-cap text-gold"></i> TOEFL PREPARATION</span></li>
+                    <li><span><i class="fas fa-book-open text-gold"></i> IELTS PREPARATION</span></li>
+                    <li><span><i class="fas fa-spell-check text-gold"></i> DRILLING SOAL & UJIAN</span></li>
+                    <li><span><i class="fas fa-user-friends text-gold"></i> PRIVATE CLASS</span></li>
+                    <li><span><i class="fas fa-laptop-code text-gold"></i> ONLINE & OFFLINE CLASS</span></li>
+                </ul>
+            </div>
+
+            <div class="footer-col footer-contact">
+                <h4 class="footer-col-title">Kontak Kami</h4>
+                <ul class="contact-details">
+                    <li>
+                        <i class="fas fa-phone-alt text-gold"></i>
+                        <span>0858-0073-4579</span>
+                    </li>
+                    <li>
+                        <i class="fas fa-envelope text-gold"></i>
+                        <span>elroomeytravel@gmail.com</span>
+                    </li>
+                    <li>
+                        <i class="fas fa-map-marker-alt text-gold"></i>
+                        <span>Kediri Kota, Jawa Timur, Indonesia</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <div class="container footer-bottom-container">
+                <p class="copyright">&copy; 2026 El-Roomey Course. All Rights Reserved. Designed for Luxury Education.</p>
+                <div class="footer-legal">
+                    <a href="#">Privacy Policy</a>
+                    <span class="divider">|</span>
+                    <a href="#">Terms of Service</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- FLOATING WHATSAPP BUTTON -->
+    <a href="https://wa.me/6285800734579" class="whatsapp-floating-btn" id="waFloatingBtn" target="_blank" aria-label="Chat WhatsApp Admin">
+        <i class="fab fa-whatsapp"></i>
+        <span class="floating-tooltip">Butuh bantuan? Chat kami</span>
+    </a>
+
+    <!-- Scripts -->
+    <script src="toefl-practice.js"></script>
+</body>
+</html>
