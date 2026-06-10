@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Simulasi Ujian TOEFL Listening - EL-Roomey Course</title>
+    <title>Simulasi Ujian TOEFL Listening - English Tips</title>
     
     <!-- Meta SEO -->
     <meta name="description" content="Uji kemampuan menyimak bahasa Inggris Anda dengan Simulasi TOEFL Listening gratis dari EL-Roomey Course. 50 soal lengkap (Short, Long Conversation & Talks).">
@@ -383,6 +383,60 @@
             box-shadow: 0 0 10px var(--gold-glow);
         }
 
+        .mobile-timer-fab {
+            display: none;
+            position: fixed;
+            top: 94px;
+            right: 12px;
+            z-index: 1050;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 12px;
+            border-radius: 999px;
+            border: 1px solid rgba(212, 175, 55, 0.45);
+            background: rgba(17, 17, 17, 0.96);
+            color: #fff;
+            box-shadow: 0 12px 28px rgba(0, 0, 0, 0.45);
+            backdrop-filter: blur(10px);
+            cursor: pointer;
+            font-weight: 700;
+            letter-spacing: 0.2px;
+        }
+
+        .mobile-timer-pill {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            min-width: 56px;
+            padding: 4px 8px;
+            border-radius: 999px;
+            background: linear-gradient(135deg, rgba(212, 175, 55, 0.18), rgba(212, 175, 55, 0.08));
+            color: var(--gold);
+            font-variant-numeric: tabular-nums;
+        }
+
+        .mobile-timer-text {
+            font-size: 0.72rem;
+            color: var(--text-secondary);
+            white-space: nowrap;
+        }
+
+        .mobile-quiz-backdrop {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.35);
+            z-index: 1080;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.2s ease;
+        }
+
+        .mobile-quiz-backdrop.open {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
         /* Modal Score Result */
         .modal-overlay {
             position: fixed;
@@ -450,31 +504,55 @@
             line-height: 1.6;
         }
 
+        .practice-header .hero-title {
+            font-size: clamp(2rem, 8vw, 3rem) !important;
+            line-height: 1.1;
+        }
+
         @media (max-width: 991px) {
             .quiz-grid-layout {
                 grid-template-columns: 1fr;
-                height: calc(100vh - 92px);
+                height: auto;
+                min-height: auto;
             }
 
             .questions-wrapper {
+                height: auto;
+                overflow: visible;
                 padding-right: 0;
-                padding-bottom: 130px;
+                padding-bottom: 0;
+            }
+
+            .mobile-timer-fab {
+                display: flex;
+            }
+
+            .mobile-quiz-backdrop {
+                display: block;
             }
 
             .quiz-navigation-panel {
                 position: fixed;
-                bottom: 0;
-                left: 0;
-                width: 100%;
-                z-index: 999;
-                border-radius: 16px 16px 0 0;
-                box-shadow: 0 -5px 25px rgba(0, 0, 0, 0.5);
-                border-top: 1px solid var(--gold);
-                display: flex;
-                flex-direction: row;
-                align-items: center;
-                justify-content: space-between;
-                padding: 15px 20px;
+                top: 92px;
+                right: 12px;
+                width: min(92vw, 340px);
+                max-height: calc(100vh - 110px);
+                overflow-y: auto;
+                border-radius: 16px;
+                box-shadow: 0 18px 35px rgba(0, 0, 0, 0.55);
+                border: 1px solid rgba(212, 175, 55, 0.35);
+                padding: 14px;
+                z-index: 1100;
+                transform: translateX(calc(100% + 16px));
+                opacity: 0;
+                pointer-events: none;
+                transition: transform 0.25s ease, opacity 0.25s ease;
+            }
+
+            .quiz-navigation-panel.open {
+                transform: translateX(0);
+                opacity: 1;
+                pointer-events: auto;
             }
 
             .quiz-timer-card {
@@ -507,7 +585,134 @@
             }
 
             .practice-container {
-                padding-bottom: 140px;
+                padding-bottom: 40px;
+            }
+
+            .quiz-sidebar {
+                position: static;
+            }
+
+            .quiz-navigation-panel h3 {
+                display: block;
+            }
+
+            .nav-numbers-grid {
+                display: grid;
+            }
+
+            .quiz-timer-card {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 6px;
+                width: 100%;
+            }
+        }
+
+        @media (max-width: 767px) {
+            .practice-container {
+                padding-top: 110px;
+                padding-bottom: 160px;
+            }
+
+            .practice-header {
+                margin-bottom: 24px;
+            }
+
+            .practice-intro-card {
+                padding: 18px;
+                border-radius: 14px;
+            }
+
+            .section-title-quiz {
+                font-size: 1.15rem;
+                gap: 10px;
+                margin: 28px 0 14px;
+            }
+
+            .conversation-audio-block {
+                padding: 18px;
+                margin: 18px 0 16px;
+            }
+
+            .question-card {
+                padding: 18px;
+                border-radius: 10px;
+                margin-bottom: 18px;
+            }
+
+            .question-text {
+                font-size: 1rem;
+                line-height: 1.45;
+                margin-bottom: 16px;
+            }
+
+            .listening-audio-box {
+                padding: 12px;
+                gap: 10px;
+                align-items: flex-start;
+                flex-wrap: wrap;
+            }
+
+            .option-item {
+                padding: 12px 14px;
+                align-items: flex-start;
+            }
+
+            .option-checkmark {
+                width: 18px;
+                height: 18px;
+                margin-right: 10px;
+                margin-top: 2px;
+            }
+
+            .option-text {
+                font-size: 0.92rem;
+                line-height: 1.4;
+            }
+
+            .quiz-navigation-panel {
+                padding: 12px 14px;
+            }
+
+            .quiz-timer-card {
+                min-width: 110px;
+                padding: 10px;
+            }
+
+            .quiz-nav-meta {
+                margin-right: 12px;
+            }
+        }
+
+        @media (min-width: 992px) {
+            .mobile-timer-fab,
+            .mobile-quiz-backdrop {
+                display: none !important;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .practice-container {
+                padding-top: 100px;
+                padding-bottom: 180px;
+            }
+
+            .practice-intro-card,
+            .question-card,
+            .conversation-audio-block {
+                padding: 14px;
+            }
+
+            .question-text {
+                font-size: 0.96rem;
+            }
+
+            .option-text {
+                font-size: 0.88rem;
+            }
+
+            .nav-num-btn {
+                font-size: 0.78rem;
             }
         }
     </style>
@@ -518,7 +723,7 @@
     <header class="navbar-header scrolled" id="navbar">
         <div class="container navbar-container">
             <a href="index.html" class="nav-logo">
-                <span class="logo-accent">EL-Roomey</span> <span class="logo-light">Course</span>
+                <span class="logo-accent">English</span> <span class="logo-light">Tips</span>
             </a>
             
             <nav class="nav-menu" id="navMenu">
@@ -1696,9 +1901,15 @@
 
                 </div>
 
+                <button type="button" class="mobile-timer-fab" id="mobileTimerFab" aria-expanded="false" aria-controls="quizNavigationPanel">
+                    <span class="mobile-timer-pill" id="mobileTimerBadge">37:00</span>
+                    <span class="mobile-timer-text">Lihat timer & progres</span>
+                </button>
+                <button type="button" class="mobile-quiz-backdrop" id="mobileQuizBackdrop" aria-hidden="true"></button>
+
                 <!-- Navigation Sidebar -->
                 <div class="quiz-sidebar">
-                    <div class="quiz-navigation-panel">
+                    <div class="quiz-navigation-panel" id="quizNavigationPanel">
                         <div class="quiz-timer-card" id="timerCard">
                             <div class="quiz-timer-label">
                                 <i class="fas fa-clock"></i>
@@ -1798,9 +2009,9 @@
                 <ul>
                     <li><span><i class="fas fa-graduation-cap text-gold"></i> TOEFL PREPARATION</span></li>
                     <li><span><i class="fas fa-book-open text-gold"></i> IELTS PREPARATION</span></li>
-                    <li><span><i class="fas fa-spell-check text-gold"></i> DRILLING SOAL & UJIAN</span></li>
+                    <li><span><i class="fas fa-spell-check text-gold"></i> TES PREDIKSI</span></li>
                     <li><span><i class="fas fa-user-friends text-gold"></i> PRIVATE CLASS</span></li>
-                    <li><span><i class="fas fa-laptop-code text-gold"></i> ONLINE & OFFLINE CLASS</span></li>
+                    <li><span><i class="fas fa-laptop-code text-gold"></i> ONLINE CLASS</span></li>
                 </ul>
             </div>
 
@@ -1809,11 +2020,11 @@
                 <ul class="contact-details">
                     <li>
                         <i class="fas fa-phone-alt text-gold"></i>
-                        <span>0858-0073-4579</span>
+                        <span>0815-1552-8098</span>
                     </li>
                     <li>
                         <i class="fas fa-envelope text-gold"></i>
-                        <span>elroomeytravel@gmail.com</span>
+                        <span>englishtiptip@gmail.com</span>
                     </li>
                     <li>
                         <i class="fas fa-map-marker-alt text-gold"></i>
@@ -1825,7 +2036,7 @@
 
         <div class="footer-bottom">
             <div class="container footer-bottom-container">
-                <p class="copyright">&copy; 2026 El-Roomey Course. All Rights Reserved. Designed for Luxury Education.</p>
+                <p class="copyright">&copy; 2026 English Tips. All Rights Reserved. Designed for Luxury Education.</p>
                 <div class="footer-legal">
                     <a href="#">Privacy Policy</a>
                     <span class="divider">|</span>
@@ -1836,7 +2047,7 @@
     </footer>
 
     <!-- FLOATING WHATSAPP BUTTON -->
-    <a href="https://wa.me/6285800734579" class="whatsapp-floating-btn" id="waFloatingBtn" target="_blank" aria-label="Chat WhatsApp Admin">
+    <a href="https://wa.me/6281515528098" class="whatsapp-floating-btn" id="waFloatingBtn" target="_blank" aria-label="Chat WhatsApp Admin">
         <i class="fab fa-whatsapp"></i>
         <span class="floating-tooltip">Butuh bantuan? Chat kami</span>
     </a>

@@ -97,6 +97,7 @@ document.addEventListener("DOMContentLoaded", () => {
     initQuizSubmit();
     initExamTimer();
     initNavbarSticky();
+    initMobileTimerPanel();
 });
 
 // --- NAVBAR SCROLL ---
@@ -173,17 +174,72 @@ function initExamTimer() {
 function updateExamTimerDisplay() {
     const timer = document.getElementById("examTimer");
     const timerCard = document.getElementById("timerCard");
+    const mobileTimerBadge = document.getElementById("mobileTimerBadge");
     const safeSeconds = Math.max(remainingExamSeconds, 0);
     const minutes = Math.floor(safeSeconds / 60);
     const seconds = safeSeconds % 60;
+    const formattedTime = `${String(minutes).padStart(2, "0")}:${String(seconds).padStart(2, "0")}`;
 
     if (timer) {
-        timer.textContent = `${String(minutes).padStart(2, "0")}:${String(seconds).padStart(2, "0")}`;
+        timer.textContent = formattedTime;
+    }
+
+    if (mobileTimerBadge) {
+        mobileTimerBadge.textContent = formattedTime;
     }
 
     if (timerCard) {
         timerCard.classList.toggle("is-warning", safeSeconds <= 300);
     }
+}
+
+function initMobileTimerPanel() {
+    const fab = document.getElementById("mobileTimerFab");
+    const panel = document.getElementById("quizNavigationPanel");
+    const backdrop = document.getElementById("mobileQuizBackdrop");
+
+    if (!fab || !panel) return;
+
+    const closePanel = () => {
+        panel.classList.remove("open");
+        fab.setAttribute("aria-expanded", "false");
+        if (backdrop) {
+            backdrop.classList.remove("open");
+        }
+    };
+
+    const openPanel = () => {
+        panel.classList.add("open");
+        fab.setAttribute("aria-expanded", "true");
+        if (backdrop) {
+            backdrop.classList.add("open");
+        }
+    };
+
+    fab.addEventListener("click", (event) => {
+        event.preventDefault();
+        if (panel.classList.contains("open")) {
+            closePanel();
+        } else {
+            openPanel();
+        }
+    });
+
+    if (backdrop) {
+        backdrop.addEventListener("click", closePanel);
+    }
+
+    document.addEventListener("keydown", (event) => {
+        if (event.key === "Escape") {
+            closePanel();
+        }
+    });
+
+    window.addEventListener("resize", () => {
+        if (window.innerWidth > 991) {
+            closePanel();
+        }
+    });
 }
 
 // --- TTS AUDIO SIMULATION ---
