@@ -379,15 +379,17 @@ Saya ingin memesan travel dengan rincian berikut:
 
 Tanggal Keberangkatan : ${formattedDate}
 Jam Penjemputan : ${jam}
-Kode Pesawat (Jika Ada) : ${kodePesawat}
-Nama Pemesan : ${nama}
-Nomor WhatsApp Aktif : ${noWa}
-Alamat Jemput : ${jemput}
-Alamat Tujuan : ${tujuan}
-Barang Bawaan : ${barang}
+Kode Pesawat/Kapal : ${kodePesawat}
+
+Nama : ${nama}
+Nomor WA : ${noWa}
+Penjemputan : ${jemput}
+Tujuan : ${tujuan}
+Barang : ${barang}
 Jumlah Penumpang : ${jumlah}
-Paket Travel (Regular/Carter Drop/PP/Wisata) : ${paketTravel}
-Paket Perjalanan (Via Toll/Nontoll) : ${paketJalan}
+
+Paket Travel : ${paketTravel}
+Paket Perjalanan : ${paketJalan}
 Info Travel : ${infoTravel}
 Catatan Tambahan : ${catatan}`;
 
