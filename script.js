@@ -320,7 +320,7 @@ const carterPrices = {
   }
 };
 
-const armadaRegularPool = ["Avanza", "Expander", "Innova Reborn"];
+const armadaRegularPool = ["Random/Acak"];
 
 const ROUTE_ALIASES = {
   "kediri": "Kediri Kota",
