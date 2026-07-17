@@ -292,17 +292,17 @@ window.selectCar = function(carName) {
 // --- CEK HARGA: DATA TABLES ---
 const regularPrices = {
   "Bandara Juanda|Malang Kota": 150000,
-   "Malang kota|Bandara Juanda": 150000,
-   "Kediri kota|Bandara Juanda": 150000,
-   "Bandara Juanda|Kediri kota": 150000,
+  "Malang Kota|Bandara Juanda": 150000,
+  "Kediri Kota|Bandara Juanda": 150000,
+  "Bandara Juanda|Kediri Kota": 150000,
   "Bandara Juanda|Malang Kabupaten": 170000,
-  "Malang kabupaten|Bandara Juanda": 170000,
+  "Malang Kabupaten|Bandara Juanda": 170000,
   "Batu Kota|Bandara Juanda": 170000,
-   "Bandara Juanda|Batu kota": 170000,
+  "Bandara Juanda|Batu Kota": 170000,
   "Malang Kota|Surabaya Kota": 170000,
   "Surabaya Kota|Malang Kota": 170000,
-  "Surabaya kota|Batu kota": 180000,
-  "Batu Kota|Surabaya Kota": 180000
+  "Batu Kota|Surabaya Kota": 180000,
+  "Surabaya Kota|Batu Kota": 180000
 };
 
 const carterPrices = {
@@ -320,13 +320,31 @@ const carterPrices = {
   }
 };
 
-const armadaRegularPool = ["Random/Acak"];
+const armadaRegularPool = ["Avanza", "Expander", "Innova Reborn"];
+
+const ROUTE_ALIASES = {
+  "kediri": "Kediri Kota",
+  "kediri kota": "Kediri Kota",
+  "malang kota": "Malang Kota",
+  "malang kabupaten": "Malang Kabupaten",
+  "batu kota": "Batu Kota",
+  "surabaya kota": "Surabaya Kota",
+  "bandara juanda": "Bandara Juanda"
+};
+
+function normalizeRouteName(value) {
+  if (!value) return value;
+  const trimmed = value.trim();
+  const key = trimmed.toLowerCase();
+  if (ROUTE_ALIASES[key]) return ROUTE_ALIASES[key];
+  return trimmed.replace(/\b\w+/g, w => w[0].toUpperCase() + w.slice(1).toLowerCase());
+}
 
 const jadwalRegular = {
   "Malang Kota|Surabaya Kota": ["01:00","03:00","05:00","07:00","09:00","11:00","13:00","15:00"],
   "Surabaya Kota|Malang Kota": ["07:00","09:00","11:00","13:00","15:00","17:00","19:00"],
-  "Malang Kota|Kediri": ["07:00","13:00","18:00"],
-  "Kediri|Malang Kota": ["07:00","13:00","18:00"]
+  "Malang Kota|Kediri Kota": ["07:00","13:00","18:00"],
+  "Kediri Kota|Malang Kota": ["07:00","13:00","18:00"]
 };
 
 const notesRegular = [
@@ -506,8 +524,8 @@ function initQuickSearch() {
     if (!quickSearchBtn) return;
 
     quickSearchBtn.addEventListener("click", () => {
-        const asal = document.getElementById("quickAsal").value;
-        const tujuan = document.getElementById("quickTujuan").value;
+        const asal = normalizeRouteName(document.getElementById("quickAsal").value);
+        const tujuan = normalizeRouteName(document.getElementById("quickTujuan").value);
         const paket = document.getElementById("quickPaket").value;
         const jumlah = parseInt(document.getElementById("quickJumlah").value) || 1;
         const resultArea = document.getElementById("priceResultArea");
