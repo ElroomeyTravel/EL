@@ -313,7 +313,7 @@ const carterPrices = {
   }
 };
 
-const armadaRegularPool = ["Avanza", "Expander", "Innova"];
+const armadaRegularPool = ["Random/Acak"];
 
 const jadwalRegular = {
   "Malang Kota|Surabaya Kota": ["01:00","03:00","05:00","07:00","09:00","11:00","13:00","15:00"],
