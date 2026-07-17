@@ -289,19 +289,286 @@ window.selectCar = function(carName) {
     smoothScrollTo("#pesan");
 };
 
-// --- HERO QUICK BOOKING ACTION ---
+// --- CEK HARGA: DATA TABLES ---
+const regularPrices = {
+  "Bandara Juanda|Malang Kota": 150000,
+  "Bandara Juanda|Malang Kabupaten": 170000,
+  "Batu Kota|Bandara Juanda": 170000,
+  "Malang Kota|Surabaya Kota": 170000,
+  "Batu Kota|Surabaya Kota": 180000
+};
+
+const carterPrices = {
+  "Bandara Juanda|Malang Kota": {
+    Avanza: 550000, Expander: 600000, "Innova Reborn": 750000, Hiace: 1350000, "Elf Giga": null
+  },
+  "Batu Kota|Bandara Juanda": {
+    Avanza: 600000, Expander: 650000, "Innova Reborn": 800000, Hiace: 1400000, "Elf Giga": null
+  },
+  "Malang Kota|Surabaya Kota": {
+    Avanza: 600000, Expander: 650000, "Innova Reborn": 800000, Hiace: 1400000, "Elf Giga": null
+  },
+  "Batu Kota|Surabaya Kota": {
+    Avanza: 650000, Expander: 700000, "Innova Reborn": 850000, Hiace: 1450000, "Elf Giga": null
+  }
+};
+
+const armadaRegularPool = ["Avanza", "Expander", "Innova"];
+
+const jadwalRegular = {
+  "Malang Kota|Surabaya Kota": ["01:00","03:00","05:00","07:00","09:00","11:00","13:00","15:00"],
+  "Surabaya Kota|Malang Kota": ["07:00","09:00","11:00","13:00","15:00","17:00","19:00"],
+  "Malang Kota|Kediri": ["07:00","13:00","18:00"],
+  "Kediri|Malang Kota": ["07:00","13:00","18:00"]
+};
+
+const notesRegular = [
+  "Belum termasuk biaya toll (toll dibayar patungan antar penumpang)",
+  "Layanan door to door — jadwal penjemputan & pengantaran bergantian dengan penumpang lain"
+];
+const notesCarterDrop = [
+  "Harga sudah termasuk toll"
+];
+
+const WA_ADMIN = CONFIG.whatsappNumber;
+
+function formatRupiah(num) {
+  return "Rp " + num.toLocaleString("id-ID");
+}
+
+function generateInvoiceNumber() {
+  return "INV-" + Date.now();
+}
+
+function getJadwalForRoute(routeKey) {
+  if (jadwalRegular[routeKey]) return jadwalRegular[routeKey].join(", ");
+  // Bandara Juanda routes use Surabaya schedules
+  const asalTujuan = routeKey.split("|");
+  const asal = asalTujuan[0];
+  const tujuan = asalTujuan[1];
+  // Try matching with Surabaya substitute for Bandara Juanda
+  const subbedAsal = asal === "Bandara Juanda" ? "Surabaya Kota" : asal;
+  const subbedTujuan = tujuan === "Bandara Juanda" ? "Surabaya Kota" : tujuan;
+  const altKey = subbedAsal + "|" + subbedTujuan;
+  if (jadwalRegular[altKey]) return jadwalRegular[altKey].join(", ");
+  return null;
+}
+
+// --- RENDER CONSULTATION CARD ---
+function renderConsultCard(container, asal, tujuan, paket) {
+  const msg = encodeURIComponent(
+    `Halo El-Roomey Travel, saya ingin konsultasi harga untuk:\n\nRute: ${asal} → ${tujuan}\nPaket: ${paket}\n\nMohon info harga dan ketersediaan. Terima kasih.`
+  );
+  container.innerHTML = `
+    <div class="price-result-card consult-card">
+      <div class="result-icon"><i class="fas fa-headset"></i></div>
+      <h4>Konsultasi Admin via WhatsApp</h4>
+      <p class="consult-desc">Harga untuk rute <strong>${asal} → ${tujuan}</strong> dengan paket <strong>${paket}</strong> memerlukan konsultasi langsung dengan admin kami.</p>
+      <a href="https://wa.me/${WA_ADMIN}?text=${msg}" target="_blank" class="btn btn-whatsapp-result">
+        <i class="fab fa-whatsapp"></i> Chat Admin Sekarang
+      </a>
+    </div>
+  `;
+  container.style.display = "block";
+}
+
+// --- RENDER INVOICE CARD ---
+function renderInvoice(container, data) {
+  const notesHTML = data.notes.map(n => `<li><i class="fas fa-info-circle"></i> ${n}</li>`).join("");
+  const formattedDate = new Date().toLocaleDateString("id-ID", { day: "numeric", month: "long", year: "numeric" });
+
+  const waMsg = encodeURIComponent(
+    `Halo El-Roomey Travel, berikut ringkasan cek harga saya:\n\n` +
+    `No. Invoice: ${data.invoiceNo}\n` +
+    `Rute: ${data.asal} → ${data.tujuan}\n` +
+    `Paket: ${data.paket}\n` +
+    `Armada: ${data.armada}\n` +
+    `Jumlah Penumpang: ${data.jumlah}\n` +
+    `Total Harga: ${data.totalFormatted}\n\n` +
+    `Saya ingin melanjutkan pemesanan. Terima kasih.`
+  );
+
+  container.innerHTML = `
+    <div class="price-result-card invoice-card">
+      <div class="invoice-header">
+        <div class="invoice-badge"><i class="fas fa-file-invoice"></i> INVOICE</div>
+        <span class="invoice-number">${data.invoiceNo}</span>
+      </div>
+      <div class="invoice-date"><i class="fas fa-calendar-alt"></i> ${formattedDate}</div>
+      <div class="invoice-body">
+        <div class="invoice-row"><span class="invoice-label">Rute</span><span class="invoice-value">${data.asal} → ${data.tujuan}</span></div>
+        <div class="invoice-row"><span class="invoice-label">Paket</span><span class="invoice-value">${data.paket}</span></div>
+        <div class="invoice-row"><span class="invoice-label">Jumlah Penumpang</span><span class="invoice-value">${data.jumlah}</span></div>
+        <div class="invoice-row"><span class="invoice-label">Armada</span><span class="invoice-value">${data.armada}</span></div>
+        <div class="invoice-row"><span class="invoice-label">Jadwal</span><span class="invoice-value">${data.jadwal}</span></div>
+        <div class="invoice-total">
+          <span class="total-label">Total Harga</span>
+          <span class="total-value">${data.totalFormatted}</span>
+        </div>
+      </div>
+      ${notesHTML.length > 0 ? `<ul class="invoice-notes">${notesHTML}</ul>` : ""}
+      <div class="invoice-actions">
+        <button type="button" class="btn btn-gold invoice-btn" id="invoiceToFormBtn">
+          <i class="fas fa-clipboard-list"></i> Lanjut ke Form Pemesanan
+        </button>
+        <a href="https://wa.me/${WA_ADMIN}?text=${waMsg}" target="_blank" class="btn btn-whatsapp-result invoice-btn">
+          <i class="fab fa-whatsapp"></i> Chat Admin via WhatsApp
+        </a>
+      </div>
+    </div>
+  `;
+  container.style.display = "block";
+
+  // Attach form auto-fill handler
+  document.getElementById("invoiceToFormBtn").addEventListener("click", () => {
+    // Auto-fill booking form
+    const paketSelect = document.getElementById("paketTravel");
+    if (paketSelect) paketSelect.value = data.paket;
+
+    const jumlahInput = document.getElementById("jumlah");
+    if (jumlahInput) jumlahInput.value = data.jumlah;
+
+    const jemputInput = document.getElementById("jemput");
+    if (jemputInput) jemputInput.value = data.asal;
+
+    const tujuanInput = document.getElementById("tujuan");
+    if (tujuanInput) tujuanInput.value = data.tujuan;
+
+    const catatanInput = document.getElementById("catatan");
+    if (catatanInput) catatanInput.value = `Armada: ${data.armada}`;
+
+    smoothScrollTo("#pesan");
+  });
+}
+
+// --- RENDER CARTER DROP ARMADA SELECTOR ---
+function renderCarterDropSelector(container, asal, tujuan, jumlah, routeKey) {
+  const prices = carterPrices[routeKey];
+  const armadaNames = ["Avanza", "Expander", "Innova Reborn", "Hiace", "Elf Giga"];
+
+  let cardsHTML = armadaNames.map(name => {
+    const price = prices[name];
+    const isNull = price === null;
+    return `
+      <div class="armada-option ${isNull ? 'armada-disabled' : ''}" data-armada="${name}" data-price="${price}">
+        <div class="armada-name"><i class="fas fa-car-side"></i> ${name}</div>
+        <div class="armada-price">${isNull ? "Konsultasi Admin" : formatRupiah(price)}</div>
+        ${isNull
+          ? `<span class="armada-tag tag-consult">Hubungi Admin</span>`
+          : `<button type="button" class="btn btn-gold armada-select-btn" data-armada="${name}" data-price="${price}">Pilih</button>`
+        }
+      </div>
+    `;
+  }).join("");
+
+  container.innerHTML = `
+    <div class="price-result-card carter-selector-card">
+      <h4><i class="fas fa-truck-pickup"></i> Pilih Armada — Carter Drop</h4>
+      <p class="carter-route">${asal} → ${tujuan}</p>
+      <div class="armada-grid">${cardsHTML}</div>
+    </div>
+  `;
+  container.style.display = "block";
+
+  // Attach click handlers for selectable armada
+  container.querySelectorAll(".armada-select-btn").forEach(btn => {
+    btn.addEventListener("click", () => {
+      const armadaName = btn.getAttribute("data-armada");
+      const armadaPrice = parseInt(btn.getAttribute("data-price"));
+
+      const invoiceData = {
+        invoiceNo: generateInvoiceNumber(),
+        asal, tujuan,
+        paket: "Carter Drop",
+        jumlah,
+        armada: armadaName,
+        jadwal: "Siap 24 jam",
+        total: armadaPrice,
+        totalFormatted: formatRupiah(armadaPrice),
+        notes: notesCarterDrop
+      };
+      renderInvoice(container, invoiceData);
+    });
+  });
+}
+
+// --- HERO QUICK PRICE CHECK ACTION ---
 function initQuickSearch() {
-    const quickAsal = document.getElementById("quickAsal");
-    const quickTujuan = document.getElementById("quickTujuan");
     const quickSearchBtn = document.getElementById("quickSearchBtn");
-    
     if (!quickSearchBtn) return;
-    
+
     quickSearchBtn.addEventListener("click", () => {
-        const asalVal = quickAsal.value;
-        const tujuanVal = quickTujuan.value;
-        
-        window.selectRoute(asalVal, tujuanVal);
+        const asal = document.getElementById("quickAsal").value;
+        const tujuan = document.getElementById("quickTujuan").value;
+        const paket = document.getElementById("quickPaket").value;
+        const jumlah = parseInt(document.getElementById("quickJumlah").value) || 1;
+        const resultArea = document.getElementById("priceResultArea");
+
+        // Validation
+        if (!asal || !tujuan || !paket) {
+            resultArea.innerHTML = `
+              <div class="price-result-card error-card">
+                <i class="fas fa-exclamation-triangle"></i>
+                <p>Silakan lengkapi semua field (Kota Asal, Kota Tujuan, dan Paket Travel) terlebih dahulu.</p>
+              </div>`;
+            resultArea.style.display = "block";
+            return;
+        }
+
+        if (asal === tujuan) {
+            resultArea.innerHTML = `
+              <div class="price-result-card error-card">
+                <i class="fas fa-exclamation-triangle"></i>
+                <p>Kota asal dan tujuan tidak boleh sama.</p>
+              </div>`;
+            resultArea.style.display = "block";
+            return;
+        }
+
+        const routeKey = asal + "|" + tujuan;
+
+        // --- Carter PP or Carter Wisata → always consult ---
+        if (paket === "Carter PP" || paket === "Carter Wisata") {
+            renderConsultCard(resultArea, asal, tujuan, paket);
+            return;
+        }
+
+        // --- Regular Gabung ---
+        if (paket === "Regular Gabung") {
+            const price = regularPrices[routeKey];
+            if (!price) {
+                renderConsultCard(resultArea, asal, tujuan, paket);
+                return;
+            }
+            const total = price * jumlah;
+            const armada = armadaRegularPool[Math.floor(Math.random() * armadaRegularPool.length)];
+            const jadwal = getJadwalForRoute(routeKey) || "Hubungi admin untuk info jadwal";
+
+            const invoiceData = {
+                invoiceNo: generateInvoiceNumber(),
+                asal, tujuan,
+                paket: "Regular Gabung",
+                jumlah,
+                armada,
+                jadwal,
+                total,
+                totalFormatted: formatRupiah(total),
+                notes: notesRegular
+            };
+            renderInvoice(resultArea, invoiceData);
+            return;
+        }
+
+        // --- Carter Drop ---
+        if (paket === "Carter Drop") {
+            const prices = carterPrices[routeKey];
+            if (!prices) {
+                renderConsultCard(resultArea, asal, tujuan, paket);
+                return;
+            }
+            renderCarterDropSelector(resultArea, asal, tujuan, jumlah, routeKey);
+            return;
+        }
     });
 }
 

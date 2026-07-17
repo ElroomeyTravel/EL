@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="id">
 <head>
     <meta charset="UTF-8">
@@ -47,7 +47,8 @@
                     <li><a href="#keunggulan" class="nav-link">Keunggulan</a></li>
                     <li><a href="#testimoni" class="nav-link">Testimoni</a></li>
                     <li><a href="blog.html" class="nav-link">Blog</a></li>
-                    <li><a href="Kursus.html" class="nav-link">Kursus</a></li>
+                    <li><a href="Kursus.html" class="nav-link">Kursus
+                    </a></li>
                     <li><a href="#pesan" class="btn-booking-nav">Pesan Sekarang</a></li>
                 </ul>
             </nav>
@@ -84,24 +85,44 @@
                     <div class="quick-field">
                         <label for="quickAsal">Kota Asal</label>
                         <select id="quickAsal" class="quick-input">
-                            <option value="Kediri">Malang</option>
-                            <option value="Surabaya">Surabaya</option>
-                            <option value="Malang">Kediri</option>
+                            <option value="Malang Kota">Malang Kota</option>
+                            <option value="Malang Kabupaten">Malang Kabupaten</option>
+                            <option value="Batu Kota">Batu Kota</option>
+                            <option value="Surabaya Kota">Surabaya Kota</option>
+                            <option value="Bandara Juanda">Bandara Juanda</option>
+                            <option value="Kediri">Kediri</option>
                         </select>
                     </div>
                     <div class="quick-field">
                         <label for="quickTujuan">Kota Tujuan</label>
                         <select id="quickTujuan" class="quick-input">
-                            <option value="Surabaya">Surabaya</option>
+                            <option value="Surabaya Kota">Surabaya Kota</option>
+                            <option value="Malang Kota">Malang Kota</option>
+                            <option value="Malang Kabupaten">Malang Kabupaten</option>
+                            <option value="Batu Kota">Batu Kota</option>
+                            <option value="Bandara Juanda">Bandara Juanda</option>
                             <option value="Kediri">Kediri</option>
-                            <option value="Malang">Malang</option>
                         </select>
+                    </div>
+                    <div class="quick-field">
+                        <label for="quickPaket">Paket Travel</label>
+                        <select id="quickPaket" class="quick-input">
+                            <option value="Regular Gabung">Regular Gabung</option>
+                            <option value="Carter Drop">Carter Drop</option>
+                            <option value="Carter PP">Carter PP</option>
+                            <option value="Carter Wisata">Carter Wisata</option>
+                        </select>
+                    </div>
+                    <div class="quick-field">
+                        <label for="quickJumlah">Jumlah Penumpang</label>
+                        <input id="quickJumlah" class="quick-input" type="number" min="1" value="1">
                     </div>
                     <button type="button" id="quickSearchBtn" class="btn btn-gold quick-btn">
                         <span>Pesan</span>
                         <i class="fas fa-chevron-right"></i>
                     </button>
                 </div>
+                <div class="price-result-area" id="priceResultArea" style="display: none;"></div>
             </div>
         </div>
         <div class="hero-scroll-down">
