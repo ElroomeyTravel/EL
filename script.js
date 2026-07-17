@@ -316,6 +316,34 @@ function smoothScrollTo(targetSelector) {
     }
 }
 
+// --- KIRIM DATA KE GOOGLE SHEETS ---
+async function kirimKeSheets(formData) {
+  try {
+    await fetch("https://script.google.com/macros/s/AKfycbz4wfYs6aHcrVBT0xAtUjD5zwcNdpkJqHh6PdWi2uqMwKlfYZunRQa-QBvTKexcC6VY/exec", {
+      method: "POST",
+      mode: "no-cors",
+      headers: { "Content-Type": "text/plain" },
+      body: JSON.stringify({
+        tanggalKeberangkatan: formData.tanggalKeberangkatan,
+        jamPenjemputan: formData.jamPenjemputan,
+        kodePesawat: formData.kodePesawat,
+        namaPemesan: formData.namaPemesan,
+        noWhatsapp: formData.noWhatsapp,
+        jumlahPenumpang: formData.jumlahPenumpang,
+        alamatJemput: formData.alamatJemput,
+        alamatTujuan: formData.alamatTujuan,
+        barangBawaan: formData.barangBawaan,
+        paketTravel: formData.paketTravel,
+        paketPerjalanan: formData.paketPerjalanan,
+        infoTravel: formData.infoTravel,
+        catatanTambahan: formData.catatanTambahan
+      })
+    });
+  } catch (err) {
+    console.error("Gagal kirim ke Sheets:", err);
+  }
+}
+
 // --- BOOKING WHATSAPP REDIRECT ---
 function initBookingForm() {
     const form = document.getElementById("bookingForm");
@@ -399,6 +427,24 @@ Catatan Tambahan : ${catatan}`;
         // Build final redirection URL
         const whatsappUrl = `https://wa.me/${CONFIG.whatsappNumber}?text=${encodedText}`;
         
+        // Kirim data ke Google Sheets (fire-and-forget, tidak memblokir redirect WA)
+        const formData = {
+            tanggalKeberangkatan: tanggal,
+            jamPenjemputan: jam,
+            kodePesawat: kodePesawat,
+            namaPemesan: nama,
+            noWhatsapp: noWa,
+            jumlahPenumpang: jumlah,
+            alamatJemput: jemput,
+            alamatTujuan: tujuan,
+            barangBawaan: barang,
+            paketTravel: paketTravel,
+            paketPerjalanan: paketJalan,
+            infoTravel: infoTravel,
+            catatanTambahan: catatan
+        };
+        kirimKeSheets(formData);
+
         // Open WhatsApp in a new tab
         window.open(whatsappUrl, '_blank');
     });
