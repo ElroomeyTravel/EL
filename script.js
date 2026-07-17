@@ -312,7 +312,10 @@ const carterPrices = {
   "Malang Kota|Bandara Juanda": {
     Avanza: 550000, Expander: 600000, "Innova Reborn": 750000, Hiace: 1350000, "Elf Giga": null
   },
-  "Bandara Juanda|Malang Kota": {
+  "Bandara Juanda|Batu Kota": {
+    Avanza: 600000, Expander: 650000, "Innova Reborn": 800000, Hiace: 1400000, "Elf Giga": null
+    },
+  "Batu Kota|Bandara Juanda": {
     Avanza: 600000, Expander: 650000, "Innova Reborn": 800000, Hiace: 1400000, "Elf Giga": null
   },
   "Surabaya Kota|Malang Kota": {
