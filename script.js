@@ -292,9 +292,16 @@ window.selectCar = function(carName) {
 // --- CEK HARGA: DATA TABLES ---
 const regularPrices = {
   "Bandara Juanda|Malang Kota": 150000,
+   "Malang kota|Bandara Juanda": 150000,
+   "Kediri kota|Bandara Juanda": 150000,
+   "Bandara Juanda|Kediri kota": 150000,
   "Bandara Juanda|Malang Kabupaten": 170000,
+  "Malang kabupaten|Bandara Juanda": 170000,
   "Batu Kota|Bandara Juanda": 170000,
+   "Bandara Juanda|Batu kota": 170000,
   "Malang Kota|Surabaya Kota": 170000,
+  "Surabaya Kota|Malang Kota": 170000,
+  "Surabaya kota|Batu kota": 180000,
   "Batu Kota|Surabaya Kota": 180000
 };
 
@@ -325,6 +332,7 @@ const jadwalRegular = {
 const notesRegular = [
   "Belum termasuk biaya toll (toll dibayar patungan antar penumpang)",
   "Layanan door to door — jadwal penjemputan & pengantaran bergantian dengan penumpang lain"
+  "free bagasi untuk 1 koper dan 1 ransel"
 ];
 const notesCarterDrop = [
   "Harga sudah termasuk toll"
