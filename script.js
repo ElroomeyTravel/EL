@@ -331,7 +331,7 @@ const jadwalRegular = {
 
 const notesRegular = [
   "Belum termasuk biaya toll (toll dibayar patungan antar penumpang)",
-  "Layanan door to door — jadwal penjemputan & pengantaran bergantian dengan penumpang lain"
+  "Layanan door to door — jadwal penjemputan & pengantaran bergantian dengan penumpang lain",
   "free bagasi untuk 1 koper dan 1 ransel"
 ];
 const notesCarterDrop = [
