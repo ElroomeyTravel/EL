@@ -301,6 +301,8 @@ const regularPrices = {
   "Bandara Juanda|Batu Kota": 170000,
   "Malang Kota|Surabaya Kota": 170000,
   "Surabaya Kota|Malang Kota": 170000,
+  "Surabaya Kota|Malang Kabupaten": 180000,
+  "Malang Kabupaten|Surabaya Kota": 180000,
   "Batu Kota|Surabaya Kota": 180000,
   "Surabaya Kota|Batu Kota": 180000
 };
