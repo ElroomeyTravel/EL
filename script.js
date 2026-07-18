@@ -291,46 +291,66 @@ window.selectCar = function(carName) {
 
 // --- CEK HARGA: DATA TABLES ---
 const regularPrices = {
-  "Bandara Juanda|Malang Kota": 150000,
-  "Malang Kota|Bandara Juanda": 150000,
-  "Kediri Kota|Bandara Juanda": 150000,
+  "Bandara Juanda|Batu Kota": 170000,
   "Bandara Juanda|Kediri Kota": 150000,
   "Bandara Juanda|Malang Kabupaten": 170000,
-  "Malang Kabupaten|Bandara Juanda": 170000,
+  "Bandara Juanda|Malang Kota": 150000,
+  "Bandara Juanda|Pandaan": 160000,
   "Batu Kota|Bandara Juanda": 170000,
-  "Bandara Juanda|Batu Kota": 170000,
-  "Malang Kota|Surabaya Kota": 170000,
-  "Surabaya Kota|Malang Kota": 170000,
-  "Surabaya Kota|Malang Kabupaten": 180000,
-  "Malang Kabupaten|Surabaya Kota": 180000,
+  "Batu Kota|Kediri Kota": 120000,
   "Batu Kota|Surabaya Kota": 180000,
-  "Surabaya Kota|Batu Kota": 180000
+  "Kediri Kota|Bandara Juanda": 150000,
+  "Kediri Kota|Batu Kota": 120000,
+  "Kediri Kota|Malang Kota": 120000,
+  "Kediri Kota|Surabaya Kota": 150000,
+  "Malang Kabupaten|Bandara Juanda": 170000,
+  "Malang Kabupaten|Surabaya Kota": 180000,
+  "Malang Kota|Bandara Juanda": 150000,
+  "Malang Kota|Kediri Kota": 120000,
+  "Malang Kota|Surabaya Kota": 170000,
+  "Pandaan|Bandara Juanda": 160000,
+  "Surabaya Kota|Batu Kota": 180000,
+  "Surabaya Kota|Kediri Kota": 150000,
+  "Surabaya Kota|Malang Kabupaten": 180000,
+  "Surabaya Kota|Malang Kota": 170000
 };
 
 const carterPrices = {
+  "Bandara Juanda|Batu Kota": {
+    Avanza: 600000, Expander: 650000, "Innova Reborn": 800000, Hiace: 1400000, "Elf Giga": null
+  },
+  "Bandara Juanda|Malang Kabupaten": {
+    Avanza: 600000, Expander: 650000, "Innova Reborn": 800000, Hiace: 1400000, "Elf Giga": null
+  },
   "Bandara Juanda|Malang Kota": {
     Avanza: 550000, Expander: 600000, "Innova Reborn": 750000, Hiace: 1350000, "Elf Giga": null
   },
-  "Malang Kota|Bandara Juanda": {
-    Avanza: 550000, Expander: 600000, "Innova Reborn": 750000, Hiace: 1350000, "Elf Giga": null
-  },
-  "Bandara Juanda|Batu Kota": {
-    Avanza: 600000, Expander: 650000, "Innova Reborn": 800000, Hiace: 1400000, "Elf Giga": null
-    },
   "Batu Kota|Bandara Juanda": {
-    Avanza: 600000, Expander: 650000, "Innova Reborn": 800000, Hiace: 1400000, "Elf Giga": null
-  },
-  "Surabaya Kota|Malang Kota": {
-    Avanza: 600000, Expander: 650000, "Innova Reborn": 800000, Hiace: 1400000, "Elf Giga": null
-  },
-  "Malang Kota|Surabaya Kota": {
     Avanza: 600000, Expander: 650000, "Innova Reborn": 800000, Hiace: 1400000, "Elf Giga": null
   },
   "Batu Kota|Surabaya Kota": {
     Avanza: 650000, Expander: 700000, "Innova Reborn": 850000, Hiace: 1450000, "Elf Giga": null
   },
+  "Malang Kabupaten|Bandara Juanda": {
+    Avanza: 600000, Expander: 650000, "Innova Reborn": 800000, Hiace: 1400000, "Elf Giga": null
+  },
+  "Malang Kabupaten|Surabaya Kota": {
+    Avanza: 650000, Expander: 700000, "Innova Reborn": 850000, Hiace: 1450000, "Elf Giga": null
+  },
+  "Malang Kota|Bandara Juanda": {
+    Avanza: 550000, Expander: 600000, "Innova Reborn": 750000, Hiace: 1350000, "Elf Giga": null
+  },
+  "Malang Kota|Surabaya Kota": {
+    Avanza: 600000, Expander: 650000, "Innova Reborn": 800000, Hiace: 1400000, "Elf Giga": null
+  },
   "Surabaya Kota|Batu Kota": {
     Avanza: 650000, Expander: 700000, "Innova Reborn": 850000, Hiace: 1450000, "Elf Giga": null
+  },
+  "Surabaya Kota|Malang Kabupaten": {
+    Avanza: 650000, Expander: 700000, "Innova Reborn": 850000, Hiace: 1450000, "Elf Giga": null
+  },
+  "Surabaya Kota|Malang Kota": {
+    Avanza: 600000, Expander: 650000, "Innova Reborn": 800000, Hiace: 1400000, "Elf Giga": null
   }
 };
 
