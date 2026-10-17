@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Pricing & Membership – IELTS Path</title>
+  <meta name="description" content="Pilih paket belajar IELTS yang sesuai. Mulai gratis dengan Diagnostic Test atau upgrade ke Pro dan Intensive." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --purple: #6D4AFF; --purple-light: #A78BFF; --purple-dark: #4F2ECC;
+      --navy: #17182B; --navy-2: #1E2040; --navy-3: #252747;
+      --white: #FFFFFF; --gray-400: #9090A8;
+      --success: #22C55E; --warning: #F59E0B; --danger: #EF4444;
+      --font: 'Inter', sans-serif;
+      --radius: 16px; --radius-sm: 10px;
+      --shadow: 0 8px 32px rgba(109,74,255,0.12);
+      --transition: 0.25s cubic-bezier(0.4,0,0.2,1);
+    }
+    body { font-family: var(--font); background: var(--navy); color: var(--white); }
+    a { color: inherit; text-decoration: none; }
+    button { cursor: pointer; font-family: var(--font); }
+
+    /* NAV */
+    .nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; padding: 0 5vw; display: flex; align-items: center; justify-content: space-between; height: 70px; background: rgba(23,24,43,0.92); backdrop-filter: blur(16px); border-bottom: 1px solid rgba(109,74,255,0.15); }
+    .nav-logo { display: flex; align-items: center; gap: 10px; font-weight: 800; font-size: 1.1rem; }
+    .nav-logo-icon { width: 34px; height: 34px; border-radius: 9px; background: linear-gradient(135deg, var(--purple), var(--purple-light)); display: flex; align-items: center; justify-content: center; font-size: 0.8rem; font-weight: 900; }
+    .nav-logo span { color: var(--purple-light); }
+    .nav-links { display: flex; align-items: center; gap: 8px; list-style: none; }
+    .nav-links a { padding: 7px 14px; border-radius: 8px; font-size: 0.875rem; font-weight: 500; color: rgba(255,255,255,0.75); transition: color var(--transition), background var(--transition); }
+    .nav-links a:hover, .nav-links a.active { color: var(--white); background: rgba(109,74,255,0.15); }
+    .btn-nav-cta { padding: 9px 22px; border-radius: 8px; border: none; font-size: 0.875rem; font-weight: 600; background: linear-gradient(135deg, var(--purple), var(--purple-light)); color: var(--white); box-shadow: 0 4px 16px rgba(109,74,255,0.35); transition: transform var(--transition), box-shadow var(--transition); }
+    .btn-nav-cta:hover { transform: translateY(-1px); box-shadow: 0 8px 24px rgba(109,74,255,0.5); }
+    .nav-hamburger { display: none; flex-direction: column; gap: 5px; background: none; border: none; padding: 4px; }
+    .nav-hamburger span { display: block; width: 24px; height: 2px; background: var(--white); border-radius: 2px; transition: transform var(--transition), opacity var(--transition); }
+    .nav-mobile { display: none; flex-direction: column; gap: 4px; position: fixed; top: 70px; left: 0; right: 0; z-index: 99; background: var(--navy-2); border-bottom: 1px solid rgba(109,74,255,0.2); padding: 16px 5vw 24px; }
+    .nav-mobile.open { display: flex; }
+    .nav-mobile a { padding: 12px 16px; border-radius: var(--radius-sm); font-size: 0.95rem; font-weight: 500; color: rgba(255,255,255,0.8); transition: background var(--transition), color var(--transition); }
+    .nav-mobile a:hover { background: rgba(109,74,255,0.15); color: var(--white); }
+
+    /* HERO */
+    .hero { padding: 140px 5vw 60px; text-align: center; position: relative; overflow: hidden; }
+    .hero::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse 60% 60% at 50% 30%, rgba(109,74,255,0.18), transparent 70%); }
+    .hero-inner { position: relative; z-index: 1; max-width: 640px; margin: 0 auto; }
+    .hero-tag { display: inline-flex; align-items: center; gap: 8px; padding: 6px 16px; border-radius: 100px; background: rgba(109,74,255,0.15); border: 1px solid rgba(109,74,255,0.3); font-size: 0.8rem; font-weight: 600; color: var(--purple-light); margin-bottom: 24px; }
+    .hero h1 { font-size: clamp(1.8rem,4vw,2.75rem); font-weight: 900; letter-spacing: -1px; margin-bottom: 16px; }
+    .hero p { font-size: 1rem; color: rgba(255,255,255,0.65); line-height: 1.7; }
+
+    /* TOGGLE BILLING */
+    .billing-toggle { display: flex; align-items: center; justify-content: center; gap: 12px; margin: 36px auto; }
+    .toggle-label { font-size: 0.9rem; font-weight: 600; color: rgba(255,255,255,0.65); }
+    .toggle-label.active { color: var(--white); }
+    .toggle-switch { width: 52px; height: 28px; border-radius: 100px; background: rgba(109,74,255,0.3); border: 1.5px solid rgba(109,74,255,0.4); position: relative; cursor: pointer; transition: background var(--transition); }
+    .toggle-switch.yearly { background: rgba(109,74,255,0.6); }
+    .toggle-knob { width: 22px; height: 22px; border-radius: 50%; background: var(--white); position: absolute; top: 1px; left: 2px; transition: transform var(--transition); }
+    .toggle-switch.yearly .toggle-knob { transform: translateX(24px); }
+    .save-badge { padding: 3px 10px; border-radius: 100px; background: rgba(34,197,94,0.15); border: 1px solid rgba(34,197,94,0.3); font-size: 0.7rem; font-weight: 700; color: var(--success); }
+
+    /* PRICING GRID */
+    .pricing-section { padding: 20px 5vw 80px; }
+    .pricing-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px,1fr)); gap: 24px; max-width: 1060px; margin: 0 auto; }
+
+    .pricing-card {
+      background: var(--navy-2); border: 1px solid rgba(109,74,255,0.15);
+      border-radius: 20px; padding: 36px 32px; position: relative;
+      transition: transform var(--transition), box-shadow var(--transition);
+    }
+    .pricing-card:hover { transform: translateY(-6px); }
+    .pricing-card.featured {
+      border-color: var(--purple);
+      background: linear-gradient(135deg, rgba(109,74,255,0.12), var(--navy-2));
+      box-shadow: 0 0 0 1px var(--purple), 0 20px 60px rgba(109,74,255,0.2);
+    }
+    .pricing-badge { position: absolute; top: -12px; left: 50%; transform: translateX(-50%); padding: 4px 18px; border-radius: 100px; background: linear-gradient(135deg, var(--purple), var(--purple-light)); font-size: 0.75rem; font-weight: 700; color: var(--white); white-space: nowrap; }
+    .plan-name { font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.12em; color: var(--purple-light); margin-bottom: 12px; }
+    .plan-price-wrap { margin-bottom: 20px; }
+    .plan-price { font-size: 2.8rem; font-weight: 900; letter-spacing: -1.5px; line-height: 1; }
+    .plan-price .cur { font-size: 1rem; font-weight: 600; color: var(--gray-400); vertical-align: top; margin-top: 8px; display: inline-block; }
+    .plan-period { font-size: 0.85rem; color: var(--gray-400); margin-top: 4px; }
+    .plan-original { font-size: 0.8rem; color: var(--gray-400); text-decoration: line-through; display: none; }
+    .plan-original.show { display: block; }
+    .plan-desc { font-size: 0.875rem; color: rgba(255,255,255,0.6); line-height: 1.65; margin-bottom: 28px; }
+    .plan-features { list-style: none; display: flex; flex-direction: column; gap: 10px; margin-bottom: 32px; }
+    .plan-features li { display: flex; align-items: flex-start; gap: 10px; font-size: 0.875rem; color: rgba(255,255,255,0.85); line-height: 1.4; }
+    .plan-features li::before { content: '✓'; width: 20px; height: 20px; border-radius: 50%; background: rgba(109,74,255,0.2); display: flex; align-items: center; justify-content: center; font-size: 0.65rem; font-weight: 800; color: var(--purple-light); flex-shrink: 0; margin-top: 1px; }
+    .plan-features li.disabled { opacity: 0.35; }
+    .plan-features li.disabled::before { content: '✕'; }
+    .btn-plan { width: 100%; padding: 14px; border-radius: var(--radius-sm); font-size: 0.95rem; font-weight: 700; border: none; transition: all var(--transition); }
+    .btn-plan.primary { background: linear-gradient(135deg, var(--purple), var(--purple-light)); color: var(--white); box-shadow: 0 6px 24px rgba(109,74,255,0.35); }
+    .btn-plan.primary:hover { transform: translateY(-2px); box-shadow: 0 12px 32px rgba(109,74,255,0.5); }
+    .btn-plan.secondary { background: transparent; color: var(--white); border: 1.5px solid rgba(109,74,255,0.35); }
+    .btn-plan.secondary:hover { border-color: var(--purple); background: rgba(109,74,255,0.08); }
+    .btn-plan.success { background: linear-gradient(135deg, #22C55E, #16A34A); color: var(--white); box-shadow: 0 6px 24px rgba(34,197,94,0.25); }
+    .btn-plan.success:hover { transform: translateY(-2px); box-shadow: 0 12px 32px rgba(34,197,94,0.4); }
+
+    /* COMPARE TABLE */
+    .compare-section { padding: 60px 5vw 80px; background: var(--navy-2); }
+    .compare-section h2 { font-size: 1.5rem; font-weight: 800; text-align: center; margin-bottom: 36px; }
+    .compare-table-wrap { overflow-x: auto; }
+    .compare-table { width: 100%; max-width: 900px; margin: 0 auto; border-collapse: collapse; }
+    .compare-table th { padding: 14px 16px; font-size: 0.8rem; font-weight: 700; text-align: left; color: var(--purple-light); border-bottom: 1px solid rgba(109,74,255,0.2); }
+    .compare-table th:first-child { width: 40%; }
+    .compare-table td { padding: 14px 16px; font-size: 0.85rem; border-bottom: 1px solid rgba(109,74,255,0.08); color: rgba(255,255,255,0.8); }
+    .compare-table tr:last-child td { border-bottom: none; }
+    .compare-table tr:hover td { background: rgba(109,74,255,0.04); }
+    .check { color: var(--success); font-weight: 700; }
+    .cross { color: rgba(255,255,255,0.3); }
+    .limited { color: var(--warning); font-weight: 600; }
+
+    /* FAQ */
+    .faq-section { padding: 80px 5vw; max-width: 800px; margin: 0 auto; }
+    .faq-section h2 { font-size: 1.5rem; font-weight: 800; margin-bottom: 32px; text-align: center; }
+    .faq-item { border: 1px solid rgba(109,74,255,0.12); border-radius: var(--radius-sm); margin-bottom: 12px; overflow: hidden; }
+    .faq-q { padding: 18px 20px; font-size: 0.9rem; font-weight: 600; cursor: pointer; display: flex; align-items: center; justify-content: space-between; transition: background var(--transition); }
+    .faq-q:hover { background: rgba(109,74,255,0.05); }
+    .faq-q.open { background: rgba(109,74,255,0.08); color: var(--purple-light); }
+    .faq-arrow { font-size: 0.75rem; transition: transform var(--transition); }
+    .faq-q.open .faq-arrow { transform: rotate(180deg); }
+    .faq-a { display: none; padding: 0 20px 18px; font-size: 0.875rem; color: rgba(255,255,255,0.65); line-height: 1.7; }
+    .faq-a.open { display: block; }
+
+    /* CTA FINAL */
+    .final-cta { padding: 80px 5vw; text-align: center; background: var(--navy-2); border-top: 1px solid rgba(109,74,255,0.1); }
+    .final-cta h2 { font-size: clamp(1.5rem,3vw,2.2rem); font-weight: 900; margin-bottom: 14px; }
+    .final-cta p { font-size: 0.95rem; color: rgba(255,255,255,0.65); line-height: 1.7; margin-bottom: 32px; max-width: 520px; margin-left: auto; margin-right: auto; }
+    .final-btns { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
+    .btn-final-primary { padding: 14px 32px; border-radius: 12px; border: none; font-size: 1rem; font-weight: 700; background: linear-gradient(135deg, var(--purple), var(--purple-light)); color: var(--white); box-shadow: 0 8px 32px rgba(109,74,255,0.4); transition: all var(--transition); }
+    .btn-final-primary:hover { transform: translateY(-3px); box-shadow: 0 16px 48px rgba(109,74,255,0.55); }
+    .btn-final-ghost { padding: 14px 32px; border-radius: 12px; border: 1.5px solid rgba(255,255,255,0.2); background: transparent; color: var(--white); font-size: 1rem; font-weight: 600; transition: all var(--transition); }
+    .btn-final-ghost:hover { border-color: var(--purple-light); background: rgba(109,74,255,0.1); }
+
+    @media (max-width: 768px) { .nav-links { display: none; } .nav-hamburger { display: flex; } }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="nav">
+  <a href="ielts-path-home.html" class="nav-logo">
+    <div class="nav-logo-icon">IP</div>
+    IELTS <span>Path</span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="ielts-path-home.html">Home</a></li>
+    <li><a href="ielts-diagnostic.html">Diagnostic Test</a></li>
+    <li><a href="ielts-program.html">Program</a></li>
+    <li><a href="ielts-pricing.html" class="active">Pricing</a></li>
+    <li><a href="#membership">Membership</a></li>
+  </ul>
+  <button class="btn-nav-cta" onclick="window.location.href='ielts-diagnostic.html'">Mulai Gratis</button>
+  <button class="nav-hamburger" id="hamburger" onclick="toggleMenu()">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+<div class="nav-mobile" id="mobile-nav">
+  <a href="ielts-path-home.html">🏠 Home</a>
+  <a href="ielts-diagnostic.html">🎯 Diagnostic Test</a>
+  <a href="ielts-program.html">📚 Program</a>
+  <a href="ielts-pricing.html">💎 Pricing</a>
+  <a href="#membership">👑 Membership</a>
+</div>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-inner">
+    <div class="hero-tag">💎 Pricing & Membership</div>
+    <h1>Investasi Terbaik untuk Skor IELTS Kamu</h1>
+    <p>Mulai gratis, upgrade kapan saja. Tidak ada kontrak jangka panjang – fleksibel sesuai kebutuhanmu.</p>
+  </div>
+</section>
+
+<!-- BILLING TOGGLE -->
+<div class="billing-toggle">
+  <span class="toggle-label active" id="label-monthly">Bulanan</span>
+  <div class="toggle-switch" id="billing-toggle" onclick="toggleBilling()">
+    <div class="toggle-knob" id="toggle-knob"></div>
+  </div>
+  <span class="toggle-label" id="label-yearly">Tahunan</span>
+  <span class="save-badge">Hemat 20%</span>
+</div>
+
+<!-- PRICING CARDS -->
+<section class="pricing-section" id="membership">
+  <div class="pricing-grid">
+    <!-- FREE -->
+    <div class="pricing-card">
+      <div class="plan-name">Free</div>
+      <div class="plan-price-wrap">
+        <div class="plan-price">Rp 0</div>
+        <div class="plan-period">selamanya</div>
+      </div>
+      <div class="plan-desc">Ideal untuk penjajakan awal dan mengetahui level kemampuan IELTS kamu.</div>
+      <ul class="plan-features">
+        <li>Diagnostic Test (Listening & Reading)</li>
+        <li>10 soal Listening + 10 soal Reading</li>
+        <li>Hasil skor & review jawaban</li>
+        <li>Rekomendasi belajar dasar</li>
+        <li class="disabled">Soal latihan tambahan</li>
+        <li class="disabled">Feedback Writing dari tutor</li>
+        <li class="disabled">Sesi Speaking 1-on-1</li>
+        <li class="disabled">Progress tracking</li>
+      </ul>
+      <button class="btn-plan secondary" onclick="window.location.href='ielts-diagnostic.html'">Mulai Gratis Sekarang</button>
+    </div>
+
+    <!-- PRO -->
+    <div class="pricing-card featured">
+      <div class="pricing-badge">⭐ Paling Populer</div>
+      <div class="plan-name">Pro Member</div>
+      <div class="plan-price-wrap">
+        <div class="plan-price" id="pro-price"><span class="cur">Rp</span> 299K</div>
+        <div class="plan-original" id="pro-original">Rp 374K / bulan</div>
+        <div class="plan-period">/bulan</div>
+      </div>
+      <div class="plan-desc">Akses penuh ke semua soal latihan, feedback Writing, dan sesi Speaking mock test.</div>
+      <ul class="plan-features">
+        <li>Semua fitur Free</li>
+        <li>500+ soal Listening (bertipe IELTS)</li>
+        <li>50+ passage Reading akademik</li>
+        <li>2x feedback Writing per bulan</li>
+        <li>1x Sesi Speaking Mock Test/bulan</li>
+        <li>Progress tracking & laporan mingguan</li>
+        <li>Akses materi & strategi premium</li>
+        <li class="disabled">Konsultasi 1-on-1 dengan tutor</li>
+      </ul>
+      <button class="btn-plan primary" onclick="alert('Fitur pembayaran belum diintegrasikan. Hubungi kami via WhatsApp untuk mendaftar.')">Gabung Pro Sekarang</button>
+    </div>
+
+    <!-- INTENSIVE -->
+    <div class="pricing-card">
+      <div class="plan-name">Intensive</div>
+      <div class="plan-price-wrap">
+        <div class="plan-price" id="int-price"><span class="cur">Rp</span> 799K</div>
+        <div class="plan-original" id="int-original">Rp 999K / bulan</div>
+        <div class="plan-period">/bulan</div>
+      </div>
+      <div class="plan-desc">Program intensif 1-on-1 dengan target band score spesifik. Untuk kamu yang serius.</div>
+      <ul class="plan-features">
+        <li>Semua fitur Pro</li>
+        <li>Unlimited feedback Writing</li>
+        <li>4x Sesi Speaking per bulan</li>
+        <li>Study plan personal</li>
+        <li>Konsultasi 1-on-1 dengan tutor</li>
+        <li>Garansi peningkatan 0.5 band*</li>
+        <li>Priority support (respon &lt; 24 jam)</li>
+        <li>Akses lifetime ke materi modul</li>
+      </ul>
+      <button class="btn-plan success" onclick="alert('Hubungi kami via WhatsApp untuk konsultasi dan pendaftaran program Intensive.')">Hubungi Kami</button>
+    </div>
+  </div>
+
+  <p style="text-align:center;font-size:0.75rem;color:var(--gray-400);margin-top:24px">*Garansi berlaku dengan syarat dan ketentuan. Peserta harus menyelesaikan minimal 80% sesi dan tugas yang diberikan.</p>
+</section>
+
+<!-- COMPARE TABLE -->
+<div class="compare-section">
+  <h2>Perbandingan Fitur Lengkap</h2>
+  <div class="compare-table-wrap">
+    <table class="compare-table">
+      <thead>
+        <tr>
+          <th>Fitur</th>
+          <th>Free</th>
+          <th>Pro</th>
+          <th>Intensive</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>Diagnostic Test</td><td class="check">✓</td><td class="check">✓</td><td class="check">✓</td></tr>
+        <tr><td>Listening – Soal</td><td class="limited">20 soal</td><td class="check">500+ soal</td><td class="check">500+ soal</td></tr>
+        <tr><td>Reading – Soal</td><td class="limited">20 soal</td><td class="check">50+ passage</td><td class="check">50+ passage</td></tr>
+        <tr><td>Review jawaban</td><td class="check">✓</td><td class="check">✓</td><td class="check">✓</td></tr>
+        <tr><td>Feedback Writing</td><td class="cross">—</td><td class="limited">2x / bulan</td><td class="check">Unlimited</td></tr>
+        <tr><td>Sesi Speaking 1-on-1</td><td class="cross">—</td><td class="limited">1x / bulan</td><td class="check">4x / bulan</td></tr>
+        <tr><td>Progress tracking</td><td class="cross">—</td><td class="check">✓</td><td class="check">✓</td></tr>
+        <tr><td>Materi & strategi premium</td><td class="cross">—</td><td class="check">✓</td><td class="check">✓</td></tr>
+        <tr><td>Study plan personal</td><td class="cross">—</td><td class="cross">—</td><td class="check">✓</td></tr>
+        <tr><td>Konsultasi 1-on-1</td><td class="cross">—</td><td class="cross">—</td><td class="check">✓</td></tr>
+        <tr><td>Garansi peningkatan band</td><td class="cross">—</td><td class="cross">—</td><td class="check">0.5 band*</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- FAQ -->
+<section class="faq-section">
+  <h2>Pertanyaan yang Sering Ditanyakan</h2>
+
+  <div class="faq-item">
+    <div class="faq-q" onclick="toggleFaq(this)">
+      Apakah Diagnostic Test benar-benar gratis? <span class="faq-arrow">▼</span>
+    </div>
+    <div class="faq-a">Ya, Diagnostic Test Listening dan Reading sepenuhnya gratis tanpa perlu mendaftar atau memasukkan data kartu kredit. Kamu langsung bisa mulai dari halaman Diagnostic Test.</div>
+  </div>
+
+  <div class="faq-item">
+    <div class="faq-q" onclick="toggleFaq(this)">
+      Apakah hasil Diagnostic Test akurat sebagai prediksi skor IELTS? <span class="faq-arrow">▼</span>
+    </div>
+    <div class="faq-a">Estimasi band score pada Diagnostic Test adalah perkiraan berdasarkan persentase jawaban benar pada soal prototype kami. Ini bukan skor IELTS resmi. Skor IELTS resmi hanya dapat diperoleh melalui tes resmi di British Council atau IDP.</div>
+  </div>
+
+  <div class="faq-item">
+    <div class="faq-q" onclick="toggleFaq(this)">
+      Berapa lama proses feedback Writing? <span class="faq-arrow">▼</span>
+    </div>
+    <div class="faq-a">Feedback Writing akan diberikan dalam 48–72 jam kerja setelah pengiriman essai. Tutor akan mengevaluasi berdasarkan 4 kriteria resmi IELTS: Task Achievement, Coherence & Cohesion, Lexical Resource, dan Grammatical Range & Accuracy.</div>
+  </div>
+
+  <div class="faq-item">
+    <div class="faq-q" onclick="toggleFaq(this)">
+      Bisakah saya membatalkan langganan kapan saja? <span class="faq-arrow">▼</span>
+    </div>
+    <div class="faq-a">Ya, kamu bisa membatalkan langganan kapan saja. Akses Pro/Intensive tetap aktif hingga akhir periode billing yang sudah dibayar. Tidak ada biaya pembatalan.</div>
+  </div>
+
+  <div class="faq-item">
+    <div class="faq-q" onclick="toggleFaq(this)">
+      Apakah ada garansi untuk program Intensive? <span class="faq-arrow">▼</span>
+    </div>
+    <div class="faq-a">Program Intensive menyertakan garansi peningkatan 0.5 band score dengan syarat peserta menyelesaikan minimal 80% sesi dan tugas yang diberikan selama program berlangsung. Detail syarat dan ketentuan akan dijelaskan saat onboarding.</div>
+  </div>
+</section>
+
+<!-- FINAL CTA -->
+<section class="final-cta">
+  <h2>Mulai Perjalanan IELTS Kamu Hari Ini</h2>
+  <p>Gratis untuk memulai. Upgrade kapan saja sesuai kebutuhan dan target band score kamu.</p>
+  <div class="final-btns">
+    <button class="btn-final-primary" onclick="window.location.href='ielts-diagnostic.html'">🎯 Mulai Diagnostic Test Gratis</button>
+    <button class="btn-final-ghost" onclick="window.location.href='ielts-program.html'">📚 Lihat Program Lengkap</button>
+  </div>
+</section>
+
+<footer style="background:var(--navy);border-top:1px solid rgba(109,74,255,0.1);padding:28px 5vw;text-align:center">
+  <div style="font-size:0.8rem;color:var(--gray-400)">© 2026 IELTS Path · <a href="ielts-path-home.html" style="color:var(--purple-light)">Home</a> · <a href="ielts-program.html" style="color:var(--purple-light)">Program</a> · <a href="ielts-diagnostic.html" style="color:var(--purple-light)">Diagnostic Test</a></div>
+</footer>
+
+<script>
+  let isYearly = false;
+
+  function toggleBilling() {
+    isYearly = !isYearly;
+    const toggle = document.getElementById('billing-toggle');
+    const lM = document.getElementById('label-monthly');
+    const lY = document.getElementById('label-yearly');
+    toggle.classList.toggle('yearly', isYearly);
+    lM.classList.toggle('active', !isYearly);
+    lY.classList.toggle('active', isYearly);
+
+    const proP = document.getElementById('pro-price');
+    const proO = document.getElementById('pro-original');
+    const intP = document.getElementById('int-price');
+    const intO = document.getElementById('int-original');
+
+    if (isYearly) {
+      proP.innerHTML = '<span class="cur">Rp</span> 239K';
+      proO.classList.add('show');
+      intP.innerHTML = '<span class="cur">Rp</span> 639K';
+      intO.classList.add('show');
+    } else {
+      proP.innerHTML = '<span class="cur">Rp</span> 299K';
+      proO.classList.remove('show');
+      intP.innerHTML = '<span class="cur">Rp</span> 799K';
+      intO.classList.remove('show');
+    }
+  }
+
+  function toggleFaq(el) {
+    const isOpen = el.classList.toggle('open');
+    const ans = el.nextElementSibling;
+    ans.classList.toggle('open', isOpen);
+  }
+
+  function toggleMenu() {
+    const menu = document.getElementById('mobile-nav');
+    const btn = document.getElementById('hamburger');
+    const isOpen = menu.classList.toggle('open');
+    const spans = btn.querySelectorAll('span');
+    if (isOpen) { spans[0].style.transform='rotate(45deg) translate(5px,5px)'; spans[1].style.opacity='0'; spans[2].style.transform='rotate(-45deg) translate(5px,-5px)'; }
+    else { spans.forEach(s => { s.style.transform=''; s.style.opacity=''; }); }
+  }
+</script>
+</body>
+</html>

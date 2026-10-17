@@ -29,6 +29,91 @@
 
     <!-- Stylesheets -->
     <link rel="stylesheet" href="style.css?v=20260602">
+
+    <style>
+        /* ---- Tombol Shortcut IELTS Path ---- */
+        .btn-ielts-path {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            width: 100%;
+            justify-content: center;
+            padding: 11px 20px;
+            margin-top: 10px;
+            border-radius: 10px;
+            border: 1.5px solid rgba(109, 74, 255, 0.5);
+            background: linear-gradient(135deg, rgba(109,74,255,0.12), rgba(167,139,255,0.06));
+            font-family: 'Outfit', sans-serif;
+            font-size: 0.88rem;
+            font-weight: 700;
+            color: #A78BFF;
+            cursor: pointer;
+            text-decoration: none;
+            letter-spacing: 0.02em;
+            transition: all 0.25s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        .btn-ielts-path::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, rgba(109,74,255,0.2), rgba(167,139,255,0.1));
+            opacity: 0;
+            transition: opacity 0.25s ease;
+        }
+        .btn-ielts-path:hover {
+            border-color: #A78BFF;
+            color: #fff;
+            text-decoration: none;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(109,74,255,0.3);
+        }
+        .btn-ielts-path:hover::before { opacity: 1; }
+        .btn-ielts-path span { position: relative; z-index: 1; }
+        .btn-ielts-path i { position: relative; z-index: 1; font-size: 0.85rem; }
+        .ielts-path-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            padding: 3px 8px;
+            border-radius: 100px;
+            background: rgba(34, 197, 94, 0.12);
+            border: 1px solid rgba(34, 197, 94, 0.3);
+            font-size: 0.65rem;
+            font-weight: 700;
+            color: #22C55E;
+            letter-spacing: 0.04em;
+            position: relative;
+            z-index: 1;
+        }
+        .ielts-path-badge::before {
+            content: '';
+            display: inline-block;
+            width: 5px;
+            height: 5px;
+            border-radius: 50%;
+            background: #22C55E;
+            animation: ielts-dot-pulse 2s ease-in-out infinite;
+        }
+        @keyframes ielts-dot-pulse {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.5; transform: scale(1.4); }
+        }
+        .fleet-footer-col {
+            display: flex;
+            flex-direction: column;
+            gap: 0;
+            width: 100%;
+        }
+        .fleet-footer-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+    </style>
 </head>
 <body>
 
@@ -226,12 +311,20 @@
                             <div class="facility-item"><i class="fas fa-check-circle"></i> <span>Speaking Mock Test & Review</span></div>
                             <div class="facility-item"><i class="fas fa-check-circle"></i> <span>Tips menjawab Reading & Listening</span></div>
                         </div>
-                        <div class="fleet-footer">
-                            <div class="fleet-price-box">
-                                <span class="price-label">Mulai Dari</span>
-                                <span class="fleet-price">Rp 350.000</span>
+                        <div class="fleet-footer fleet-footer-col">
+                            <div class="fleet-footer-row">
+                                <div class="fleet-price-box">
+                                    <span class="price-label">Mulai Dari</span>
+                                    <span class="fleet-price">Rp 350.000</span>
+                                </div>
+                                <a href="#daftar" onclick="selectProgram('IELTS Preparation')" class="btn btn-gold btn-glow">Daftar Sekarang</a>
                             </div>
-                            <a href="#daftar" onclick="selectProgram('IELTS Preparation')" class="btn btn-gold btn-glow">Daftar Sekarang</a>
+                            <!-- Tombol Shortcut Platform IELTS -->
+                            <a href="ielts-path-home.html" class="btn-ielts-path" id="btn-ielts-platform">
+                                <i class="fas fa-rocket"></i>
+                                <span>Masuk ke Platform IELTS</span>
+                                <span class="ielts-path-badge">GRATIS COBA</span>
+                            </a>
                         </div>
                     </div>
                 </div>

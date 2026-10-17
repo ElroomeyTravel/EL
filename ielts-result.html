@@ -1,0 +1,571 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Hasil Diagnostic Test – IELTS Path</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --purple: #6D4AFF; --purple-light: #A78BFF; --purple-dark: #4F2ECC;
+      --navy: #17182B; --navy-2: #1E2040; --navy-3: #252747;
+      --white: #FFFFFF; --gray-400: #9090A8;
+      --success: #22C55E; --danger: #EF4444; --warning: #F59E0B;
+      --font: 'Inter', sans-serif;
+      --radius: 16px; --radius-sm: 10px;
+      --shadow: 0 8px 32px rgba(109,74,255,0.12);
+      --transition: 0.25s cubic-bezier(0.4,0,0.2,1);
+    }
+    body { font-family: var(--font); background: var(--navy); color: var(--white); min-height: 100vh; }
+    a { color: inherit; text-decoration: none; }
+    button { cursor: pointer; font-family: var(--font); }
+
+    /* NAV */
+    .nav {
+      position: sticky; top: 0; z-index: 100;
+      padding: 0 5vw; display: flex; align-items: center; justify-content: space-between;
+      height: 70px;
+      background: rgba(23,24,43,0.95); backdrop-filter: blur(16px);
+      border-bottom: 1px solid rgba(109,74,255,0.15);
+    }
+    .nav-logo { display: flex; align-items: center; gap: 10px; font-weight: 800; font-size: 1.1rem; }
+    .nav-logo-icon {
+      width: 34px; height: 34px; border-radius: 9px;
+      background: linear-gradient(135deg, var(--purple), var(--purple-light));
+      display: flex; align-items: center; justify-content: center; font-size: 0.8rem; font-weight: 900;
+    }
+    .nav-logo span { color: var(--purple-light); }
+    .nav-home {
+      padding: 8px 18px; border-radius: 8px; border: 1px solid rgba(109,74,255,0.3);
+      font-size: 0.875rem; font-weight: 500; background: transparent; color: var(--white);
+      transition: border-color var(--transition), background var(--transition);
+    }
+    .nav-home:hover { border-color: var(--purple); background: rgba(109,74,255,0.1); }
+
+    /* MAIN */
+    .main { padding: 60px 5vw; max-width: 900px; margin: 0 auto; }
+
+    /* HERO RESULT */
+    .result-hero {
+      text-align: center; margin-bottom: 56px; padding: 56px 40px;
+      background: var(--navy-2); border: 1px solid rgba(109,74,255,0.2);
+      border-radius: 24px; position: relative; overflow: hidden;
+    }
+    .result-hero::before {
+      content: ''; position: absolute; inset: 0;
+      background: radial-gradient(ellipse 60% 60% at 50% 20%, rgba(109,74,255,0.18) 0%, transparent 70%);
+    }
+    .result-hero-inner { position: relative; z-index: 1; }
+    .result-emoji { font-size: 4rem; margin-bottom: 18px; display: block; }
+    .result-hero h1 { font-size: clamp(1.8rem, 4vw, 2.5rem); font-weight: 900; letter-spacing: -0.5px; margin-bottom: 12px; }
+    .result-hero p { font-size: 1rem; color: rgba(255,255,255,0.65); line-height: 1.7; max-width: 480px; margin: 0 auto 28px; }
+    .result-meta {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 6px 16px; border-radius: 100px;
+      background: rgba(109,74,255,0.15); border: 1px solid rgba(109,74,255,0.3);
+      font-size: 0.8rem; font-weight: 600; color: var(--purple-light);
+    }
+
+    /* SCORE CARDS */
+    .scores-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px,1fr)); gap: 24px; margin-bottom: 36px; }
+    .score-card {
+      background: var(--navy-2); border: 1px solid rgba(109,74,255,0.15);
+      border-radius: var(--radius); padding: 32px 28px;
+      position: relative; overflow: hidden;
+    }
+    .score-card-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px; }
+    .score-card-icon { font-size: 1.5rem; }
+    .score-card-label { font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: var(--purple-light); }
+    .score-big {
+      font-size: 3.5rem; font-weight: 900; letter-spacing: -2px; line-height: 1;
+      margin-bottom: 6px;
+    }
+    .score-big .score-denom { font-size: 1.5rem; color: var(--gray-400); font-weight: 400; }
+    .score-sub { font-size: 0.85rem; color: rgba(255,255,255,0.55); margin-bottom: 20px; }
+
+    /* CIRCULAR PROGRESS */
+    .score-ring-wrap { display: flex; justify-content: center; margin: 16px 0 20px; }
+    .score-ring { position: relative; width: 100px; height: 100px; }
+    .score-ring svg { transform: rotate(-90deg); }
+    .score-ring-bg { fill: none; stroke: rgba(109,74,255,0.15); stroke-width: 8; }
+    .score-ring-fill { fill: none; stroke-width: 8; stroke-linecap: round; transition: stroke-dashoffset 1.2s cubic-bezier(0.4,0,0.2,1); }
+    .score-ring-text { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; font-size: 1.4rem; font-weight: 800; }
+
+    /* BAND ESTIMATE */
+    .band-estimate {
+      padding: 12px 14px; border-radius: var(--radius-sm);
+      background: rgba(109,74,255,0.1); border: 1px solid rgba(109,74,255,0.2);
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .band-estimate-label { font-size: 0.75rem; color: rgba(255,255,255,0.55); }
+    .band-estimate-val { font-size: 1rem; font-weight: 800; color: var(--purple-light); }
+    .band-estimate-tag {
+      font-size: 0.65rem; font-weight: 600; padding: 2px 8px; border-radius: 100px;
+      background: rgba(245,158,11,0.15); border: 1px solid rgba(245,158,11,0.3);
+      color: var(--warning); margin-left: 6px;
+    }
+
+    /* TARGET COMPARISON */
+    .target-card {
+      background: var(--navy-2); border: 1px solid rgba(109,74,255,0.15);
+      border-radius: var(--radius); padding: 28px; margin-bottom: 24px;
+    }
+    .target-card h3 { font-size: 0.9rem; font-weight: 700; margin-bottom: 20px; color: rgba(255,255,255,0.85); }
+    .target-row { display: flex; align-items: center; gap: 16px; margin-bottom: 16px; }
+    .target-label { font-size: 0.8rem; color: var(--gray-400); width: 80px; flex-shrink: 0; }
+    .target-bar-wrap { flex: 1; background: rgba(109,74,255,0.1); border-radius: 100px; height: 10px; overflow: hidden; }
+    .target-bar-fill { height: 100%; border-radius: 100px; transition: width 1s ease; }
+    .target-bar-fill.achieved { background: linear-gradient(90deg, var(--success), #16A34A); }
+    .target-bar-fill.partial { background: linear-gradient(90deg, var(--warning), #D97706); }
+    .target-bar-fill.below { background: linear-gradient(90deg, var(--danger), #DC2626); }
+    .target-bar-fill.purple { background: linear-gradient(90deg, var(--purple), var(--purple-light)); }
+    .target-val { font-size: 0.85rem; font-weight: 700; width: 36px; text-align: right; flex-shrink: 0; }
+
+    /* UNANSWERED / UNAVAILABLE */
+    .unavailable-card {
+      background: var(--navy-2); border: 1px solid rgba(109,74,255,0.12);
+      border-radius: var(--radius); padding: 28px;
+      display: flex; gap: 16px; align-items: flex-start;
+      margin-bottom: 24px;
+    }
+    .unavail-icon { font-size: 1.8rem; flex-shrink: 0; margin-top: 2px; }
+    .unavail-body h3 { font-size: 1rem; font-weight: 700; margin-bottom: 8px; }
+    .unavail-body p { font-size: 0.875rem; color: rgba(255,255,255,0.6); line-height: 1.7; }
+    .unavail-tag {
+      display: inline-block; padding: 3px 10px; border-radius: 100px;
+      background: rgba(239,68,68,0.12); border: 1px solid rgba(239,68,68,0.25);
+      font-size: 0.7rem; font-weight: 700; color: var(--danger); margin-bottom: 8px;
+    }
+
+    /* RECOMMENDATIONS */
+    .rec-section { margin-top: 40px; }
+    .rec-section h2 { font-size: 1.2rem; font-weight: 800; margin-bottom: 20px; }
+    .rec-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px,1fr)); gap: 16px; }
+    .rec-card {
+      background: var(--navy-3); border: 1px solid rgba(109,74,255,0.15);
+      border-radius: var(--radius-sm); padding: 22px;
+      transition: border-color var(--transition), transform var(--transition);
+    }
+    .rec-card:hover { border-color: rgba(109,74,255,0.35); transform: translateY(-3px); }
+    .rec-icon { font-size: 1.4rem; margin-bottom: 10px; }
+    .rec-title { font-size: 0.9rem; font-weight: 700; margin-bottom: 8px; }
+    .rec-desc { font-size: 0.8rem; color: rgba(255,255,255,0.6); line-height: 1.6; }
+
+    /* CTA BUTTONS */
+    .result-cta { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; margin-top: 48px; padding-top: 40px; border-top: 1px solid rgba(109,74,255,0.12); }
+    .btn-retake {
+      padding: 13px 28px; border-radius: var(--radius-sm); border: 1.5px solid rgba(109,74,255,0.4);
+      background: transparent; color: var(--white); font-size: 0.9rem; font-weight: 600;
+      transition: all var(--transition);
+    }
+    .btn-retake:hover { border-color: var(--purple); background: rgba(109,74,255,0.1); }
+    .btn-program {
+      padding: 13px 28px; border-radius: var(--radius-sm); border: none;
+      background: linear-gradient(135deg, var(--purple), var(--purple-light));
+      color: var(--white); font-size: 0.9rem; font-weight: 700;
+      box-shadow: 0 6px 24px rgba(109,74,255,0.35);
+      transition: all var(--transition);
+    }
+    .btn-program:hover { transform: translateY(-2px); box-shadow: 0 12px 32px rgba(109,74,255,0.5); }
+
+    /* DETAIL REVIEW */
+    .review-section { margin-top: 40px; }
+    .review-toggle {
+      width: 100%; padding: 14px 20px; border-radius: var(--radius-sm);
+      border: 1.5px solid rgba(109,74,255,0.2); background: rgba(37,39,71,0.4);
+      color: rgba(255,255,255,0.8); font-size: 0.9rem; font-weight: 600;
+      text-align: left; display: flex; align-items: center; justify-content: space-between;
+      transition: all var(--transition);
+    }
+    .review-toggle:hover { border-color: var(--purple-light); color: var(--white); }
+    .review-toggle.open { border-color: var(--purple); background: rgba(109,74,255,0.1); }
+    .review-content { display: none; margin-top: 12px; }
+    .review-content.open { display: block; }
+    .review-item {
+      display: flex; gap: 12px; align-items: flex-start;
+      padding: 14px 16px; border-radius: var(--radius-sm); margin-bottom: 8px;
+      border: 1px solid transparent;
+    }
+    .review-item.correct { background: rgba(34,197,94,0.08); border-color: rgba(34,197,94,0.2); }
+    .review-item.wrong { background: rgba(239,68,68,0.08); border-color: rgba(239,68,68,0.2); }
+    .review-item.skipped { background: rgba(144,144,168,0.08); border-color: rgba(144,144,168,0.2); }
+    .review-num { font-size: 0.75rem; font-weight: 700; color: var(--gray-400); min-width: 24px; padding-top: 1px; }
+    .review-body { flex: 1; }
+    .review-q { font-size: 0.8rem; font-weight: 600; margin-bottom: 6px; line-height: 1.5; }
+    .review-answers { display: flex; gap: 8px; flex-wrap: wrap; }
+    .review-ans {
+      font-size: 0.75rem; padding: 3px 10px; border-radius: 100px; font-weight: 600;
+    }
+    .review-ans.your { background: rgba(239,68,68,0.15); border: 1px solid rgba(239,68,68,0.3); color: var(--danger); }
+    .review-ans.your.ok { background: rgba(34,197,94,0.15); border-color: rgba(34,197,94,0.3); color: var(--success); }
+    .review-ans.correct-ans { background: rgba(34,197,94,0.15); border: 1px solid rgba(34,197,94,0.3); color: var(--success); }
+    .review-ans.skipped-ans { background: rgba(144,144,168,0.12); border: 1px solid rgba(144,144,168,0.2); color: var(--gray-400); }
+    .review-icon { font-size: 1rem; flex-shrink: 0; margin-top: 1px; }
+
+    @media (max-width: 640px) {
+      .main { padding: 40px 5vw; }
+      .result-hero { padding: 36px 20px; }
+      .scores-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<nav class="nav">
+  <a href="ielts-path-home.html" class="nav-logo">
+    <div class="nav-logo-icon">IP</div>
+    IELTS <span>Path</span>
+  </a>
+  <button class="nav-home" onclick="window.location.href='ielts-path-home.html'">← Kembali ke Home</button>
+</nav>
+
+<main class="main" id="main">
+  <!-- Rendered by JS -->
+</main>
+
+<script>
+// ============================================================
+// PARSE PARAMS
+// ============================================================
+const params = new URLSearchParams(window.location.search);
+const R = {
+  listeningScore: parseInt(params.get('listeningScore') || '0'),
+  readingScore: parseInt(params.get('readingScore') || '0'),
+  listeningTotal: parseInt(params.get('listeningTotal') || '10'),
+  readingTotal: parseInt(params.get('readingTotal') || '10'),
+  targetBand: parseFloat(params.get('targetBand') || '7.0'),
+  ieltsType: params.get('ieltsType') || 'academic',
+  level: params.get('level') || 'intermediate',
+  listeningAnswers: JSON.parse(params.get('listeningAnswers') || '{}'),
+  readingAnswers: JSON.parse(params.get('readingAnswers') || '{}'),
+};
+
+// ============================================================
+// BAND ESTIMATION (ESTIMASI – bukan skor resmi IELTS)
+// Menggunakan tabel konversi yang disederhanakan.
+// Skor resmi IELTS hanya dapat diperoleh melalui tes resmi British Council / IDP.
+// ============================================================
+function estimateBand(correct, total) {
+  const pct = correct / total;
+  if (pct >= 0.9) return 8.0;
+  if (pct >= 0.8) return 7.5;
+  if (pct >= 0.7) return 7.0;
+  if (pct >= 0.6) return 6.5;
+  if (pct >= 0.5) return 6.0;
+  if (pct >= 0.4) return 5.5;
+  if (pct >= 0.3) return 5.0;
+  return 4.5;
+}
+
+// ============================================================
+// QUESTION DATA (duplicate for review)
+// ============================================================
+const LISTENING_QS = [
+  { id:'L1', type:'mc', question:'Berapa lama buku dapat dipinjam?', options:['1 minggu','2 minggu','3 minggu','1 bulan'], answer:1 },
+  { id:'L2', type:'mc', question:'Apa yang harus dilakukan Tom untuk memperpanjang peminjaman?', options:['Datang langsung','Menelepon','Menggunakan website/app','Meminta teman'], answer:2 },
+  { id:'L3', type:'mc', question:'Kapan batas waktu pengumpulan tugas akhir?', options:['Jumat pagi','Jumat sore 17.00','Senin pagi','Senin sore 17.00'], answer:1 },
+  { id:'L4', type:'mc', question:'Format pengumpulan tugas yang diminta?', options:['Cetak A4','Email','Upload ke portal','Langsung ke guru'], answer:2 },
+  { id:'L5', type:'sa', question:'Kota tujuan yang dipilih Alice dan Bob?', answer:'yogyakarta' },
+  { id:'L6', type:'mc', question:'Jenis akomodasi pilihan Bob?', options:['Hotel bintang 5','Hostel murah','Guesthouse lokal','Airbnb'], answer:2 },
+  { id:'L7', type:'mc', question:'Alasan pelanggan menghubungi maskapai?', options:['Beli tiket','Ubah jadwal','Refund','Tanya bagasi'], answer:1 },
+  { id:'L8', type:'mc', question:'Biaya perubahan jadwal?', options:['Gratis','Rp 150.000','Rp 250.000','Tergantung rute'], answer:3 },
+  { id:'L9', type:'mc', question:'Jam tidur yang direkomendasikan untuk orang dewasa?', options:['5–6 jam','6–7 jam','7–9 jam','9–10 jam'], answer:2 },
+  { id:'L10', type:'mc', question:'Efek negatif kurang tidur?', options:['Turun nafsu makan','Risiko penyakit jantung meningkat','Rambut tumbuh cepat','Konsentrasi meningkat'], answer:1 },
+];
+const READING_QS = [
+  { id:'R1', type:'mc', question:'Where was coffee originally discovered?', options:['Yemen','Ethiopia','Brazil','Indonesia'], answer:1 },
+  { id:'R2', type:'mc', question:'What were coffeehouses in the Middle East nicknamed?', options:['"Houses of Wisdom"','"Gardens of Knowledge"','"Schools of the Wise"','"Halls of Learning"'], answer:2 },
+  { id:'R3', type:'mc', question:'Why did Europeans drink alcoholic beverages in the morning?', options:['Cultural tradition','Alcohol was cheaper','Water was unsafe','Coffee not available'], answer:2 },
+  { id:'R4', type:'mc', question:"Which country became the world's largest coffee producer?", options:['Indonesia','Yemen','Colombia','Brazil'], answer:3 },
+  { id:'R5', type:'mc', question:'What does the author say about modern coffee culture?', options:['Prioritizes low cost','Emphasizes origin, processing, roast','Discourages transparency','Driven by large corporations'], answer:1 },
+  { id:'R6', type:'tfng', question:'The Sufi monks in Yemen used coffee to help them stay awake during prayers.', options:['TRUE','FALSE','NOT GIVEN'], answer:0 },
+  { id:'R7', type:'tfng', question:'The Dutch began cultivating coffee commercially in Brazil in the 1690s.', options:['TRUE','FALSE','NOT GIVEN'], answer:1 },
+  { id:'R8', type:'tfng', question:'Coffee consumption has been linked to a reduced risk of Type 2 diabetes.', options:['TRUE','FALSE','NOT GIVEN'], answer:0 },
+  { id:'R9', type:'mc', question:'What does "fair-trade certification" primarily address?', options:['Quality of beans','Roasting process','Transparency and ethical sourcing','Country of origin'], answer:2 },
+  { id:'R10', type:'mc', question:'When did coffee first arrive in Europe?', options:['9th century','15th century','17th century','19th century'], answer:2 },
+];
+
+// ============================================================
+// DETERMINE SCORE STATUS
+// ============================================================
+const lBand = estimateBand(R.listeningScore, R.listeningTotal);
+const rBand = estimateBand(R.readingScore, R.readingTotal);
+const overallBand = Math.round((lBand + rBand) / 2 * 2) / 2;
+const target = R.targetBand;
+
+function getStatus(score, total) {
+  const pct = score / total;
+  if (pct >= 0.8) return { label: 'Sangat Baik', color: '#22C55E' };
+  if (pct >= 0.6) return { label: 'Baik', color: '#A78BFF' };
+  if (pct >= 0.4) return { label: 'Cukup', color: '#F59E0B' };
+  return { label: 'Perlu Latihan', color: '#EF4444' };
+}
+
+const lStatus = getStatus(R.listeningScore, R.listeningTotal);
+const rStatus = getStatus(R.readingScore, R.readingTotal);
+
+function bandDiff(est, tgt) {
+  const diff = est - tgt;
+  if (diff >= 0) return `+${diff.toFixed(1)} di atas target`;
+  return `${diff.toFixed(1)} di bawah target`;
+}
+
+function heroEmoji() {
+  if (overallBand >= target) return '🎉';
+  if (overallBand >= target - 0.5) return '💪';
+  return '📚';
+}
+function heroTitle() {
+  if (overallBand >= target) return 'Selamat! Kamu Mencapai Target!';
+  if (overallBand >= target - 1) return 'Hampir! Terus Semangat!';
+  return 'Diagnostic Selesai – Saatnya Berlatih!';
+}
+
+// ============================================================
+// BUILD REVIEW HTML
+// ============================================================
+function buildReview(section, qs, userAnswers) {
+  let html = '';
+  qs.forEach((q, i) => {
+    const userAns = userAnswers[q.id];
+    let isCorrect = false, isSkipped = false;
+
+    if (userAns === undefined || userAns === null || userAns === '') {
+      isSkipped = true;
+    } else if (q.type === 'sa') {
+      isCorrect = (userAns || '').toLowerCase().includes(q.answer.toLowerCase());
+    } else {
+      isCorrect = parseInt(userAns) === q.answer;
+    }
+
+    const cls = isSkipped ? 'skipped' : isCorrect ? 'correct' : 'wrong';
+    const icon = isSkipped ? '⏭️' : isCorrect ? '✅' : '❌';
+
+    let yourAnsText = '(tidak dijawab)';
+    let correctAnsText = '';
+    if (!isSkipped) {
+      if (q.type === 'sa') {
+        yourAnsText = userAns;
+        correctAnsText = q.answer;
+      } else {
+        yourAnsText = q.options[parseInt(userAns)] || userAns;
+        correctAnsText = q.options[q.answer];
+      }
+    } else {
+      correctAnsText = q.type === 'sa' ? q.answer : q.options[q.answer];
+    }
+
+    html += `<div class="review-item ${cls}">
+      <div class="review-icon">${icon}</div>
+      <div class="review-num">${i+1}</div>
+      <div class="review-body">
+        <div class="review-q">${q.question}</div>
+        <div class="review-answers">
+          ${isSkipped
+            ? `<span class="review-ans skipped-ans">Tidak dijawab</span>`
+            : `<span class="review-ans your ${isCorrect ? 'ok' : ''}">Jawaban: ${yourAnsText}</span>`
+          }
+          ${!isCorrect ? `<span class="review-ans correct-ans">Benar: ${correctAnsText}</span>` : ''}
+        </div>
+      </div>
+    </div>`;
+  });
+  return html;
+}
+
+// ============================================================
+// RECOMMENDATIONS
+// ============================================================
+function getRecs() {
+  const recs = [];
+  const lPct = R.listeningScore / R.listeningTotal;
+  const rPct = R.readingScore / R.readingTotal;
+  if (lPct < 0.7) recs.push({ icon:'🎧', title:'Tingkatkan Listening', desc:'Fokus pada latihan listening intensif. Dengarkan podcast, berita bahasa Inggris, dan kerjakan soal IELTS listening setiap hari.' });
+  if (rPct < 0.7) recs.push({ icon:'📖', title:'Kuatkan Reading', desc:'Baca artikel bahasa Inggris setiap hari. Latih skimming, scanning, dan kemampuan memahami detail tersembunyi dalam teks.' });
+  recs.push({ icon:'✍️', title:'Latih Writing', desc:'Writing Task 1 & 2 membutuhkan latihan rutin. Dapatkan feedback dari tutor untuk peningkatan signifikan.' });
+  recs.push({ icon:'🗣️', title:'Sesi Speaking', desc:'Mock test speaking dengan tutor membantu membiasakan diri dengan format IELTS dan meningkatkan kelancaran berbicara.' });
+  if (overallBand < target) recs.push({ icon:'📅', title:'Buat Study Plan', desc:`Dengan target band ${target}, kamu perlu latihan terstruktur. Bergabung dengan program intensif IELTS Path untuk hasil terbaik.` });
+  return recs.slice(0, 4);
+}
+
+// ============================================================
+// RENDER
+// ============================================================
+function render() {
+  const recs = getRecs();
+  const lPct = (R.listeningScore / R.listeningTotal * 100).toFixed(0);
+  const rPct = (R.readingScore / R.readingTotal * 100).toFixed(0);
+  const targetPct = Math.min((target / 9) * 100, 100).toFixed(0);
+  const lBandPct = Math.min((lBand / 9) * 100, 100).toFixed(0);
+  const rBandPct = Math.min((rBand / 9) * 100, 100).toFixed(0);
+  const typeLabel = R.ieltsType === 'academic' ? 'IELTS Academic' : 'IELTS General Training';
+
+  const lCirc = 2 * Math.PI * 44;
+  const lFill = lCirc * (1 - R.listeningScore / R.listeningTotal);
+  const rFill = lCirc * (1 - R.readingScore / R.readingTotal);
+
+  document.getElementById('main').innerHTML = `
+    <!-- HERO -->
+    <div class="result-hero">
+      <div class="result-hero-inner">
+        <span class="result-emoji">${heroEmoji()}</span>
+        <h1>${heroTitle()}</h1>
+        <p>Diagnostic test selesai. Berikut adalah ringkasan hasil kamu. Gunakan informasi ini untuk merancang strategi belajar yang tepat.</p>
+        <div class="result-meta">🎯 Target: Band ${target} &nbsp;|&nbsp; ${typeLabel}</div>
+      </div>
+    </div>
+
+    <!-- SCORES -->
+    <div class="scores-grid">
+      <!-- LISTENING -->
+      <div class="score-card">
+        <div class="score-card-header">
+          <span class="score-card-icon">🎧</span>
+          <span class="score-card-label">Listening</span>
+        </div>
+        <div class="score-ring-wrap">
+          <div class="score-ring">
+            <svg width="100" height="100" viewBox="0 0 100 100">
+              <circle class="score-ring-bg" cx="50" cy="50" r="44"/>
+              <circle class="score-ring-fill" cx="50" cy="50" r="44"
+                stroke="${lStatus.color}"
+                stroke-dasharray="${lCirc.toFixed(2)}"
+                stroke-dashoffset="${lFill.toFixed(2)}"
+                id="l-ring"/>
+            </svg>
+            <div class="score-ring-text">${lPct}%</div>
+          </div>
+        </div>
+        <div class="score-big">${R.listeningScore} <span class="score-denom">/ ${R.listeningTotal}</span></div>
+        <div class="score-sub" style="color:${lStatus.color};font-weight:700">${lStatus.label}</div>
+        <div class="band-estimate">
+          <div>
+            <div class="band-estimate-label">Estimasi Band</div>
+            <div class="band-estimate-val">~${lBand.toFixed(1)} <span class="band-estimate-tag">ESTIMASI</span></div>
+          </div>
+          <div style="font-size:0.75rem;color:var(--gray-400)">${bandDiff(lBand, target)}</div>
+        </div>
+      </div>
+
+      <!-- READING -->
+      <div class="score-card">
+        <div class="score-card-header">
+          <span class="score-card-icon">📖</span>
+          <span class="score-card-label">Reading</span>
+        </div>
+        <div class="score-ring-wrap">
+          <div class="score-ring">
+            <svg width="100" height="100" viewBox="0 0 100 100">
+              <circle class="score-ring-bg" cx="50" cy="50" r="44"/>
+              <circle class="score-ring-fill" cx="50" cy="50" r="44"
+                stroke="${rStatus.color}"
+                stroke-dasharray="${lCirc.toFixed(2)}"
+                stroke-dashoffset="${rFill.toFixed(2)}"
+                id="r-ring"/>
+            </svg>
+            <div class="score-ring-text">${rPct}%</div>
+          </div>
+        </div>
+        <div class="score-big">${R.readingScore} <span class="score-denom">/ ${R.readingTotal}</span></div>
+        <div class="score-sub" style="color:${rStatus.color};font-weight:700">${rStatus.label}</div>
+        <div class="band-estimate">
+          <div>
+            <div class="band-estimate-label">Estimasi Band</div>
+            <div class="band-estimate-val">~${rBand.toFixed(1)} <span class="band-estimate-tag">ESTIMASI</span></div>
+          </div>
+          <div style="font-size:0.75rem;color:var(--gray-400)">${bandDiff(rBand, target)}</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- WRITING & SPEAKING UNAVAILABLE -->
+    <div class="unavailable-card">
+      <div class="unavail-icon">✍️</div>
+      <div class="unavail-body">
+        <div class="unavail-tag">BELUM TERSEDIA</div>
+        <h3>Writing & Speaking</h3>
+        <p>Penilaian Writing dan Speaking memerlukan evaluasi dari tutor manusia karena menyangkut kualitas bahasa, koherensi, dan kelancaran berbicara yang tidak dapat dinilai secara otomatis. Hasil Writing & Speaking tersedia melalui <strong>program berbayar</strong> IELTS Path.</p>
+      </div>
+    </div>
+
+    <!-- TARGET COMPARISON -->
+    <div class="target-card">
+      <h3>📊 Perbandingan Estimasi vs. Target Band</h3>
+      <div class="target-row">
+        <div class="target-label">Target</div>
+        <div class="target-bar-wrap"><div class="target-bar-fill purple" style="width:${targetPct}%"></div></div>
+        <div class="target-val" style="color:var(--purple-light)">${target}</div>
+      </div>
+      <div class="target-row">
+        <div class="target-label">Listening</div>
+        <div class="target-bar-wrap"><div class="target-bar-fill ${lBand >= target ? 'achieved' : lBand >= target - 0.5 ? 'partial' : 'below'}" style="width:${lBandPct}%"></div></div>
+        <div class="target-val" style="color:${lStatus.color}">~${lBand.toFixed(1)}</div>
+      </div>
+      <div class="target-row">
+        <div class="target-label">Reading</div>
+        <div class="target-bar-wrap"><div class="target-bar-fill ${rBand >= target ? 'achieved' : rBand >= target - 0.5 ? 'partial' : 'below'}" style="width:${rBandPct}%"></div></div>
+        <div class="target-val" style="color:${rStatus.color}">~${rBand.toFixed(1)}</div>
+      </div>
+      <div style="margin-top:20px;padding:12px 14px;border-radius:var(--radius-sm);background:rgba(245,158,11,0.08);border:1px solid rgba(245,158,11,0.2)">
+        <p style="font-size:0.75rem;color:rgba(255,255,255,0.55);line-height:1.6">⚠️ <strong>Catatan Penting:</strong> Estimasi band di atas dihitung dari persentase jawaban benar pada soal prototype ini dan <em>bukan merupakan skor resmi IELTS</em>. Skor resmi hanya dapat diperoleh melalui tes resmi di British Council atau IDP.</p>
+      </div>
+    </div>
+
+    <!-- RECOMMENDATIONS -->
+    <div class="rec-section">
+      <h2>💡 Rekomendasi Belajar untuk Kamu</h2>
+      <div class="rec-grid">
+        ${recs.map(r => `<div class="rec-card"><div class="rec-icon">${r.icon}</div><div class="rec-title">${r.title}</div><div class="rec-desc">${r.desc}</div></div>`).join('')}
+      </div>
+    </div>
+
+    <!-- REVIEW TOGGLE -->
+    <div class="review-section">
+      <button class="review-toggle" id="toggle-l" onclick="toggleReview('l')">
+        <span>🔍 Tinjau Jawaban – Listening (${R.listeningScore}/${R.listeningTotal} benar)</span>
+        <span id="arrow-l">▼</span>
+      </button>
+      <div class="review-content" id="review-l">
+        ${buildReview('listening', LISTENING_QS, R.listeningAnswers)}
+      </div>
+
+      <div style="margin-top:12px"></div>
+      <button class="review-toggle" id="toggle-r" onclick="toggleReview('r')">
+        <span>🔍 Tinjau Jawaban – Reading (${R.readingScore}/${R.readingTotal} benar)</span>
+        <span id="arrow-r">▼</span>
+      </button>
+      <div class="review-content" id="review-r">
+        ${buildReview('reading', READING_QS, R.readingAnswers)}
+      </div>
+    </div>
+
+    <!-- CTA -->
+    <div class="result-cta">
+      <button class="btn-retake" onclick="window.location.href='ielts-diagnostic.html'">🔄 Ulangi Diagnostic Test</button>
+      <button class="btn-program" onclick="window.location.href='ielts-program.html'">📚 Lihat Program Lengkap →</button>
+      <button class="btn-program" style="background:linear-gradient(135deg,#22C55E,#16A34A)" onclick="window.location.href='ielts-pricing.html'">💎 Upgrade ke Pro</button>
+    </div>
+  `;
+
+  // Animate rings after render
+  setTimeout(() => {
+    document.getElementById('l-ring').style.strokeDashoffset = lFill.toFixed(2);
+    document.getElementById('r-ring').style.strokeDashoffset = rFill.toFixed(2);
+  }, 100);
+}
+
+function toggleReview(id) {
+  const content = document.getElementById(`review-${id}`);
+  const toggle = document.getElementById(`toggle-${id}`);
+  const arrow = document.getElementById(`arrow-${id}`);
+  const open = content.classList.toggle('open');
+  toggle.classList.toggle('open', open);
+  arrow.textContent = open ? '▲' : '▼';
+}
+
+render();
+</script>
+</body>
+</html>

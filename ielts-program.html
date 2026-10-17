@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Program IELTS – IELTS Path</title>
+  <meta name="description" content="Program Writing & Speaking IELTS dengan feedback dari tutor berpengalaman. Latihan Listening & Reading intensif." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --purple: #6D4AFF; --purple-light: #A78BFF; --purple-dark: #4F2ECC;
+      --navy: #17182B; --navy-2: #1E2040; --navy-3: #252747;
+      --white: #FFFFFF; --gray-400: #9090A8;
+      --success: #22C55E; --warning: #F59E0B; --danger: #EF4444;
+      --font: 'Inter', sans-serif;
+      --radius: 16px; --radius-sm: 10px;
+      --shadow: 0 8px 32px rgba(109,74,255,0.12);
+      --transition: 0.25s cubic-bezier(0.4,0,0.2,1);
+    }
+    body { font-family: var(--font); background: var(--navy); color: var(--white); }
+    a { color: inherit; text-decoration: none; }
+    button { cursor: pointer; font-family: var(--font); }
+
+    /* NAV */
+    .nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      padding: 0 5vw; display: flex; align-items: center; justify-content: space-between;
+      height: 70px;
+      background: rgba(23,24,43,0.92); backdrop-filter: blur(16px);
+      border-bottom: 1px solid rgba(109,74,255,0.15);
+    }
+    .nav-logo { display: flex; align-items: center; gap: 10px; font-weight: 800; font-size: 1.1rem; }
+    .nav-logo-icon {
+      width: 34px; height: 34px; border-radius: 9px;
+      background: linear-gradient(135deg, var(--purple), var(--purple-light));
+      display: flex; align-items: center; justify-content: center; font-size: 0.8rem; font-weight: 900;
+    }
+    .nav-logo span { color: var(--purple-light); }
+    .nav-links { display: flex; align-items: center; gap: 8px; list-style: none; }
+    .nav-links a {
+      padding: 7px 14px; border-radius: 8px;
+      font-size: 0.875rem; font-weight: 500; color: rgba(255,255,255,0.75);
+      transition: color var(--transition), background var(--transition);
+    }
+    .nav-links a:hover, .nav-links a.active { color: var(--white); background: rgba(109,74,255,0.15); }
+    .btn-nav-cta {
+      padding: 9px 22px; border-radius: 8px; border: none;
+      font-size: 0.875rem; font-weight: 600;
+      background: linear-gradient(135deg, var(--purple), var(--purple-light));
+      color: var(--white); box-shadow: 0 4px 16px rgba(109,74,255,0.35);
+      transition: transform var(--transition), box-shadow var(--transition);
+    }
+    .btn-nav-cta:hover { transform: translateY(-1px); box-shadow: 0 8px 24px rgba(109,74,255,0.5); }
+    .nav-hamburger { display: none; flex-direction: column; gap: 5px; background: none; border: none; padding: 4px; }
+    .nav-hamburger span { display: block; width: 24px; height: 2px; background: var(--white); border-radius: 2px; transition: transform var(--transition), opacity var(--transition); }
+    .nav-mobile { display: none; flex-direction: column; gap: 4px; position: fixed; top: 70px; left: 0; right: 0; z-index: 99; background: var(--navy-2); border-bottom: 1px solid rgba(109,74,255,0.2); padding: 16px 5vw 24px; }
+    .nav-mobile.open { display: flex; }
+    .nav-mobile a { padding: 12px 16px; border-radius: var(--radius-sm); font-size: 0.95rem; font-weight: 500; color: rgba(255,255,255,0.8); transition: background var(--transition), color var(--transition); }
+    .nav-mobile a:hover { background: rgba(109,74,255,0.15); color: var(--white); }
+
+    /* HERO */
+    .hero { padding: 140px 5vw 80px; text-align: center; position: relative; overflow: hidden; }
+    .hero::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse 60% 60% at 50% 30%, rgba(109,74,255,0.2), transparent 70%); }
+    .hero-inner { position: relative; z-index: 1; max-width: 680px; margin: 0 auto; }
+    .hero-tag { display: inline-flex; align-items: center; gap: 8px; padding: 6px 16px; border-radius: 100px; background: rgba(109,74,255,0.15); border: 1px solid rgba(109,74,255,0.3); font-size: 0.8rem; font-weight: 600; color: var(--purple-light); margin-bottom: 24px; }
+    .hero h1 { font-size: clamp(2rem,5vw,3rem); font-weight: 900; letter-spacing: -1px; margin-bottom: 18px; }
+    .hero p { font-size: 1.05rem; color: rgba(255,255,255,0.68); line-height: 1.7; margin-bottom: 36px; }
+
+    /* SECTIONS */
+    .section { padding: 80px 5vw; max-width: 1100px; margin: 0 auto; }
+    .section-tag { display: inline-block; padding: 5px 14px; border-radius: 100px; background: rgba(109,74,255,0.15); border: 1px solid rgba(109,74,255,0.3); font-size: 0.75rem; font-weight: 700; color: var(--purple-light); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 16px; }
+    .section-title { font-size: clamp(1.6rem,3vw,2.2rem); font-weight: 800; letter-spacing: -0.5px; margin-bottom: 14px; }
+    .section-desc { font-size: 0.95rem; color: rgba(255,255,255,0.65); line-height: 1.7; max-width: 580px; margin-bottom: 40px; }
+
+    /* FEATURE BLOCK */
+    .feature-block {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center;
+      padding: 60px 5vw; background: var(--navy-2);
+      border-top: 1px solid rgba(109,74,255,0.1);
+      border-bottom: 1px solid rgba(109,74,255,0.1);
+    }
+    .feature-block.reverse { direction: rtl; }
+    .feature-block.reverse > * { direction: ltr; }
+    .feature-block-visual {
+      background: var(--navy-3); border: 1px solid rgba(109,74,255,0.15);
+      border-radius: 20px; padding: 40px; text-align: center; position: relative; overflow: hidden;
+    }
+    .feature-block-visual::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse 70% 70% at 50% 20%, rgba(109,74,255,0.15), transparent); }
+    .feature-big-icon { font-size: 5rem; margin-bottom: 18px; display: block; position: relative; z-index: 1; }
+    .feature-block-visual h3 { font-size: 1.1rem; font-weight: 700; position: relative; z-index: 1; margin-bottom: 10px; }
+    .feature-block-visual p { font-size: 0.85rem; color: rgba(255,255,255,0.55); line-height: 1.6; position: relative; z-index: 1; }
+
+    /* NOTICE BOX */
+    .notice-box {
+      padding: 18px 20px; border-radius: var(--radius-sm);
+      background: rgba(245,158,11,0.08); border: 1px solid rgba(245,158,11,0.25);
+      display: flex; gap: 12px; align-items: flex-start; margin: 20px 0;
+    }
+    .notice-icon { font-size: 1.1rem; flex-shrink: 0; margin-top: 1px; }
+    .notice-text { font-size: 0.85rem; color: rgba(255,255,255,0.75); line-height: 1.7; }
+    .notice-text strong { color: var(--warning); }
+
+    /* BENEFIT LIST */
+    .benefit-list { list-style: none; display: flex; flex-direction: column; gap: 14px; margin: 24px 0; }
+    .benefit-item { display: flex; align-items: flex-start; gap: 12px; font-size: 0.9rem; line-height: 1.5; }
+    .benefit-check { width: 22px; height: 22px; border-radius: 50%; background: rgba(109,74,255,0.2); border: 1px solid rgba(109,74,255,0.4); display: flex; align-items: center; justify-content: center; font-size: 0.65rem; font-weight: 800; color: var(--purple-light); flex-shrink: 0; margin-top: 1px; }
+
+    /* CRITERIA CARDS */
+    .criteria-grid { display: grid; grid-template-columns: repeat(2,1fr); gap: 14px; margin: 24px 0; }
+    .criteria-card { padding: 18px; border-radius: var(--radius-sm); background: rgba(37,39,71,0.5); border: 1px solid rgba(109,74,255,0.15); }
+    .criteria-card h4 { font-size: 0.85rem; font-weight: 700; margin-bottom: 6px; color: var(--purple-light); }
+    .criteria-card p { font-size: 0.8rem; color: rgba(255,255,255,0.6); line-height: 1.5; }
+
+    /* CTA CARD */
+    .cta-card {
+      background: linear-gradient(135deg, rgba(109,74,255,0.15), rgba(37,39,71,0.5));
+      border: 1px solid rgba(109,74,255,0.3);
+      border-radius: 20px; padding: 48px 40px; text-align: center;
+      margin: 48px 5vw;
+    }
+    .cta-card h2 { font-size: clamp(1.5rem,3vw,2rem); font-weight: 800; margin-bottom: 14px; }
+    .cta-card p { font-size: 0.95rem; color: rgba(255,255,255,0.65); margin-bottom: 28px; line-height: 1.7; }
+    .cta-btns { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
+    .btn-primary-lg { padding: 14px 32px; border-radius: 12px; border: none; font-size: 1rem; font-weight: 700; background: linear-gradient(135deg, var(--purple), var(--purple-light)); color: var(--white); box-shadow: 0 8px 32px rgba(109,74,255,0.4); transition: transform var(--transition), box-shadow var(--transition); }
+    .btn-primary-lg:hover { transform: translateY(-3px); box-shadow: 0 16px 48px rgba(109,74,255,0.55); }
+    .btn-ghost-lg { padding: 14px 32px; border-radius: 12px; border: 1.5px solid rgba(255,255,255,0.2); background: transparent; color: var(--white); font-size: 1rem; font-weight: 600; transition: all var(--transition); }
+    .btn-ghost-lg:hover { border-color: var(--purple-light); background: rgba(109,74,255,0.1); }
+
+    /* SECTION BG ALTERNATION */
+    .bg-alt { background: var(--navy-2); }
+
+    @media (max-width: 900px) {
+      .feature-block { grid-template-columns: 1fr; gap: 36px; }
+      .feature-block.reverse { direction: ltr; }
+      .nav-links { display: none; }
+      .nav-hamburger { display: flex; }
+    }
+    @media (max-width: 640px) {
+      .criteria-grid { grid-template-columns: 1fr; }
+      .cta-card { margin: 40px 5vw; padding: 36px 24px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="nav">
+  <a href="ielts-path-home.html" class="nav-logo">
+    <div class="nav-logo-icon">IP</div>
+    IELTS <span>Path</span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="ielts-path-home.html">Home</a></li>
+    <li><a href="ielts-diagnostic.html">Diagnostic Test</a></li>
+    <li><a href="ielts-program.html" class="active">Program</a></li>
+    <li><a href="ielts-pricing.html">Pricing</a></li>
+    <li><a href="ielts-pricing.html#membership">Membership</a></li>
+  </ul>
+  <button class="btn-nav-cta" onclick="window.location.href='ielts-diagnostic.html'">Mulai Gratis</button>
+  <button class="nav-hamburger" id="hamburger" onclick="toggleMenu()">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+<div class="nav-mobile" id="mobile-nav">
+  <a href="ielts-path-home.html">🏠 Home</a>
+  <a href="ielts-diagnostic.html">🎯 Diagnostic Test</a>
+  <a href="ielts-program.html">📚 Program</a>
+  <a href="ielts-pricing.html">💎 Pricing</a>
+  <a href="ielts-pricing.html#membership">👑 Membership</a>
+</div>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-inner">
+    <div class="hero-tag">📚 Program Lengkap</div>
+    <h1>Kuasai Semua 4 Skills IELTS</h1>
+    <p>Dari Listening & Reading dengan latihan soal mandiri, hingga Writing & Speaking dengan bimbingan tutor berpengalaman. Satu platform, semua yang kamu butuhkan.</p>
+    <div style="display:flex;gap:14px;justify-content:center;flex-wrap:wrap">
+      <button class="btn-primary-lg" onclick="window.location.href='ielts-diagnostic.html'">🎯 Mulai Diagnostic Test Gratis</button>
+      <button class="btn-ghost-lg" onclick="window.location.href='ielts-pricing.html'">Lihat Pricing →</button>
+    </div>
+  </div>
+</section>
+
+<!-- LISTENING -->
+<div class="feature-block">
+  <div>
+    <div class="section-tag">🎧 Listening</div>
+    <div class="section-title">Tingkatkan Pemahaman Mendengar</div>
+    <div class="section-desc">Soal Listening IELTS mencakup 4 bagian – dari percakapan sehari-hari hingga monolog akademik. Latihan konsisten adalah kunci peningkatan.</div>
+    <ul class="benefit-list">
+      <li><div class="benefit-check">✓</div>10 soal Diagnostic Test gratis</li>
+      <li><div class="benefit-check">✓</div>100+ soal latihan untuk member Pro</li>
+      <li><div class="benefit-check">✓</div>Soal bertipe IELTS resmi: Multiple choice, form completion, map/diagram labelling</li>
+      <li><div class="benefit-check">✓</div>Timer dan navigasi soal seperti tes sesungguhnya</li>
+      <li><div class="benefit-check">✓</div>Evaluasi otomatis dan review jawaban</li>
+    </ul>
+  </div>
+  <div class="feature-block-visual">
+    <span class="feature-big-icon">🎧</span>
+    <h3>Listening Practice</h3>
+    <p>Soal berbasis skenario nyata – percakapan, kuliah, diskusi, dan ceramah – mirip format IELTS resmi.</p>
+  </div>
+</div>
+
+<!-- READING -->
+<div class="feature-block reverse" style="background:var(--navy)">
+  <div>
+    <div class="section-tag">📖 Reading</div>
+    <div class="section-title">Kuasai Teknik Membaca Efektif</div>
+    <div class="section-desc">Reading IELTS bukan sekadar membaca cepat – kamu perlu skimming, scanning, dan analisis logis dari teks kompleks.</div>
+    <ul class="benefit-list">
+      <li><div class="benefit-check">✓</div>10 soal Reading dari passage akademik</li>
+      <li><div class="benefit-check">✓</div>True/False/Not Given, Multiple Choice, Fill in the blank</li>
+      <li><div class="benefit-check">✓</div>Teks bertema sains, sosial, budaya, dan teknologi</li>
+      <li><div class="benefit-check">✓</div>Review jawaban dengan penjelasan</li>
+      <li><div class="benefit-check">✓</div>50+ passage akademik untuk member Pro</li>
+    </ul>
+  </div>
+  <div class="feature-block-visual">
+    <span class="feature-big-icon">📖</span>
+    <h3>Reading Practice</h3>
+    <p>Passage akademik panjang dengan berbagai tipe soal sesuai format IELTS Academic dan General Training.</p>
+  </div>
+</div>
+
+<!-- WRITING -->
+<div class="feature-block" style="background:var(--navy-2);border-bottom:none">
+  <div>
+    <div class="section-tag">✍️ Writing</div>
+    <div class="section-title">Writing dengan Feedback Nyata dari Tutor</div>
+    <div class="section-desc">Writing IELTS dinilai berdasarkan 4 kriteria spesifik. Penilaian otomatis tidak dapat memberikan feedback yang akurat dan kontekstual untuk meningkatkan band score kamu.</div>
+
+    <div class="notice-box">
+      <span class="notice-icon">⚠️</span>
+      <div class="notice-text"><strong>Penting:</strong> Penilaian Writing IELTS tidak dapat dilakukan secara otomatis karena menyangkut kualitas koherensi, tata bahasa, kosakata, dan struktur argumen yang memerlukan evaluasi manusia. Feedback tersedia melalui program berbayar.</div>
+    </div>
+
+    <div class="criteria-grid">
+      <div class="criteria-card"><h4>Task Achievement</h4><p>Seberapa baik kamu menjawab pertanyaan atau mendeskripsikan data.</p></div>
+      <div class="criteria-card"><h4>Coherence & Cohesion</h4><p>Alur logis, paragraf yang terstruktur, dan penggunaan linking words.</p></div>
+      <div class="criteria-card"><h4>Lexical Resource</h4><p>Variasi dan ketepatan penggunaan kosakata dalam konteks.</p></div>
+      <div class="criteria-card"><h4>Grammar Accuracy</h4><p>Ketepatan dan variasi struktur kalimat serta tata bahasa.</p></div>
+    </div>
+
+    <ul class="benefit-list" style="margin-top:20px">
+      <li><div class="benefit-check">✓</div>Feedback detail per kriteria dari tutor berpengalaman</li>
+      <li><div class="benefit-check">✓</div>2x feedback per bulan (Pro), unlimited (Intensive)</li>
+      <li><div class="benefit-check">✓</div>Contoh esai band 7–9 sebagai referensi</li>
+      <li><div class="benefit-check">✓</div>Turnaround 48–72 jam kerja</li>
+    </ul>
+  </div>
+  <div class="feature-block-visual">
+    <span class="feature-big-icon">✍️</span>
+    <h3>Writing Feedback</h3>
+    <p>Kirim esai Task 1 & Task 2 kamu dan dapatkan feedback terperinci dari tutor bersertifikat IELTS.</p>
+  </div>
+</div>
+
+<!-- SPEAKING -->
+<div class="feature-block reverse" style="background:var(--navy);border-top:1px solid rgba(109,74,255,0.1)">
+  <div>
+    <div class="section-tag">🗣️ Speaking</div>
+    <div class="section-title">Speaking 1-on-1 dengan Tutor Berpengalaman</div>
+    <div class="section-desc">Speaking IELTS terdiri dari 3 bagian yang menilai kelancaran, kosakata, tata bahasa, dan pengucapan. Latihan dengan tutor adalah cara paling efektif untuk meningkatkan band.</div>
+
+    <div class="notice-box">
+      <span class="notice-icon">⚠️</span>
+      <div class="notice-text"><strong>Penting:</strong> Penilaian Speaking IELTS memerlukan evaluasi manusia – tidak tersedia secara otomatis. Sesi Speaking tersedia melalui program berbayar dengan jadwal yang fleksibel.</div>
+    </div>
+
+    <ul class="benefit-list" style="margin-top:4px">
+      <li><div class="benefit-check">✓</div>Mock test Speaking Parts 1, 2, dan 3</li>
+      <li><div class="benefit-check">✓</div>Sesi via Google Meet / Zoom (60 menit)</li>
+      <li><div class="benefit-check">✓</div>Feedback langsung dari tutor native/berpengalaman</li>
+      <li><div class="benefit-check">✓</div>Rekaman sesi tersedia untuk review mandiri</li>
+      <li><div class="benefit-check">✓</div>1x sesi/bulan (Pro), 4x sesi/bulan (Intensive)</li>
+    </ul>
+  </div>
+  <div class="feature-block-visual">
+    <span class="feature-big-icon">🗣️</span>
+    <h3>Speaking Coaching</h3>
+    <p>Sesi 1-on-1 intensif dengan tutor berpengalaman yang memahami kriteria penilaian IELTS Speaking secara mendalam.</p>
+  </div>
+</div>
+
+<!-- CTA -->
+<div class="cta-card">
+  <h2>Siap Mulai Perjalanan IELTS Kamu?</h2>
+  <p>Mulai dengan Diagnostic Test gratis untuk mengetahui level kamu, lalu upgrade ke program yang sesuai dengan target band score kamu.</p>
+  <div class="cta-btns">
+    <button class="btn-primary-lg" onclick="window.location.href='ielts-diagnostic.html'">🎯 Diagnostic Test Gratis</button>
+    <button class="btn-ghost-lg" onclick="window.location.href='ielts-pricing.html'">💎 Lihat Pricing</button>
+  </div>
+</div>
+
+<!-- FOOTER SIMPLE -->
+<footer style="background:var(--navy-2);border-top:1px solid rgba(109,74,255,0.1);padding:32px 5vw;text-align:center">
+  <div style="font-size:0.8rem;color:var(--gray-400)">© 2026 IELTS Path. <a href="ielts-path-home.html" style="color:var(--purple-light)">Kembali ke Home</a></div>
+</footer>
+
+<script>
+  function toggleMenu() {
+    const menu = document.getElementById('mobile-nav');
+    const btn = document.getElementById('hamburger');
+    const isOpen = menu.classList.toggle('open');
+    const spans = btn.querySelectorAll('span');
+    if (isOpen) { spans[0].style.transform='rotate(45deg) translate(5px,5px)'; spans[1].style.opacity='0'; spans[2].style.transform='rotate(-45deg) translate(5px,-5px)'; }
+    else { spans.forEach(s => { s.style.transform=''; s.style.opacity=''; }); }
+  }
+</script>
+</body>
+</html>

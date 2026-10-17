@@ -1,0 +1,877 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>IELTS Diagnostic Test – IELTS Path</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --purple: #6D4AFF; --purple-light: #A78BFF; --purple-dark: #4F2ECC;
+      --navy: #17182B; --navy-2: #1E2040; --navy-3: #252747;
+      --white: #FFFFFF; --gray-400: #9090A8; --gray-600: #5A5A78;
+      --success: #22C55E; --danger: #EF4444; --warning: #F59E0B;
+      --font: 'Inter', sans-serif;
+      --radius: 16px; --radius-sm: 10px;
+      --shadow: 0 8px 32px rgba(109,74,255,0.12);
+      --transition: 0.25s cubic-bezier(0.4,0,0.2,1);
+    }
+    html { scroll-behavior: smooth; }
+    body { font-family: var(--font); background: var(--navy); color: var(--white); min-height: 100vh; }
+    button { cursor: pointer; font-family: var(--font); }
+    input, textarea, select { font-family: var(--font); }
+
+    /* ======= TOP BAR ======= */
+    .top-bar {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      background: rgba(23,24,43,0.95); backdrop-filter: blur(16px);
+      border-bottom: 1px solid rgba(109,74,255,0.15);
+      padding: 0 5vw; height: 70px;
+      display: flex; align-items: center; justify-content: space-between; gap: 16px;
+    }
+    .top-bar-left { display: flex; align-items: center; gap: 16px; }
+    .top-logo { display: flex; align-items: center; gap: 8px; font-weight: 800; font-size: 1rem; }
+    .top-logo-icon {
+      width: 30px; height: 30px; border-radius: 8px;
+      background: linear-gradient(135deg, var(--purple), var(--purple-light));
+      display: flex; align-items: center; justify-content: center; font-size: 0.7rem; font-weight: 900;
+    }
+    .top-logo span { color: var(--purple-light); }
+    .section-badge {
+      padding: 4px 12px; border-radius: 100px;
+      background: rgba(109,74,255,0.15); border: 1px solid rgba(109,74,255,0.3);
+      font-size: 0.75rem; font-weight: 700; color: var(--purple-light);
+    }
+    .top-bar-center { flex: 1; max-width: 400px; }
+    .progress-bar-wrap { background: rgba(109,74,255,0.15); border-radius: 100px; height: 6px; overflow: hidden; }
+    .progress-bar-fill {
+      height: 100%; border-radius: 100px;
+      background: linear-gradient(90deg, var(--purple), var(--purple-light));
+      transition: width 0.4s ease;
+    }
+    .progress-label { font-size: 0.7rem; color: var(--gray-400); margin-top: 4px; text-align: center; }
+    .timer-box {
+      display: flex; align-items: center; gap: 8px;
+      padding: 8px 16px; border-radius: var(--radius-sm);
+      background: rgba(37,39,71,0.8); border: 1px solid rgba(109,74,255,0.2);
+    }
+    .timer-icon { font-size: 0.9rem; }
+    .timer-value { font-size: 1.1rem; font-weight: 800; font-variant-numeric: tabular-nums; letter-spacing: 1px; }
+    .timer-value.warning { color: var(--warning); }
+    .timer-value.danger { color: var(--danger); animation: blink 1s infinite; }
+    @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.4} }
+
+    /* ======= LAYOUT ======= */
+    .test-layout {
+      display: grid; grid-template-columns: 280px 1fr;
+      min-height: 100vh; padding-top: 70px;
+    }
+
+    /* ======= SIDEBAR ======= */
+    .sidebar {
+      background: var(--navy-2); border-right: 1px solid rgba(109,74,255,0.12);
+      padding: 28px 20px; position: sticky; top: 70px; height: calc(100vh - 70px);
+      overflow-y: auto;
+    }
+    .sidebar h3 { font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: var(--purple-light); margin-bottom: 16px; }
+    .q-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px; margin-bottom: 28px; }
+    .q-btn {
+      width: 100%; aspect-ratio: 1; border-radius: 8px;
+      border: 1.5px solid rgba(109,74,255,0.2);
+      background: rgba(37,39,71,0.5); color: rgba(255,255,255,0.6);
+      font-size: 0.8rem; font-weight: 600;
+      transition: all var(--transition); cursor: pointer;
+    }
+    .q-btn:hover { border-color: var(--purple-light); color: var(--white); }
+    .q-btn.current { border-color: var(--purple); background: rgba(109,74,255,0.25); color: var(--white); }
+    .q-btn.answered { background: rgba(34,197,94,0.15); border-color: rgba(34,197,94,0.4); color: var(--success); }
+    .q-btn.answered.current { border-color: var(--success); box-shadow: 0 0 0 2px rgba(34,197,94,0.3); }
+
+    .legend { display: flex; flex-direction: column; gap: 8px; margin-bottom: 28px; }
+    .legend-item { display: flex; align-items: center; gap: 8px; font-size: 0.75rem; color: var(--gray-400); }
+    .legend-dot { width: 12px; height: 12px; border-radius: 3px; flex-shrink: 0; }
+    .legend-dot.unanswered { background: rgba(37,39,71,0.8); border: 1.5px solid rgba(109,74,255,0.2); }
+    .legend-dot.answered { background: rgba(34,197,94,0.2); border: 1.5px solid rgba(34,197,94,0.4); }
+    .legend-dot.current { background: rgba(109,74,255,0.25); border: 1.5px solid var(--purple); }
+
+    .sidebar-section-info {
+      padding: 14px; border-radius: var(--radius-sm);
+      background: rgba(109,74,255,0.08); border: 1px solid rgba(109,74,255,0.15);
+    }
+    .sidebar-section-info h4 { font-size: 0.8rem; font-weight: 700; margin-bottom: 8px; color: var(--purple-light); }
+    .sidebar-section-info p { font-size: 0.75rem; line-height: 1.6; color: rgba(255,255,255,0.55); }
+
+    /* ======= MAIN CONTENT ======= */
+    .test-main { padding: 36px 5vw; max-width: 860px; }
+
+    /* SECTION HEADER */
+    .section-header {
+      display: flex; align-items: center; justify-content: space-between;
+      margin-bottom: 28px; flex-wrap: wrap; gap: 12px;
+    }
+    .section-title-wrap h2 { font-size: 1.25rem; font-weight: 800; margin-bottom: 4px; }
+    .section-subtitle { font-size: 0.8rem; color: var(--gray-400); }
+
+    /* PASSAGE (Reading) */
+    .passage-card {
+      background: var(--navy-2); border: 1px solid rgba(109,74,255,0.15);
+      border-radius: var(--radius); padding: 28px 32px; margin-bottom: 28px;
+    }
+    .passage-title { font-size: 1rem; font-weight: 700; margin-bottom: 16px; color: var(--purple-light); }
+    .passage-text {
+      font-size: 0.9rem; line-height: 1.85; color: rgba(255,255,255,0.82);
+      max-height: 280px; overflow-y: auto; padding-right: 8px;
+    }
+    .passage-text::-webkit-scrollbar { width: 4px; }
+    .passage-text::-webkit-scrollbar-thumb { background: rgba(109,74,255,0.4); border-radius: 2px; }
+
+    /* QUESTION CARD */
+    .question-card {
+      background: var(--navy-2); border: 1px solid rgba(109,74,255,0.15);
+      border-radius: var(--radius); padding: 32px 36px; margin-bottom: 24px;
+    }
+    .q-num {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 4px 12px; border-radius: 100px;
+      background: rgba(109,74,255,0.15); border: 1px solid rgba(109,74,255,0.3);
+      font-size: 0.75rem; font-weight: 700; color: var(--purple-light);
+      margin-bottom: 18px;
+    }
+    .q-text { font-size: 1rem; font-weight: 600; line-height: 1.6; margin-bottom: 24px; }
+    .q-context {
+      font-size: 0.875rem; color: rgba(255,255,255,0.6); line-height: 1.7;
+      padding: 14px 16px; border-radius: var(--radius-sm);
+      background: rgba(37,39,71,0.5); border-left: 3px solid rgba(109,74,255,0.4);
+      margin-bottom: 24px; font-style: italic;
+    }
+
+    /* OPTIONS */
+    .options { display: flex; flex-direction: column; gap: 10px; }
+    .opt-item {
+      display: flex; align-items: flex-start; gap: 12px;
+      padding: 14px 18px; border-radius: var(--radius-sm);
+      border: 1.5px solid rgba(109,74,255,0.15);
+      background: rgba(37,39,71,0.4);
+      cursor: pointer; transition: all var(--transition);
+    }
+    .opt-item:hover { border-color: rgba(109,74,255,0.4); background: rgba(109,74,255,0.08); }
+    .opt-item.selected { border-color: var(--purple); background: rgba(109,74,255,0.18); }
+    .opt-item input[type="radio"] { display: none; }
+    .opt-letter {
+      width: 28px; height: 28px; border-radius: 50%; flex-shrink: 0;
+      border: 1.5px solid rgba(109,74,255,0.4);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.75rem; font-weight: 700; color: var(--gray-400);
+      transition: all var(--transition);
+    }
+    .opt-item.selected .opt-letter {
+      background: var(--purple); border-color: var(--purple); color: var(--white);
+    }
+    .opt-label { font-size: 0.9rem; line-height: 1.5; padding-top: 3px; }
+
+    /* SHORT ANSWER */
+    .short-answer-wrap { margin-top: 8px; }
+    .short-answer-input {
+      width: 100%; padding: 14px 16px; border-radius: var(--radius-sm);
+      border: 1.5px solid rgba(109,74,255,0.2);
+      background: rgba(37,39,71,0.5); color: var(--white);
+      font-size: 0.95rem; font-weight: 500;
+      transition: border-color var(--transition), box-shadow var(--transition);
+      outline: none;
+    }
+    .short-answer-input:focus {
+      border-color: var(--purple); box-shadow: 0 0 0 3px rgba(109,74,255,0.15);
+    }
+    .short-answer-input::placeholder { color: rgba(255,255,255,0.3); }
+    .short-answer-hint { font-size: 0.75rem; color: var(--gray-400); margin-top: 8px; }
+
+    /* LISTENING AUDIO PLACEHOLDER */
+    .audio-card {
+      background: linear-gradient(135deg, rgba(109,74,255,0.12), rgba(37,39,71,0.8));
+      border: 1px solid rgba(109,74,255,0.25);
+      border-radius: var(--radius); padding: 28px; margin-bottom: 28px;
+      display: flex; flex-direction: column; align-items: center; text-align: center; gap: 12px;
+    }
+    .audio-icon { font-size: 3rem; }
+    .audio-title { font-size: 1rem; font-weight: 700; }
+    .audio-desc { font-size: 0.85rem; color: rgba(255,255,255,0.6); line-height: 1.6; max-width: 420px; }
+    .audio-note {
+      padding: 10px 16px; border-radius: var(--radius-sm);
+      background: rgba(245,158,11,0.1); border: 1px solid rgba(245,158,11,0.3);
+      font-size: 0.8rem; color: var(--warning); font-weight: 500;
+    }
+
+    /* NAVIGATION */
+    .test-nav {
+      display: flex; align-items: center; justify-content: space-between;
+      margin-top: 16px; padding-top: 24px;
+      border-top: 1px solid rgba(109,74,255,0.1);
+      flex-wrap: wrap; gap: 12px;
+    }
+    .nav-group { display: flex; gap: 10px; }
+    .btn-nav {
+      padding: 12px 24px; border-radius: var(--radius-sm); border: none;
+      font-size: 0.9rem; font-weight: 600;
+      transition: all var(--transition);
+    }
+    .btn-prev {
+      background: rgba(37,39,71,0.8); color: rgba(255,255,255,0.7);
+      border: 1.5px solid rgba(109,74,255,0.2);
+    }
+    .btn-prev:hover:not(:disabled) { border-color: var(--purple-light); color: var(--white); }
+    .btn-prev:disabled { opacity: 0.35; cursor: not-allowed; }
+    .btn-next {
+      background: linear-gradient(135deg, var(--purple), var(--purple-light));
+      color: var(--white);
+      box-shadow: 0 4px 16px rgba(109,74,255,0.3);
+    }
+    .btn-next:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(109,74,255,0.45); }
+    .btn-submit {
+      padding: 12px 28px; border-radius: var(--radius-sm); border: none;
+      font-size: 0.9rem; font-weight: 700;
+      background: linear-gradient(135deg, #22C55E, #16A34A);
+      color: var(--white); box-shadow: 0 4px 16px rgba(34,197,94,0.3);
+      transition: all var(--transition);
+    }
+    .btn-submit:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(34,197,94,0.45); }
+    .btn-skip-section {
+      padding: 12px 20px; border-radius: var(--radius-sm);
+      border: 1.5px solid rgba(245,158,11,0.4); background: transparent;
+      color: var(--warning); font-size: 0.85rem; font-weight: 600;
+      transition: all var(--transition);
+    }
+    .btn-skip-section:hover { background: rgba(245,158,11,0.08); border-color: var(--warning); }
+
+    /* MODAL */
+    .modal-overlay {
+      position: fixed; inset: 0; z-index: 200;
+      background: rgba(23,24,43,0.85); backdrop-filter: blur(8px);
+      display: flex; align-items: center; justify-content: center;
+      padding: 20px; opacity: 0; pointer-events: none; transition: opacity var(--transition);
+    }
+    .modal-overlay.active { opacity: 1; pointer-events: all; }
+    .modal {
+      background: var(--navy-2); border: 1px solid rgba(109,74,255,0.3);
+      border-radius: 20px; padding: 40px 36px; max-width: 440px; width: 100%;
+      text-align: center; box-shadow: 0 24px 64px rgba(0,0,0,0.5);
+      transform: scale(0.95) translateY(10px); transition: transform var(--transition);
+    }
+    .modal-overlay.active .modal { transform: scale(1) translateY(0); }
+    .modal-icon { font-size: 3rem; margin-bottom: 18px; }
+    .modal h3 { font-size: 1.3rem; font-weight: 800; margin-bottom: 10px; }
+    .modal p { font-size: 0.875rem; color: rgba(255,255,255,0.65); line-height: 1.7; margin-bottom: 28px; }
+    .modal-actions { display: flex; gap: 12px; }
+    .modal-actions button { flex: 1; padding: 13px; border-radius: var(--radius-sm); font-size: 0.9rem; font-weight: 700; border: none; }
+    .modal-cancel { background: rgba(37,39,71,0.8); color: rgba(255,255,255,0.7); border: 1.5px solid rgba(109,74,255,0.2) !important; }
+    .modal-confirm { background: linear-gradient(135deg, #22C55E, #16A34A); color: var(--white); }
+
+    /* RESPONSIVE */
+    @media (max-width: 900px) {
+      .test-layout { grid-template-columns: 1fr; }
+      .sidebar { position: static; height: auto; border-right: none; border-bottom: 1px solid rgba(109,74,255,0.12); }
+    }
+    @media (max-width: 640px) {
+      .test-main { padding: 24px 5vw; }
+      .question-card { padding: 24px 20px; }
+      .passage-card { padding: 20px; }
+      .top-bar-center { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- TOP BAR -->
+<div class="top-bar" id="top-bar">
+  <div class="top-bar-left">
+    <div class="top-logo">
+      <div class="top-logo-icon">IP</div>
+      IELTS <span>Path</span>
+    </div>
+    <div class="section-badge" id="section-badge">🎧 Listening</div>
+  </div>
+  <div class="top-bar-center">
+    <div class="progress-bar-wrap">
+      <div class="progress-bar-fill" id="progress-fill" style="width:0%"></div>
+    </div>
+    <div class="progress-label" id="progress-label">Soal 1 dari 10</div>
+  </div>
+  <div class="timer-box">
+    <span class="timer-icon">⏱️</span>
+    <span class="timer-value" id="timer-display">20:00</span>
+  </div>
+</div>
+
+<!-- LAYOUT -->
+<div class="test-layout">
+  <!-- SIDEBAR -->
+  <aside class="sidebar" id="sidebar">
+    <h3 id="sidebar-section-label">Listening – Soal</h3>
+    <div class="q-grid" id="q-grid"></div>
+    <div class="legend">
+      <div class="legend-item"><div class="legend-dot current"></div>Sedang dikerjakan</div>
+      <div class="legend-item"><div class="legend-dot answered"></div>Sudah dijawab</div>
+      <div class="legend-item"><div class="legend-dot unanswered"></div>Belum dijawab</div>
+    </div>
+    <div class="sidebar-section-info" id="sidebar-info"></div>
+  </aside>
+
+  <!-- MAIN -->
+  <main class="test-main" id="test-main">
+    <div class="section-header">
+      <div class="section-title-wrap">
+        <h2 id="section-title">IELTS Diagnostic – Listening</h2>
+        <div class="section-subtitle" id="section-subtitle">Jawab semua soal berdasarkan teks yang diberikan.</div>
+      </div>
+    </div>
+
+    <!-- Audio placeholder (listening) -->
+    <div class="audio-card" id="audio-card">
+      <div class="audio-icon">🎧</div>
+      <div class="audio-title">Listening Section – Simulasi Teks</div>
+      <div class="audio-desc">Dalam tes resmi IELTS, kamu akan mendengarkan rekaman audio. Untuk versi diagnostic prototype ini, transkrip audio tersedia sebagai teks di setiap soal.</div>
+      <div class="audio-note">⚠️ Prototype: audio menggunakan teks pengganti. Soal berdasarkan skenario percakapan nyata.</div>
+    </div>
+
+    <!-- Passage (reading) -->
+    <div class="passage-card" id="passage-card" style="display:none">
+      <div class="passage-title" id="passage-title">Reading Passage</div>
+      <div class="passage-text" id="passage-text"></div>
+    </div>
+
+    <!-- QUESTION AREA -->
+    <div id="question-area"></div>
+
+    <!-- NAVIGATION -->
+    <div class="test-nav">
+      <button class="btn-nav btn-prev" id="btn-prev" onclick="prevQuestion()" disabled>← Sebelumnya</button>
+      <div class="nav-group">
+        <button class="btn-skip-section" id="btn-skip" onclick="confirmSkip()">Lewati Sesi ini</button>
+        <button class="btn-nav btn-next" id="btn-next" onclick="nextQuestion()">Selanjutnya →</button>
+        <button class="btn-submit" id="btn-submit" style="display:none" onclick="confirmSubmit()">✅ Submit & Lihat Hasil</button>
+      </div>
+    </div>
+  </main>
+</div>
+
+<!-- SUBMIT MODAL -->
+<div class="modal-overlay" id="submit-modal">
+  <div class="modal">
+    <div class="modal-icon">📋</div>
+    <h3 id="modal-title">Submit Tes?</h3>
+    <p id="modal-desc">Kamu sudah menjawab <strong id="modal-answered">0</strong> dari <strong id="modal-total">20</strong> soal. Klik Konfirmasi untuk melihat hasil.</p>
+    <div class="modal-actions">
+      <button class="modal-cancel" onclick="closeModal('submit-modal')">Batal</button>
+      <button class="modal-confirm" onclick="submitTest()">✅ Konfirmasi Submit</button>
+    </div>
+  </div>
+</div>
+
+<!-- SKIP MODAL -->
+<div class="modal-overlay" id="skip-modal">
+  <div class="modal">
+    <div class="modal-icon">⏩</div>
+    <h3>Lewati Sesi Listening?</h3>
+    <p>Soal yang belum dijawab akan dihitung kosong. Kamu akan langsung ke sesi <strong>Reading</strong>.</p>
+    <div class="modal-actions">
+      <button class="modal-cancel" onclick="closeModal('skip-modal')">Batal</button>
+      <button class="modal-confirm" onclick="skipSection()">Lewati Sekarang</button>
+    </div>
+  </div>
+</div>
+
+<script>
+// ============================================================
+// QUESTION DATA
+// ============================================================
+const QUESTIONS = {
+  listening: [
+    {
+      id: 'L1', type: 'multiple-choice',
+      context: '🎧 Konteks: Seorang mahasiswa (Tom) berbicara dengan seorang staf perpustakaan tentang peminjaman buku.',
+      question: 'Berapa lama buku dapat dipinjam oleh mahasiswa biasa?',
+      options: ['1 minggu', '2 minggu', '3 minggu', '1 bulan'],
+      answer: 1 // 0-indexed → '2 minggu'
+    },
+    {
+      id: 'L2', type: 'multiple-choice',
+      context: '🎧 Konteks: Lanjutan percakapan Tom dengan staf perpustakaan.',
+      question: 'Apa yang harus dilakukan Tom jika ingin memperpanjang peminjaman?',
+      options: ['Datang langsung ke perpustakaan', 'Menelepon perpustakaan', 'Menggunakan website atau aplikasi', 'Meminta teman untuk mengembalikan'],
+      answer: 2
+    },
+    {
+      id: 'L3', type: 'multiple-choice',
+      context: '🎧 Konteks: Seorang pelajar (Sarah) mendengarkan instruksi dari gurunya tentang tugas.',
+      question: 'Kapan batas waktu pengumpulan tugas akhir?',
+      options: ['Jumat pagi', 'Jumat sore pukul 17.00', 'Senin pagi', 'Senin sore pukul 17.00'],
+      answer: 1
+    },
+    {
+      id: 'L4', type: 'multiple-choice',
+      context: '🎧 Konteks: Lanjutan instruksi tugas akhir.',
+      question: 'Format pengumpulan tugas yang diminta guru adalah...',
+      options: ['Dicetak di kertas A4', 'Dikirim via email', 'Diunggah ke portal kampus', 'Diberikan langsung ke tangan guru'],
+      answer: 2
+    },
+    {
+      id: 'L5', type: 'short-answer',
+      context: '🎧 Konteks: Dua teman (Alice dan Bob) merencanakan perjalanan bersama.',
+      question: 'Apa kota tujuan yang akhirnya dipilih oleh Alice dan Bob?',
+      hint: 'Tulis nama kota dalam Bahasa Inggris (1 kata)',
+      answer: 'yogyakarta'
+    },
+    {
+      id: 'L6', type: 'multiple-choice',
+      context: '🎧 Konteks: Lanjutan percakapan Alice dan Bob tentang akomodasi.',
+      question: 'Jenis akomodasi mana yang lebih dipilih Bob?',
+      options: ['Hotel bintang 5', 'Hostel murah', 'Guesthouse lokal', 'Airbnb'],
+      answer: 2
+    },
+    {
+      id: 'L7', type: 'multiple-choice',
+      context: '🎧 Konteks: Seorang pelanggan menghubungi layanan pelanggan sebuah maskapai.',
+      question: 'Apa alasan pelanggan menghubungi maskapai tersebut?',
+      options: ['Membeli tiket baru', 'Mengubah jadwal penerbangan', 'Mengajukan refund', 'Menanyakan bagasi'],
+      answer: 1
+    },
+    {
+      id: 'L8', type: 'multiple-choice',
+      context: '🎧 Konteks: Lanjutan panggilan layanan pelanggan maskapai.',
+      question: 'Berapa biaya perubahan jadwal yang diinformasikan oleh petugas?',
+      options: ['Gratis', 'Rp 150.000', 'Rp 250.000', 'Tergantung rute'],
+      answer: 3
+    },
+    {
+      id: 'L9', type: 'multiple-choice',
+      context: '🎧 Konteks: Ceramah singkat tentang pentingnya tidur cukup.',
+      question: 'Menurut ceramah, berapa jam tidur yang direkomendasikan untuk orang dewasa?',
+      options: ['5–6 jam', '6–7 jam', '7–9 jam', '9–10 jam'],
+      answer: 2
+    },
+    {
+      id: 'L10', type: 'multiple-choice',
+      context: '🎧 Konteks: Lanjutan ceramah tentang tidur.',
+      question: 'Apa efek negatif kurang tidur yang disebutkan dalam ceramah?',
+      options: ['Menurunkan nafsu makan', 'Meningkatkan risiko penyakit jantung', 'Mempercepat pertumbuhan rambut', 'Meningkatkan konsentrasi jangka pendek'],
+      answer: 1
+    }
+  ],
+
+  reading: {
+    passage: {
+      title: 'The History and Impact of Coffee Culture',
+      text: `Coffee is one of the world's most widely consumed beverages, with a history stretching back centuries. Originally discovered in Ethiopia around the 9th century, coffee beans were first used by the Oromo people, who chewed the berries for their energizing effects. By the 15th century, Sufi monks in Yemen had begun cultivating coffee plants and brewing the drink for use during long night-time prayers.
+
+Coffee spread rapidly across the Middle East, becoming a central feature of social life. Coffeehouses, known as "qahveh khaneh," became popular gathering places for intellectual discussion, music, and chess – earning the nickname "Schools of the Wise." These establishments played a crucial role in the exchange of information and ideas during the Renaissance period.
+
+When coffee arrived in Europe in the 17th century, it replaced beer and wine as the most popular breakfast drink. Prior to coffee, Europeans often drank alcoholic beverages in the morning because water was frequently unsafe. Coffee's stimulating effects helped increase productivity across the continent.
+
+The global coffee trade transformed economies. The Dutch were among the first Europeans to grow coffee commercially, establishing plantations in Java, Indonesia, in the 1690s. Brazil later became the world's largest coffee producer in the 19th century, a position it still holds today. Millions of smallholder farmers across tropical regions depend on coffee cultivation for their livelihoods.
+
+Modern coffee culture, driven partly by the rise of specialty coffee shops, emphasizes the importance of origin, processing method, and roast profile. Consumers increasingly seek transparency about how their coffee is produced and traded, leading to growth in fair-trade and direct-trade certification schemes. Studies also suggest moderate coffee consumption may offer health benefits, including reduced risk of Type 2 diabetes and certain neurological conditions.`
+    },
+    questions: [
+      {
+        id: 'R1', type: 'multiple-choice',
+        question: 'Where was coffee originally discovered?',
+        options: ['Yemen', 'Ethiopia', 'Brazil', 'Indonesia'],
+        answer: 1
+      },
+      {
+        id: 'R2', type: 'multiple-choice',
+        question: 'What were coffeehouses in the Middle East nicknamed?',
+        options: ['"Houses of Wisdom"', '"Gardens of Knowledge"', '"Schools of the Wise"', '"Halls of Learning"'],
+        answer: 2
+      },
+      {
+        id: 'R3', type: 'multiple-choice',
+        question: 'Why did Europeans drink alcoholic beverages in the morning before coffee was introduced?',
+        options: ['It was a cultural tradition', 'Alcohol was cheaper than water', 'Water was frequently unsafe to drink', 'Coffee was not yet available in Europe'],
+        answer: 2
+      },
+      {
+        id: 'R4', type: 'multiple-choice',
+        question: 'Which country became the world\'s largest coffee producer in the 19th century?',
+        options: ['Indonesia', 'Yemen', 'Colombia', 'Brazil'],
+        answer: 3
+      },
+      {
+        id: 'R5', type: 'multiple-choice',
+        question: 'What does the author say about modern coffee culture?',
+        options: [
+          'It prioritizes low cost over quality',
+          'It emphasizes origin, processing method, and roast profile',
+          'It discourages transparency about production',
+          'It is driven entirely by large corporations'
+        ],
+        answer: 1
+      },
+      {
+        id: 'R6', type: 'true-false-ng',
+        question: 'The Sufi monks in Yemen used coffee to help them stay awake during prayers.',
+        options: ['TRUE', 'FALSE', 'NOT GIVEN'],
+        answer: 0
+      },
+      {
+        id: 'R7', type: 'true-false-ng',
+        question: 'The Dutch began cultivating coffee commercially in Brazil in the 1690s.',
+        options: ['TRUE', 'FALSE', 'NOT GIVEN'],
+        answer: 1
+      },
+      {
+        id: 'R8', type: 'true-false-ng',
+        question: 'Coffee consumption has been linked to a reduced risk of Type 2 diabetes.',
+        options: ['TRUE', 'FALSE', 'NOT GIVEN'],
+        answer: 0
+      },
+      {
+        id: 'R9', type: 'multiple-choice',
+        question: 'What does "fair-trade certification" primarily address?',
+        options: [
+          'The quality of the coffee beans',
+          'The roasting process',
+          'Transparency and ethical sourcing of coffee',
+          'The country of origin of coffee'
+        ],
+        answer: 2
+      },
+      {
+        id: 'R10', type: 'multiple-choice',
+        question: 'When did coffee first arrive in Europe?',
+        options: ['In the 9th century', 'In the 15th century', 'In the 17th century', 'In the 19th century'],
+        answer: 2
+      }
+    ]
+  }
+};
+
+// ============================================================
+// STATE
+// ============================================================
+const params = new URLSearchParams(window.location.search);
+const CONFIG = {
+  type: params.get('type') || 'academic',
+  level: params.get('level') || 'intermediate',
+  band: params.get('band') || '7.0'
+};
+
+let currentSection = 'listening'; // 'listening' | 'reading'
+let currentQIndex = 0;
+let answers = { listening: {}, reading: {} }; // { qId: selectedIndex or text }
+let timerInterval = null;
+let timeLeft = 20 * 60; // 20 min per section
+
+// ============================================================
+// INIT
+// ============================================================
+function init() {
+  renderSectionUI();
+  renderQuestion();
+  buildQuestionGrid();
+  updateProgress();
+  startTimer();
+}
+
+function getCurrentQuestions() {
+  if (currentSection === 'listening') return QUESTIONS.listening;
+  return QUESTIONS.reading.questions;
+}
+
+// ============================================================
+// RENDER SECTION UI
+// ============================================================
+function renderSectionUI() {
+  const isListening = currentSection === 'listening';
+  document.getElementById('section-badge').textContent = isListening ? '🎧 Listening' : '📖 Reading';
+  document.getElementById('section-title').textContent = `IELTS Diagnostic – ${isListening ? 'Listening' : 'Reading'}`;
+  document.getElementById('section-subtitle').textContent = isListening
+    ? 'Baca konteks percakapan lalu jawab setiap soal.'
+    : 'Baca passage di atas lalu jawab soal berikut.';
+  document.getElementById('sidebar-section-label').textContent = `${isListening ? 'Listening' : 'Reading'} – Soal`;
+  document.getElementById('audio-card').style.display = isListening ? '' : 'none';
+  document.getElementById('passage-card').style.display = isListening ? 'none' : '';
+  document.getElementById('sidebar-info').innerHTML = isListening
+    ? `<h4>ℹ️ Listening Section</h4><p>10 soal berdasarkan skenario percakapan nyata. Baca konteks di setiap soal dengan teliti.</p>`
+    : `<h4>ℹ️ Reading Section</h4><p>10 soal berdasarkan passage teks di atas. Baca passage terlebih dahulu sebelum menjawab.</p>`;
+
+  if (currentSection === 'reading') {
+    document.getElementById('passage-title').textContent = QUESTIONS.reading.passage.title;
+    document.getElementById('passage-text').textContent = QUESTIONS.reading.passage.text;
+  }
+
+  // Update skip button
+  const skipBtn = document.getElementById('btn-skip');
+  if (currentSection === 'reading') {
+    skipBtn.textContent = 'Lewati Sesi ini';
+    skipBtn.onclick = () => confirmSkipReading();
+  }
+}
+
+// ============================================================
+// RENDER QUESTION
+// ============================================================
+function renderQuestion() {
+  const qs = getCurrentQuestions();
+  const q = qs[currentQIndex];
+  const savedAnswer = answers[currentSection][q.id];
+  const area = document.getElementById('question-area');
+
+  let html = `<div class="question-card">`;
+  html += `<div class="q-num">Soal ${currentQIndex + 1} dari ${qs.length}</div>`;
+  if (q.context) html += `<div class="q-context">${q.context}</div>`;
+  html += `<div class="q-text">${q.question}</div>`;
+
+  if (q.type === 'multiple-choice' || q.type === 'true-false-ng') {
+    html += `<div class="options">`;
+    q.options.forEach((opt, i) => {
+      const selected = savedAnswer === i ? 'selected' : '';
+      const letter = ['A','B','C','D','E'][i] || i;
+      html += `<label class="opt-item ${selected}" onclick="selectMC('${q.id}', ${i}, this)">
+        <input type="radio" name="q_${q.id}" value="${i}" ${savedAnswer === i ? 'checked' : ''}>
+        <div class="opt-letter">${letter}</div>
+        <span class="opt-label">${opt}</span>
+      </label>`;
+    });
+    html += `</div>`;
+  } else if (q.type === 'short-answer') {
+    html += `<div class="short-answer-wrap">
+      <input type="text" class="short-answer-input" id="sa_${q.id}"
+        placeholder="Tulis jawaban kamu di sini..."
+        value="${savedAnswer || ''}"
+        oninput="saveShortAnswer('${q.id}', this.value)"
+        autocomplete="off" />
+      ${q.hint ? `<div class="short-answer-hint">💡 Petunjuk: ${q.hint}</div>` : ''}
+    </div>`;
+  }
+
+  html += `</div>`;
+  area.innerHTML = html;
+  updateNavButtons();
+  buildQuestionGrid();
+  updateProgress();
+}
+
+function selectMC(qId, idx, labelEl) {
+  answers[currentSection][qId] = idx;
+  document.querySelectorAll('.opt-item').forEach(el => el.classList.remove('selected'));
+  labelEl.classList.add('selected');
+  buildQuestionGrid();
+}
+
+function saveShortAnswer(qId, val) {
+  if (val.trim()) {
+    answers[currentSection][qId] = val.trim().toLowerCase();
+  } else {
+    delete answers[currentSection][qId];
+  }
+  buildQuestionGrid();
+}
+
+// ============================================================
+// NAVIGATION
+// ============================================================
+function prevQuestion() {
+  if (currentQIndex > 0) { currentQIndex--; renderQuestion(); }
+}
+
+function nextQuestion() {
+  const qs = getCurrentQuestions();
+  if (currentQIndex < qs.length - 1) { currentQIndex++; renderQuestion(); }
+}
+
+function goToQuestion(index) {
+  currentQIndex = index;
+  renderQuestion();
+}
+
+function updateNavButtons() {
+  const qs = getCurrentQuestions();
+  const isLast = currentQIndex === qs.length - 1;
+  const isFirst = currentQIndex === 0;
+
+  document.getElementById('btn-prev').disabled = isFirst;
+
+  const isLastSection = currentSection === 'reading';
+  if (isLast) {
+    document.getElementById('btn-next').style.display = 'none';
+    if (isLastSection) {
+      document.getElementById('btn-submit').style.display = '';
+      document.getElementById('btn-skip').style.display = 'none';
+    } else {
+      document.getElementById('btn-submit').style.display = '';
+      document.getElementById('btn-submit').textContent = '➡️ Lanjut ke Reading';
+      document.getElementById('btn-submit').onclick = goToReading;
+    }
+  } else {
+    document.getElementById('btn-next').style.display = '';
+    document.getElementById('btn-submit').style.display = 'none';
+    document.getElementById('btn-skip').style.display = '';
+    // Restore submit for reading last q
+    document.getElementById('btn-submit').textContent = '✅ Submit & Lihat Hasil';
+    document.getElementById('btn-submit').onclick = confirmSubmit;
+  }
+}
+
+// ============================================================
+// QUESTION GRID
+// ============================================================
+function buildQuestionGrid() {
+  const qs = getCurrentQuestions();
+  const grid = document.getElementById('q-grid');
+  grid.innerHTML = '';
+  qs.forEach((q, i) => {
+    const btn = document.createElement('button');
+    btn.className = 'q-btn';
+    btn.textContent = i + 1;
+    if (i === currentQIndex) btn.classList.add('current');
+    if (answers[currentSection][q.id] !== undefined) btn.classList.add('answered');
+    btn.onclick = () => goToQuestion(i);
+    grid.appendChild(btn);
+  });
+}
+
+// ============================================================
+// PROGRESS
+// ============================================================
+function updateProgress() {
+  const qs = getCurrentQuestions();
+  const pct = ((currentQIndex + 1) / qs.length) * 100;
+  document.getElementById('progress-fill').style.width = `${pct}%`;
+  document.getElementById('progress-label').textContent = `Soal ${currentQIndex + 1} dari ${qs.length} (${currentSection === 'listening' ? 'Listening' : 'Reading'})`;
+}
+
+// ============================================================
+// TIMER
+// ============================================================
+function startTimer() {
+  clearInterval(timerInterval);
+  timerInterval = setInterval(() => {
+    timeLeft--;
+    const min = Math.floor(timeLeft / 60).toString().padStart(2, '0');
+    const sec = (timeLeft % 60).toString().padStart(2, '0');
+    const el = document.getElementById('timer-display');
+    el.textContent = `${min}:${sec}`;
+    el.className = 'timer-value';
+    if (timeLeft <= 300) el.classList.add('warning');
+    if (timeLeft <= 60) { el.classList.remove('warning'); el.classList.add('danger'); }
+    if (timeLeft <= 0) {
+      clearInterval(timerInterval);
+      if (currentSection === 'listening') {
+        alert('Waktu Listening habis! Melanjutkan ke Reading...');
+        goToReading();
+      } else {
+        submitTest();
+      }
+    }
+  }, 1000);
+}
+
+// ============================================================
+// SECTION TRANSITIONS
+// ============================================================
+function goToReading() {
+  closeModal('submit-modal');
+  currentSection = 'reading';
+  currentQIndex = 0;
+  timeLeft = 20 * 60;
+  renderSectionUI();
+  renderQuestion();
+  buildQuestionGrid();
+  updateProgress();
+  startTimer();
+  window.scrollTo(0, 0);
+}
+
+function confirmSkip() {
+  document.getElementById('skip-modal').classList.add('active');
+}
+
+function confirmSkipReading() {
+  // For reading, skip goes directly to submit
+  confirmSubmit();
+}
+
+function skipSection() {
+  closeModal('skip-modal');
+  if (currentSection === 'listening') {
+    goToReading();
+  }
+}
+
+// ============================================================
+// SUBMIT
+// ============================================================
+function confirmSubmit() {
+  const totalAnswered = Object.keys(answers.listening).length + Object.keys(answers.reading).length;
+  const totalQ = QUESTIONS.listening.length + QUESTIONS.reading.questions.length;
+  document.getElementById('modal-answered').textContent = totalAnswered;
+  document.getElementById('modal-total').textContent = totalQ;
+
+  if (currentSection === 'listening') {
+    document.getElementById('modal-title').textContent = 'Lanjut ke Reading?';
+    document.getElementById('modal-desc').innerHTML = `Kamu sudah menjawab <strong>${Object.keys(answers.listening).length}</strong> dari <strong>${QUESTIONS.listening.length}</strong> soal Listening. Lanjutkan ke sesi Reading?`;
+    document.querySelector('.modal-confirm').textContent = '➡️ Lanjut ke Reading';
+    document.querySelector('.modal-confirm').onclick = goToReading;
+  } else {
+    document.getElementById('modal-title').textContent = 'Submit Tes?';
+    document.getElementById('modal-desc').innerHTML = `Kamu sudah menjawab <strong>${totalAnswered}</strong> dari <strong>${totalQ}</strong> soal. Submit dan lihat hasil?`;
+    document.querySelector('.modal-confirm').textContent = '✅ Submit & Lihat Hasil';
+    document.querySelector('.modal-confirm').onclick = submitTest;
+  }
+  document.getElementById('submit-modal').classList.add('active');
+}
+
+function submitTest() {
+  clearInterval(timerInterval);
+  closeModal('submit-modal');
+
+  // Calculate scores
+  let listeningScore = 0, readingScore = 0;
+  QUESTIONS.listening.forEach(q => {
+    const ans = answers.listening[q.id];
+    if (q.type === 'short-answer') {
+      if (ans && ans.toLowerCase().includes('yogyakarta')) listeningScore++;
+    } else {
+      if (ans === q.answer) listeningScore++;
+    }
+  });
+  QUESTIONS.reading.questions.forEach(q => {
+    if (answers.reading[q.id] === q.answer) readingScore++;
+  });
+
+  const resultData = {
+    listeningScore,
+    readingScore,
+    listeningTotal: QUESTIONS.listening.length,
+    readingTotal: QUESTIONS.reading.questions.length,
+    targetBand: CONFIG.band,
+    ieltsType: CONFIG.type,
+    level: CONFIG.level,
+    listeningAnswers: JSON.stringify(answers.listening),
+    readingAnswers: JSON.stringify(answers.reading)
+  };
+
+  const p = new URLSearchParams(resultData);
+  window.location.href = `ielts-result.html?${p.toString()}`;
+}
+
+function closeModal(id) {
+  document.getElementById(id).classList.remove('active');
+}
+
+// Close modal on overlay click
+document.querySelectorAll('.modal-overlay').forEach(overlay => {
+  overlay.addEventListener('click', e => {
+    if (e.target === overlay) overlay.classList.remove('active');
+  });
+});
+
+// ============================================================
+// START
+// ============================================================
+init();
+</script>
+</body>
+</html>
